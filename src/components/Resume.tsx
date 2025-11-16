@@ -134,7 +134,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
               <div className="mb-6">
                 <p className="text-2xl text-indigo-600 mb-2">{data.contact.title}</p>
                 <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-                  {data.contact.tagline}
+                  Designing Intuitive Interfaces that Boost Conversion.
                 </p>
               </div>
 
@@ -157,7 +157,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
               <div className="flex flex-wrap gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/30"
+                  className="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/30 text-white"
                   asChild
                 >
                   <a href={`mailto:${data.contact.email}`}>
@@ -311,12 +311,12 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
             {featuredProjects.map((project) => (
               <Card key={project.id} className="group p-6 hover:shadow-2xl transition-all duration-300 border-slate-200 bg-white hover:border-indigo-200">
                 <div className="flex items-start justify-between mb-4">
-                  <Badge className="bg-indigo-600 text-white">Featured</Badge>
+                  <Badge className="bg-indigo-600 text-white">{project.category}</Badge>
                   <ExternalLink className="w-5 h-5 text-slate-300 group-hover:text-indigo-600 transition-all transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
                 
                 <h4 className="text-lg text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">{project.title}</h4>
-                <p className="text-sm text-slate-500 mb-3">{project.company}</p>
+                <p className="text-sm text-slate-500 mb-3">{project.problemStatement}</p>
                 
                 <p className="text-sm text-slate-600 mb-4 leading-relaxed line-clamp-3">{project.summary}</p>
                 

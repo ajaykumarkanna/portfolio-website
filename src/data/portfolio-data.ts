@@ -13,6 +13,8 @@ export interface Project {
   deliverables: string[];
   tags: string[];
   image: string;
+  category: string;
+  problemStatement: string;
 }
 
 export interface Experience {
@@ -146,7 +148,9 @@ export const portfolioData: PortfolioData = {
       impact: "Improved ordering speed, reduced friction points, and increased user satisfaction scores",
       deliverables: ["User Research & Personas", "AI-Driven Prototypes", "Design System Integration", "Usability Testing"],
       tags: ["AI/UX", "Enterprise", "Tablet Design", "Retail"],
-      image: "https://images.unsplash.com/photo-1658077830601-8903acdbd3b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZXJpem9uJTIwc3RvcmUlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc2MzEwMzU3OXww&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1658077830601-8903acdbd3b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZXJpem9uJTIwc3RvcmUlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc2MzEwMzU3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Enterprise UX",
+      problemStatement: "Streamlining a complex in-store ordering process."
     },
     {
       id: 2,
@@ -159,7 +163,9 @@ export const portfolioData: PortfolioData = {
       impact: "30% improvement in usability metrics, reduced training time for bank staff",
       deliverables: ["UX Audit", "Information Architecture", "Component Library", "Interaction Patterns", "User Testing"],
       tags: ["Enterprise", "Banking", "Migration", "Design System"],
-      image: "https://images.unsplash.com/photo-1726065235203-4368c41c6f19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYW5raW5nJTIwYXBwJTIwaW50ZXJmYWNlfGVufDF8fHx8MTc2MzEwMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1726065235203-4368c41c6f19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYW5raW5nJTIwYXBwJTIwaW50ZXJmYWNlfGVufDF8fHx8MTc2MzEwMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Fintech",
+      problemStatement: "Modernizing legacy banking applications."
     },
     {
       id: 3,
@@ -172,7 +178,9 @@ export const portfolioData: PortfolioData = {
       impact: "20% increase in user engagement, positive feedback on intuitive navigation",
       deliverables: ["User Journey Mapping", "Wireframes & Prototypes", "Visual Design", "Responsive Web Design"],
       tags: ["Web Design", "Sustainability", "E2E", "B2B"],
-      image: "https://images.unsplash.com/photo-1642402806417-e451280d845b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWN5Y2xpbmclMjBzdXN0YWluYWJpbGl0eXxlbnwxfHx8fDE3NjMwODkwMTV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1642402806417-e451280d845b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWN5Y2xpbmclMjBzdXN0YWluYWJpbGl0eXxlbnwxfHx8fDE3NjMwODkwMTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Web Platform",
+      problemStatement: "Connecting businesses for a circular economy."
     },
     {
       id: 4,
@@ -185,7 +193,9 @@ export const portfolioData: PortfolioData = {
       impact: "Enhanced user engagement through gamification and personalized insights",
       deliverables: ["User Research", "Wireframing", "UI Design", "Usability Testing", "Design Handoff"],
       tags: ["Mobile", "Health Tech", "User Research", "B2C"],
-      image: "https://images.unsplash.com/photo-1748280621226-91f9530fc329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBmaXRuZXNzJTIwYXBwfGVufDF8fHx8MTc2MzAyMjA1OHww&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1748280621226-91f9530fc329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBmaXRuZXNzJTIwYXBwfGVufDF8fHx8MTc2MzAyMjA1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Mobile App",
+      problemStatement: "Boosting user motivation in health tracking."
     },
     {
       id: 5,
@@ -198,7 +208,9 @@ export const portfolioData: PortfolioData = {
       impact: "15% reduction in compliance errors through improved UI/UX",
       deliverables: ["Competitive Analysis", "Workflow Design", "Dashboard Design", "Error Prevention Patterns"],
       tags: ["AI Governance", "Enterprise", "Compliance", "POC"],
-      image: "https://images.unsplash.com/photo-1717501220725-83f151c447e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBSSUyMGdvdmVybmFuY2UlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc2MzEwMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1717501220725-83f151c447e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBSSUyMGdvdmVybmFuY2UlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc2MzEwMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Enterprise Tool",
+      problemStatement: "Ensuring AI compliance with intuitive design."
     },
     {
       id: 6,
@@ -211,7 +223,9 @@ export const portfolioData: PortfolioData = {
       impact: "Identified key UX challenges and opportunities in VR commerce",
       deliverables: ["VR Prototyping", "User Testing", "Interaction Design", "Research Report"],
       tags: ["VR", "Metaverse", "Retail", "Emerging Tech"],
-      image: "https://images.unsplash.com/photo-1656717040132-d08704e789c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxWUiUyMG1ldGF2ZXJzZXxlbnwxfHx8fDE3NjMxMDM1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1656717040132-d08704e789c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxWUiUyMG1ldGF2ZXJzZXxlbnwxfHx8fDE3NjMxMDM1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Emerging Tech",
+      problemStatement: "Prototyping the future of retail."
     },
     {
       id: 7,
@@ -224,7 +238,9 @@ export const portfolioData: PortfolioData = {
       impact: "Improved design-development handoff and consistency across products",
       deliverables: ["Component Design", "Documentation", "Accessibility Guidelines", "Design Tokens"],
       tags: ["Design System", "Accessibility", "Enterprise", "Documentation"],
-      image: "https://images.unsplash.com/photo-1756576357697-13dfc5fff61c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXNpZ24lMjBzeXN0ZW0lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzYzMDQxMDM5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+      image: "https://images.unsplash.com/photo-1756576357697-13dfc5fff61c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXNpZ24lMjBzeXN0ZW0lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzYzMDQxMDM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      category: "Design System",
+      problemStatement: "Ensuring consistency at scale."
     }
   ],
 
