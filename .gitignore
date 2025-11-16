@@ -73,7 +73,6 @@ dist
 # Gatsby build output
 .cache/
 # Add Gatsby's public directory to the ignore list.
-public
 
 # vuepress build output
 .vuepress/dist
