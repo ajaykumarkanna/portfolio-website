@@ -204,7 +204,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
             </div>
 
             {/* Right: Photo */}
-            <div className="lg:col-span-4 order-1 lg:order-2">
+            <div className="lg:col-span-5 order-1 lg:order-2">
               <div className="relative">
                 {/* Photo */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl">
