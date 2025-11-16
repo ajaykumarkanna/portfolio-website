@@ -204,18 +204,14 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
             </div>
 
             {/* Right: Photo */}
-            <div className="lg:col-span-5 order-1 lg:order-2">
+            <div className="lg:col-span-4 order-1 lg:order-2">
               <div className="relative">
-                {/* Decorative Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl transform rotate-3"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-3xl transform -rotate-3"></div>
-                
                 {/* Photo */}
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                   <ImageWithFallback
                     src={data.contact.profileImage}
                     alt={`${data.contact.name} - ${data.contact.title}`}
-                    className="w-full aspect-[4/5] object-cover"
+                    className="w-full aspect-[3/4] object-cover"
                   />
                 </div>
 
