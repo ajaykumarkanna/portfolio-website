@@ -11,7 +11,7 @@ function AppContent() {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      if (e.ctrlKey && e.altKey && e.key === 'A') {
         navigate('/admin');
       }
     };

@@ -211,7 +211,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-3xl transform -rotate-3"></div>
                 
                 {/* Photo */}
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                   <ImageWithFallback
                     src={data.contact.profileImage}
                     alt={`${data.contact.name} - ${data.contact.title}`}
@@ -220,10 +220,10 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
                 </div>
 
                 {/* Floating Badge */}
-                <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl p-4 border border-slate-200">
+                <div className="absolute top-6 right-6 bg-indigo-600 text-white rounded-full shadow-xl p-3 px-4">
                   <div className="text-center">
-                    <div className="text-3xl mb-1">5+</div>
-                    <div className="text-xs text-slate-600">Years of<br/>Excellence</div>
+                    <div className="text-xl font-bold">5+</div>
+                    <div className="text-xs">Years Exp.</div>
                   </div>
                 </div>
               </div>
