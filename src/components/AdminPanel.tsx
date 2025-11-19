@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Save, Plus, Trash2, Upload, Download, Eye, Settings, User, Briefcase, GraduationCap, Code, Users, MessageSquare, Building2, ArrowLeft, Edit2, Check, X, Image as ImageIcon } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Label } from './ui/label';
 import { portfolioData, type PortfolioData, type Project, type Experience, type Skill, type Client, type Testimonial } from '../data/portfolio-data';
+import { useFormHandlers } from '../hooks/useFormHandlers';
+import { FormInput } from './forms/FormInput';
+import { FormTextarea } from './forms/FormTextarea';
+import { FileUpload } from './forms/FileUpload';
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -16,159 +17,38 @@ interface AdminPanelProps {
 }
 
 export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
-  const [data, setData] = useState<PortfolioData>(portfolioData);
+  const {
+    data,
+    setData,
+    errors,
+    handleSave,
+    handleExportJSON,
+    handleImportJSON,
+    addProject,
+    deleteProject,
+    updateProject,
+    addExperience,
+    deleteExperience,
+    updateExperience,
+    addSkill,
+    deleteSkill,
+    updateSkill,
+    addClient,
+    deleteClient,
+    updateClient,
+    addTestimonial,
+    deleteTestimonial,
+    updateTestimonial,
+    handleFileUpload
+  } = useFormHandlers(portfolioData);
+  
   const [activeTab, setActiveTab] = useState('contact');
   const [saved, setSaved] = useState(false);
 
-  const handleSave = () => {
-    // In a real app, this would save to a database or API
-    localStorage.setItem('portfolioData', JSON.stringify(data));
+  const handleSaveWithFeedback = () => {
+    handleSave();
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
-    console.log('Portfolio data saved:', data);
-  };
-
-  const handleExportJSON = () => {
-    const dataStr = JSON.stringify(data, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-    const exportFileDefaultName = 'portfolio-data.json';
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-  };
-
-  const handleImportJSON = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const imported = JSON.parse(e.target?.result as string);
-          setData(imported);
-          alert('Data imported successfully!');
-        } catch (error) {
-          alert('Error importing data. Please check the JSON format.');
-        }
-      };
-      reader.readAsText(file);
-    }
-  };
-
-  const addProject = () => {
-    const newProject: Project = {
-      id: Date.now(),
-      featured: false,
-      title: "New Project",
-      company: "Company Name",
-      duration: "Jan 2025 – Present",
-      role: "Designer",
-      summary: "Project description here",
-      impact: "Impact statement",
-      deliverables: ["Deliverable 1"],
-      tags: ["Tag1"],
-      image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800"
-    };
-    setData({ ...data, projects: [...data.projects, newProject] });
-  };
-
-  const deleteProject = (id: number) => {
-    setData({ ...data, projects: data.projects.filter(p => p.id !== id) });
-  };
-
-  const updateProject = (id: number, updates: Partial<Project>) => {
-    setData({
-      ...data,
-      projects: data.projects.map(p => p.id === id ? { ...p, ...updates } : p)
-    });
-  };
-
-  const addExperience = () => {
-    const newExp: Experience = {
-      id: Date.now(),
-      title: "Job Title",
-      company: "Company Name",
-      duration: "Jan 2025 – Present",
-      current: true,
-      highlights: ["Achievement 1", "Achievement 2"]
-    };
-    setData({ ...data, experience: [...data.experience, newExp] });
-  };
-
-  const deleteExperience = (id: number) => {
-    setData({ ...data, experience: data.experience.filter(e => e.id !== id) });
-  };
-
-  const addSkill = () => {
-    const newSkill: Skill = {
-      category: "New Category",
-      items: ["Skill 1", "Skill 2"]
-    };
-    setData({ ...data, skills: [...data.skills, newSkill] });
-  };
-
-  const deleteSkill = (index: number) => {
-    setData({ ...data, skills: data.skills.filter((_, i) => i !== index) });
-  };
-
-  const updateSkill = (index: number, updates: Partial<Skill>) => {
-    setData({
-      ...data,
-      skills: data.skills.map((skill, i) => i === index ? { ...skill, ...updates } : skill)
-    });
-  };
-
-  const addClient = () => {
-    const newClient: Client = {
-      name: "Client Name",
-      logo: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=200&h=100&fit=crop"
-    };
-    setData({ ...data, clients: [...data.clients, newClient] });
-  };
-
-  const deleteClient = (index: number) => {
-    setData({ ...data, clients: data.clients.filter((_, i) => i !== index) });
-  };
-
-  const updateClient = (index: number, updates: Partial<Client>) => {
-    setData({
-      ...data,
-      clients: data.clients.map((client, i) => i === index ? { ...client, ...updates } : client)
-    });
-  };
-
-  const addTestimonial = () => {
-    const newTestimonial: Testimonial = {
-      quote: "Add testimonial quote here...",
-      author: "Author Name",
-      role: "Job Title",
-      company: "Company Name",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
-    };
-    setData({ ...data, testimonials: [...data.testimonials, newTestimonial] });
-  };
-
-  const deleteTestimonial = (index: number) => {
-    setData({ ...data, testimonials: data.testimonials.filter((_, i) => i !== index) });
-  };
-
-  const updateTestimonial = (index: number, updates: Partial<Testimonial>) => {
-    setData({
-      ...data,
-      testimonials: data.testimonials.map((testimonial, i) => i === index ? { ...testimonial, ...updates } : testimonial)
-    });
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, callback: (url: string) => void) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result as string;
-        callback(result);
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   return (
@@ -228,7 +108,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               <Button 
                 size="sm"
                 className="bg-indigo-600 hover:bg-indigo-700"
-                onClick={handleSave}
+                onClick={handleSaveWithFeedback}
               >
                 {saved ? (
                   <>
@@ -289,150 +169,90 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
             <Card className="p-8">
               <h2 className="text-2xl mb-6 text-slate-900">Contact Information</h2>
               <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    value={data.contact.name}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, name: e.target.value }})}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="title">Job Title</Label>
-                  <Input
-                    id="title"
-                    value={data.contact.title}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, title: e.target.value }})}
-                  />
-                </div>
+                <FormInput
+                  id="name"
+                  label="Full Name"
+                  value={data.contact.name}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, name: value }})}
+                  error={errors.contact?.name}
+                />
+                <FormInput
+                  id="title"
+                  label="Job Title"
+                  value={data.contact.title}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, title: value }})}
+                  error={errors.contact?.title}
+                />
                 <div className="md:col-span-2">
-                  <Label htmlFor="tagline">Tagline</Label>
-                  <Textarea
+                  <FormTextarea
                     id="tagline"
+                    label="Tagline"
                     value={data.contact.tagline}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, tagline: e.target.value }})}
+                    onChange={(value) => setData({ ...data, contact: { ...data.contact, tagline: value }})}
                     rows={3}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input
-                    id="phone"
-                    value={data.contact.phone}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, phone: e.target.value }})}
+                <FormInput
+                  id="phone"
+                  label="Phone"
+                  value={data.contact.phone}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, phone: value }})}
+                />
+                <FormInput
+                  id="email"
+                  label="Email"
+                  type="email"
+                  value={data.contact.email}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, email: value }})}
+                  error={errors.contact?.email}
+                />
+                <FormInput
+                  id="location"
+                  label="Location"
+                  value={data.contact.location}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, location: value }})}
+                />
+                <FormInput
+                  id="portfolio"
+                  label="Portfolio URL"
+                  value={data.contact.portfolio}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, portfolio: value }})}
+                  error={errors.contact?.portfolio}
+                />
+                <FormInput
+                  id="linkedin"
+                  label="LinkedIn URL"
+                  value={data.contact.linkedin}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, linkedin: value }})}
+                  error={errors.contact?.linkedin}
+                />
+                <FormInput
+                  id="whatsapp"
+                  label="WhatsApp URL"
+                  value={data.contact.whatsapp}
+                  onChange={(value) => setData({ ...data, contact: { ...data.contact, whatsapp: value }})}
+                  error={errors.contact?.whatsapp}
+                />
+                <div className="md:col-span-2">
+                  <FileUpload
+                    id="profileImage"
+                    label="Profile Image"
+                    value={data.contact.profileImage}
+                    onChange={(value) => setData({ ...data, contact: { ...data.contact, profileImage: value }})}
+                    onFileUpload={handleFileUpload}
+                    accept="image/*"
+                    preview={true}
                   />
                 </div>
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={data.contact.email}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, email: e.target.value }})}
+                <div className="md:col-span-2">
+                  <FileUpload
+                    id="resumePDF"
+                    label="Resume PDF"
+                    value={data.contact.resumePDF}
+                    onChange={(value) => setData({ ...data, contact: { ...data.contact, resumePDF: value }})}
+                    onFileUpload={handleFileUpload}
+                    accept=".pdf"
                   />
-                </div>
-                <div>
-                  <Label htmlFor="location">Location</Label>
-                  <Input
-                    id="location"
-                    value={data.contact.location}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, location: e.target.value }})}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="portfolio">Portfolio URL</Label>
-                  <Input
-                    id="portfolio"
-                    value={data.contact.portfolio}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, portfolio: e.target.value }})}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="linkedin">LinkedIn URL</Label>
-                  <Input
-                    id="linkedin"
-                    value={data.contact.linkedin}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, linkedin: e.target.value }})}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="whatsapp">WhatsApp URL</Label>
-                  <Input
-                    id="whatsapp"
-                    value={data.contact.whatsapp}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, whatsapp: e.target.value }})}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="profileImage">Profile Image</Label>
-                  <div className="space-y-2">
-                    <Input
-                      id="profileImage"
-                      value={data.contact.profileImage}
-                      onChange={(e) => setData({ ...data, contact: { ...data.contact, profileImage: e.target.value }})}
-                      placeholder="https://..."
-                    />
-                    <div className="flex gap-2">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleFileUpload(e, (url) => setData({ ...data, contact: { ...data.contact, profileImage: url }}))}
-                        className="hidden"
-                        id="profile-image-upload"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() => document.getElementById('profile-image-upload')?.click()}
-                        className="flex-1"
-                      >
-                        <ImageIcon className="w-4 h-4 mr-2" />
-                        Upload from Computer
-                      </Button>
-                    </div>
-                    {data.contact.profileImage && (
-                      <div className="mt-2 p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center gap-4">
-                        <img src={data.contact.profileImage} alt="Profile Preview" className="w-20 h-20 rounded-full object-cover" />
-                        <div className="text-sm text-slate-600">Profile photo preview</div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="resumePDF">Resume PDF</Label>
-                  <div className="space-y-2">
-                    <Input
-                      id="resumePDF"
-                      value={data.contact.resumePDF}
-                      onChange={(e) => setData({ ...data, contact: { ...data.contact, resumePDF: e.target.value }})}
-                      placeholder="https://... or upload PDF"
-                    />
-                    <div className="flex gap-2">
-                      <input
-                        type="file"
-                        accept=".pdf"
-                        onChange={(e) => handleFileUpload(e, (url) => setData({ ...data, contact: { ...data.contact, resumePDF: url }}))}
-                        className="hidden"
-                        id="resume-pdf-upload"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() => document.getElementById('resume-pdf-upload')?.click()}
-                        className="flex-1"
-                      >
-                        <Upload className="w-4 h-4 mr-2" />
-                        Upload PDF from Computer
-                      </Button>
-                    </div>
-                    {data.contact.resumePDF && (
-                      <div className="mt-2 p-3 border border-slate-200 rounded-lg bg-emerald-50 text-sm text-emerald-700">
-                        ✓ Resume PDF ready for download
-                      </div>
-                    )}
-                  </div>
                 </div>
               </div>
             </Card>
@@ -446,71 +266,57 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               <div className="mb-8">
                 <h3 className="text-lg mb-4 text-slate-800">Statistics</h3>
                 <div className="grid md:grid-cols-4 gap-4">
-                  <div>
-                    <Label htmlFor="projectsDelivered">Projects Delivered</Label>
-                    <Input
-                      id="projectsDelivered"
-                      value={data.stats.projectsDelivered}
-                      onChange={(e) => setData({ ...data, stats: { ...data.stats, projectsDelivered: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="globalClients">Global Clients</Label>
-                    <Input
-                      id="globalClients"
-                      value={data.stats.globalClients}
-                      onChange={(e) => setData({ ...data, stats: { ...data.stats, globalClients: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="usabilityImprovement">Usability Improvement</Label>
-                    <Input
-                      id="usabilityImprovement"
-                      value={data.stats.usabilityImprovement}
-                      onChange={(e) => setData({ ...data, stats: { ...data.stats, usabilityImprovement: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="clientSatisfaction">Client Satisfaction</Label>
-                    <Input
-                      id="clientSatisfaction"
-                      value={data.stats.clientSatisfaction}
-                      onChange={(e) => setData({ ...data, stats: { ...data.stats, clientSatisfaction: e.target.value }})}
-                    />
-                  </div>
+                  <FormInput
+                    id="projectsDelivered"
+                    label="Projects Delivered"
+                    value={data.stats.projectsDelivered}
+                    onChange={(value) => setData({ ...data, stats: { ...data.stats, projectsDelivered: value }})}
+                  />
+                  <FormInput
+                    id="globalClients"
+                    label="Global Clients"
+                    value={data.stats.globalClients}
+                    onChange={(value) => setData({ ...data, stats: { ...data.stats, globalClients: value }})}
+                  />
+                  <FormInput
+                    id="usabilityImprovement"
+                    label="Usability Improvement"
+                    value={data.stats.usabilityImprovement}
+                    onChange={(value) => setData({ ...data, stats: { ...data.stats, usabilityImprovement: value }})}
+                  />
+                  <FormInput
+                    id="clientSatisfaction"
+                    label="Client Satisfaction"
+                    value={data.stats.clientSatisfaction}
+                    onChange={(value) => setData({ ...data, stats: { ...data.stats, clientSatisfaction: value }})}
+                  />
                 </div>
               </div>
 
               <Separator className="my-8" />
 
               <div className="space-y-6">
-                <div>
-                  <Label htmlFor="background">Background</Label>
-                  <Textarea
-                    id="background"
-                    value={data.about.background}
-                    onChange={(e) => setData({ ...data, about: { ...data.about, background: e.target.value }})}
-                    rows={3}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="specialization">Specialization</Label>
-                  <Textarea
-                    id="specialization"
-                    value={data.about.specialization}
-                    onChange={(e) => setData({ ...data, about: { ...data.about, specialization: e.target.value }})}
-                    rows={3}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="approach">Approach</Label>
-                  <Textarea
-                    id="approach"
-                    value={data.about.approach}
-                    onChange={(e) => setData({ ...data, about: { ...data.about, approach: e.target.value }})}
-                    rows={3}
-                  />
-                </div>
+                <FormTextarea
+                  id="background"
+                  label="Background"
+                  value={data.about.background}
+                  onChange={(value) => setData({ ...data, about: { ...data.about, background: value }})}
+                  rows={3}
+                />
+                <FormTextarea
+                  id="specialization"
+                  label="Specialization"
+                  value={data.about.specialization}
+                  onChange={(value) => setData({ ...data, about: { ...data.about, specialization: value }})}
+                  rows={3}
+                />
+                <FormTextarea
+                  id="approach"
+                  label="Approach"
+                  value={data.about.approach}
+                  onChange={(value) => setData({ ...data, about: { ...data.about, approach: value }})}
+                  rows={3}
+                />
               </div>
             </Card>
           </TabsContent>
@@ -554,70 +360,72 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label>Project Title</Label>
-                      <Input
-                        value={project.title}
-                        onChange={(e) => updateProject(project.id, { title: e.target.value })}
-                      />
-                    </div>
-                    <div>
-                      <Label>Company</Label>
-                      <Input
-                        value={project.company}
-                        onChange={(e) => updateProject(project.id, { company: e.target.value })}
-                      />
-                    </div>
-                    <div>
-                      <Label>Duration</Label>
-                      <Input
-                        value={project.duration}
-                        onChange={(e) => updateProject(project.id, { duration: e.target.value })}
-                      />
-                    </div>
-                    <div>
-                      <Label>Role</Label>
-                      <Input
-                        value={project.role}
-                        onChange={(e) => updateProject(project.id, { role: e.target.value })}
-                      />
-                    </div>
+                    <FormInput
+                      id={`project-title-${project.id}`}
+                      label="Project Title"
+                      value={project.title}
+                      onChange={(value) => updateProject(project.id, { title: value })}
+                      error={errors[`project-${project.id}`]?.title}
+                    />
+                    <FormInput
+                      id={`project-company-${project.id}`}
+                      label="Company"
+                      value={project.company}
+                      onChange={(value) => updateProject(project.id, { company: value })}
+                      error={errors[`project-${project.id}`]?.company}
+                    />
+                    <FormInput
+                      id={`project-duration-${project.id}`}
+                      label="Duration"
+                      value={project.duration}
+                      onChange={(value) => updateProject(project.id, { duration: value })}
+                    />
+                    <FormInput
+                      id={`project-role-${project.id}`}
+                      label="Role"
+                      value={project.role}
+                      onChange={(value) => updateProject(project.id, { role: value })}
+                    />
                     <div className="md:col-span-2">
-                      <Label>Summary</Label>
-                      <Textarea
+                      <FormTextarea
+                        id={`project-summary-${project.id}`}
+                        label="Summary"
                         value={project.summary}
-                        onChange={(e) => updateProject(project.id, { summary: e.target.value })}
+                        onChange={(value) => updateProject(project.id, { summary: value })}
                         rows={3}
+                        error={errors[`project-${project.id}`]?.summary}
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <Label>Impact</Label>
-                      <Input
+                      <FormInput
+                        id={`project-impact-${project.id}`}
+                        label="Impact"
                         value={project.impact}
-                        onChange={(e) => updateProject(project.id, { impact: e.target.value })}
+                        onChange={(value) => updateProject(project.id, { impact: value })}
+                        error={errors[`project-${project.id}`]?.impact}
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <Label>Image URL</Label>
-                      <Input
+                      <FormInput
+                        id={`project-image-${project.id}`}
+                        label="Image URL"
                         value={project.image}
-                        onChange={(e) => updateProject(project.id, { image: e.target.value })}
+                        onChange={(value) => updateProject(project.id, { image: value })}
+                        error={errors[`project-${project.id}`]?.image}
                       />
                     </div>
-                    <div>
-                      <Label>Tags (comma-separated)</Label>
-                      <Input
-                        value={project.tags.join(', ')}
-                        onChange={(e) => updateProject(project.id, { tags: e.target.value.split(',').map(t => t.trim()) })}
-                      />
-                    </div>
-                    <div>
-                      <Label>Deliverables (comma-separated)</Label>
-                      <Input
-                        value={project.deliverables.join(', ')}
-                        onChange={(e) => updateProject(project.id, { deliverables: e.target.value.split(',').map(d => d.trim()) })}
-                      />
-                    </div>
+                    <FormInput
+                      id={`project-tags-${project.id}`}
+                      label="Tags (comma-separated)"
+                      value={project.tags.join(', ')}
+                      onChange={(value) => updateProject(project.id, { tags: value.split(',').map(t => t.trim()) })}
+                    />
+                    <FormInput
+                      id={`project-deliverables-${project.id}`}
+                      label="Deliverables (comma-separated)"
+                      value={project.deliverables.join(', ')}
+                      onChange={(value) => updateProject(project.id, { deliverables: value.split(',').map(d => d.trim()) })}
+                    />
                   </div>
                 </Card>
               ))}
@@ -649,44 +457,32 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <Label>Job Title</Label>
-                      <Input
-                        value={exp.title}
-                        onChange={(e) => setData({
-                          ...data,
-                          experience: data.experience.map(e => e.id === exp.id ? { ...e, title: e.target.value } : e)
-                        })}
-                      />
-                    </div>
-                    <div>
-                      <Label>Company</Label>
-                      <Input
-                        value={exp.company}
-                        onChange={(e) => setData({
-                          ...data,
-                          experience: data.experience.map(e => e.id === exp.id ? { ...e, company: e.target.value } : e)
-                        })}
-                      />
-                    </div>
-                    <div>
-                      <Label>Duration</Label>
-                      <Input
-                        value={exp.duration}
-                        onChange={(e) => setData({
-                          ...data,
-                          experience: data.experience.map(e => e.id === exp.id ? { ...e, duration: e.target.value } : e)
-                        })}
-                      />
-                    </div>
+                    <FormInput
+                      id={`exp-title-${exp.id}`}
+                      label="Job Title"
+                      value={exp.title}
+                      onChange={(value) => updateExperience(exp.id, { title: value })}
+                      error={errors[`experience-${exp.id}`]?.title}
+                    />
+                    <FormInput
+                      id={`exp-company-${exp.id}`}
+                      label="Company"
+                      value={exp.company}
+                      onChange={(value) => updateExperience(exp.id, { company: value })}
+                      error={errors[`experience-${exp.id}`]?.company}
+                    />
+                    <FormInput
+                      id={`exp-duration-${exp.id}`}
+                      label="Duration"
+                      value={exp.duration}
+                      onChange={(value) => updateExperience(exp.id, { duration: value })}
+                    />
                     <div className="md:col-span-2">
-                      <Label>Highlights (one per line)</Label>
-                      <Textarea
+                      <FormTextarea
+                        id={`exp-highlights-${exp.id}`}
+                        label="Highlights (one per line)"
                         value={exp.highlights.join('\n')}
-                        onChange={(e) => setData({
-                          ...data,
-                          experience: data.experience.map(ex => ex.id === exp.id ? { ...ex, highlights: e.target.value.split('\n').filter(h => h.trim()) } : ex)
-                        })}
+                        onChange={(value) => updateExperience(exp.id, { highlights: value.split('\n').filter(h => h.trim()) })}
                         rows={4}
                       />
                     </div>
@@ -704,48 +500,42 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               <div className="space-y-6 mb-8">
                 <h3 className="text-lg text-slate-800">Education</h3>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Degree</Label>
-                    <Input
-                      value={data.education.degree}
-                      onChange={(e) => setData({ ...data, education: { ...data.education, degree: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label>Institution</Label>
-                    <Input
-                      value={data.education.institution}
-                      onChange={(e) => setData({ ...data, education: { ...data.education, institution: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label>Location</Label>
-                    <Input
-                      value={data.education.location}
-                      onChange={(e) => setData({ ...data, education: { ...data.education, location: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label>Duration</Label>
-                    <Input
-                      value={data.education.duration}
-                      onChange={(e) => setData({ ...data, education: { ...data.education, duration: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label>CGPA</Label>
-                    <Input
-                      value={data.education.cgpa}
-                      onChange={(e) => setData({ ...data, education: { ...data.education, cgpa: e.target.value }})}
-                    />
-                  </div>
-                  <div>
-                    <Label>Focus Areas</Label>
-                    <Input
-                      value={data.education.focus}
-                      onChange={(e) => setData({ ...data, education: { ...data.education, focus: e.target.value }})}
-                    />
-                  </div>
+                  <FormInput
+                    id="degree"
+                    label="Degree"
+                    value={data.education.degree}
+                    onChange={(value) => setData({ ...data, education: { ...data.education, degree: value }})}
+                  />
+                  <FormInput
+                    id="institution"
+                    label="Institution"
+                    value={data.education.institution}
+                    onChange={(value) => setData({ ...data, education: { ...data.education, institution: value }})}
+                  />
+                  <FormInput
+                    id="location"
+                    label="Location"
+                    value={data.education.location}
+                    onChange={(value) => setData({ ...data, education: { ...data.education, location: value }})}
+                  />
+                  <FormInput
+                    id="edu-duration"
+                    label="Duration"
+                    value={data.education.duration}
+                    onChange={(value) => setData({ ...data, education: { ...data.education, duration: value }})}
+                  />
+                  <FormInput
+                    id="cgpa"
+                    label="CGPA"
+                    value={data.education.cgpa}
+                    onChange={(value) => setData({ ...data, education: { ...data.education, cgpa: value }})}
+                  />
+                  <FormInput
+                    id="focus"
+                    label="Focus Areas"
+                    value={data.education.focus}
+                    onChange={(value) => setData({ ...data, education: { ...data.education, focus: value }})}
+                  />
                 </div>
               </div>
 
@@ -754,15 +544,16 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               <div>
                 <h3 className="text-lg text-slate-800 mb-4">Certifications</h3>
                 <p className="text-sm text-slate-500 mb-4">Edit certifications in JSON format for now</p>
-                <Textarea
+                <FormTextarea
+                  id="certifications"
+                  label="Certifications (JSON)"
                   value={JSON.stringify(data.certifications, null, 2)}
-                  onChange={(e) => {
+                  onChange={(value) => {
                     try {
-                      setData({ ...data, certifications: JSON.parse(e.target.value) });
+                      setData({ ...data, certifications: JSON.parse(value) });
                     } catch {}
                   }}
                   rows={8}
-                  className="font-mono text-sm"
                 />
               </div>
             </Card>
@@ -793,23 +584,23 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   </div>
 
                   <div className="space-y-4">
-                    <div>
-                      <Label>Category Name</Label>
-                      <Input
-                        value={skill.category}
-                        onChange={(e) => updateSkill(index, { category: e.target.value })}
-                        placeholder="e.g., Design Tools"
-                      />
-                    </div>
-                    <div>
-                      <Label>Skills (comma-separated)</Label>
-                      <Textarea
-                        value={skill.items.join(', ')}
-                        onChange={(e) => updateSkill(index, { items: e.target.value.split(',').map(s => s.trim()).filter(s => s) })}
-                        placeholder="e.g., Figma, Adobe XD, Sketch"
-                        rows={3}
-                      />
-                    </div>
+                    <FormInput
+                      id={`skill-category-${index}`}
+                      label="Category Name"
+                      value={skill.category}
+                      onChange={(value) => updateSkill(index, { category: value })}
+                      placeholder="e.g., Design Tools"
+                      error={errors[`skill-${index}`]?.category}
+                    />
+                    <FormTextarea
+                      id={`skill-items-${index}`}
+                      label="Skills (comma-separated)"
+                      value={skill.items.join(', ')}
+                      onChange={(value) => updateSkill(index, { items: value.split(',').map(s => s.trim()).filter(s => s) })}
+                      placeholder="e.g., Figma, Adobe XD, Sketch"
+                      rows={3}
+                      error={errors[`skill-${index}`]?.items}
+                    />
                   </div>
                 </Card>
               ))}
@@ -841,42 +632,51 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
+                    <FormInput
+                      id={`client-name-${index}`}
+                      label="Client Name"
+                      value={client.name}
+                      onChange={(value) => updateClient(index, { name: value })}
+                      placeholder="e.g., Verizon"
+                      error={errors[`client-${index}`]?.name}
+                    />
                     <div>
-                      <Label>Client Name</Label>
-                      <Input
-                        value={client.name}
-                        onChange={(e) => updateClient(index, { name: e.target.value })}
-                        placeholder="e.g., Verizon"
-                      />
-                    </div>
-                    <div>
-                      <Label>Logo URL</Label>
+                      <label className="text-sm font-medium text-slate-700 mb-2 block">
+                        Logo URL
+                      </label>
                       <div className="flex gap-2">
-                        <Input
+                        <input
+                          id={`client-logo-${index}`}
                           value={client.logo}
                           onChange={(e) => updateClient(index, { logo: e.target.value })}
                           placeholder="https://..."
+                          className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                         <input
                           type="file"
                           accept="image/*"
                           onChange={(e) => handleFileUpload(e, (url) => updateClient(index, { logo: url }))}
                           className="hidden"
-                          id={`client-logo-${index}`}
+                          id={`client-logo-upload-${index}`}
                         />
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
-                          onClick={() => document.getElementById(`client-logo-${index}`)?.click()}
+                          onClick={() => document.getElementById(`client-logo-upload-${index}`)?.click()}
                         >
                           <Upload className="w-4 h-4" />
                         </Button>
                       </div>
+                      {errors[`client-${index}`]?.logo && (
+                        <p className="text-sm text-red-500 mt-1">{errors[`client-${index}`].logo}</p>
+                      )}
                     </div>
                     {client.logo && (
                       <div className="md:col-span-2">
-                        <Label>Logo Preview</Label>
+                        <label className="text-sm font-medium text-slate-700 mb-2 block">
+                          Logo Preview
+                        </label>
                         <div className="mt-2 p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center justify-center">
                           <img src={client.logo} alt={client.name} className="max-h-20 object-contain" />
                         </div>
@@ -914,66 +714,77 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="md:col-span-2">
-                      <Label>Quote</Label>
-                      <Textarea
+                      <FormTextarea
+                        id={`testimonial-quote-${index}`}
+                        label="Quote"
                         value={testimonial.quote}
-                        onChange={(e) => updateTestimonial(index, { quote: e.target.value })}
+                        onChange={(value) => updateTestimonial(index, { quote: value })}
                         placeholder="What did they say about you?"
                         rows={4}
+                        error={errors[`testimonial-${index}`]?.quote}
                       />
                     </div>
+                    <FormInput
+                      id={`testimonial-author-${index}`}
+                      label="Author Name"
+                      value={testimonial.author}
+                      onChange={(value) => updateTestimonial(index, { author: value })}
+                      placeholder="e.g., Sarah Mitchell"
+                      error={errors[`testimonial-${index}`]?.author}
+                    />
+                    <FormInput
+                      id={`testimonial-role-${index}`}
+                      label="Role/Designation"
+                      value={testimonial.role}
+                      onChange={(value) => updateTestimonial(index, { role: value })}
+                      placeholder="e.g., Design Lead"
+                      error={errors[`testimonial-${index}`]?.role}
+                    />
+                    <FormInput
+                      id={`testimonial-company-${index}`}
+                      label="Company"
+                      value={testimonial.company}
+                      onChange={(value) => updateTestimonial(index, { company: value })}
+                      placeholder="e.g., TCS"
+                      error={errors[`testimonial-${index}`]?.company}
+                    />
                     <div>
-                      <Label>Author Name</Label>
-                      <Input
-                        value={testimonial.author}
-                        onChange={(e) => updateTestimonial(index, { author: e.target.value })}
-                        placeholder="e.g., Sarah Mitchell"
-                      />
-                    </div>
-                    <div>
-                      <Label>Role/Designation</Label>
-                      <Input
-                        value={testimonial.role}
-                        onChange={(e) => updateTestimonial(index, { role: e.target.value })}
-                        placeholder="e.g., Design Lead"
-                      />
-                    </div>
-                    <div>
-                      <Label>Company</Label>
-                      <Input
-                        value={testimonial.company}
-                        onChange={(e) => updateTestimonial(index, { company: e.target.value })}
-                        placeholder="e.g., TCS"
-                      />
-                    </div>
-                    <div>
-                      <Label>Profile Image URL (Optional)</Label>
+                      <label className="text-sm font-medium text-slate-700 mb-2 block">
+                        Profile Image URL (Optional)
+                      </label>
                       <div className="flex gap-2">
-                        <Input
+                        <input
+                          id={`testimonial-image-${index}`}
                           value={testimonial.image || ''}
                           onChange={(e) => updateTestimonial(index, { image: e.target.value })}
                           placeholder="https://..."
+                          className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         />
                         <input
                           type="file"
                           accept="image/*"
                           onChange={(e) => handleFileUpload(e, (url) => updateTestimonial(index, { image: url }))}
                           className="hidden"
-                          id={`testimonial-image-${index}`}
+                          id={`testimonial-image-upload-${index}`}
                         />
                         <Button
                           type="button"
                           variant="outline"
                           size="sm"
-                          onClick={() => document.getElementById(`testimonial-image-${index}`)?.click()}
+                          onClick={() => document.getElementById(`testimonial-image-upload-${index}`)?.click()}
                         >
                           <Upload className="w-4 h-4" />
                         </Button>
                       </div>
+                      {errors[`testimonial-${index}`]?.image && (
+                        <p className="text-sm text-red-500 mt-1">{errors[`testimonial-${index}`].image}</p>
+                      )}
                     </div>
                     {testimonial.image && (
                       <div className="md:col-span-2">
-                        <Label>Profile Preview</Label>
+                        <label className="text-sm font-medium text-slate-700 mb-2 block">
+                          Profile Preview
+                        </label>
                         <div className="mt-2 p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center gap-4">
                           <img src={testimonial.image} alt={testimonial.author} className="w-16 h-16 rounded-full object-cover" />
                           <div>

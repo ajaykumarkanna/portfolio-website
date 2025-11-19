@@ -3,14 +3,32 @@ import React, { useState } from 'react'
 const ERROR_IMG_SRC =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iODgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBvcGFjaXR5PSIuMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIzLjciPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iNiIvPjxwYXRoIGQ9Im0xNiA1OCAxNi0xOCAzMiAzMiIvPjxjaXJjbGUgY3g9IjUzIiBjeT0iMzUiIHI9IjciLz48L3N2Zz4KCg=='
 
-export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+interface ImageWithFallbackProps {
+  src: string;
+  alt: string;
+  className?: string;
+  style?: React.CSSProperties;
+  lazy?: boolean;
+  width?: string | number;
+  height?: string | number;
+  [key: string]: any;
+}
+
+export function ImageWithFallback({ 
+  src, 
+  alt, 
+  className, 
+  style, 
+  lazy = true, 
+  width,
+  height,
+  ...props 
+}: ImageWithFallbackProps) {
   const [didError, setDidError] = useState(false)
 
   const handleError = () => {
     setDidError(true)
   }
-
-  const { src, alt, style, className, ...rest } = props
 
   return didError ? (
     <div
@@ -18,10 +36,29 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
       style={style}
     >
       <div className="flex items-center justify-center w-full h-full">
-        <img src={ERROR_IMG_SRC} alt="Error loading image" {...rest} data-original-url={src} />
+        <img 
+          src={ERROR_IMG_SRC} 
+          alt="Error loading image" 
+          {...props} 
+          data-original-url={src} 
+          width={width}
+          height={height}
+          decoding="async"
+        />
       </div>
     </div>
   ) : (
-    <img src={src} alt={alt} className={className} style={style} {...rest} onError={handleError} />
+    <img 
+      src={src}
+      alt={alt}
+      className={className}
+      style={style}
+      {...props} 
+      onError={handleError} 
+      loading={lazy ? "lazy" : "eager"}
+      width={width}
+      height={height}
+      decoding="async"
+    />
   )
 }
