@@ -126,7 +126,6 @@ export const portfolioData: PortfolioData = {
   stats: {
     projectsDelivered: "30+",
     globalClients: "4",
-    usabilityImprovement: "30%",
     clientSatisfaction: "100%"
   },
 
@@ -370,6 +369,14 @@ export const portfolioData: PortfolioData = {
     },
     { 
       name: "TCS",
+      logo: "https://images.unsplash.com/photo-1599658880436-c61792e70672?w=200&h=100&fit=crop"
+    },
+    { 
+      name: "Brillio",
+      logo: "https://images.unsplash.com/photo-1599658880436-c61792e70672?w=200&h=100&fit=crop"
+    },
+    { 
+      name: "Flexellence",
       logo: "https://images.unsplash.com/photo-1599658880436-c61792e70672?w=200&h=100&fit=crop"
     }
   ],
