@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { PortfolioData, Project, Experience, Skill, Client, Testimonial } from '../types/portfolio';
 import { Save, Plus, Trash2, Upload, Download, Eye, Settings, User, Briefcase, GraduationCap, Code, Users, MessageSquare, Building2, ArrowLeft, Edit2, Check, X, Image as ImageIcon } from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -8,7 +9,7 @@ import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Label } from './ui/label';
-import { portfolioData, type PortfolioData, type Project, type Experience, type Skill, type Client, type Testimonial } from '../data/portfolio-data';
+
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -16,16 +17,49 @@ interface AdminPanelProps {
 }
 
 export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
-  const [data, setData] = useState<PortfolioData>(portfolioData);
+  const [data, setData] = useState<PortfolioData>({} as PortfolioData);
   const [activeTab, setActiveTab] = useState('contact');
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSave = () => {
-    // In a real app, this would save to a database or API
-    localStorage.setItem('portfolioData', JSON.stringify(data));
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-    console.log('Portfolio data saved:', data);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/portfolio');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (e: any) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/portfolio', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+      console.log('Portfolio data saved to server:', data);
+    } catch (e) {
+      console.error('Error saving data:', e);
+      alert('Failed to save data. Please try again.');
+    }
   };
 
   const handleExportJSON = () => {
@@ -38,17 +72,29 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
     linkElement.click();
   };
 
-  const handleImportJSON = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImportJSON = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         try {
           const imported = JSON.parse(e.target?.result as string);
+          // Assuming imported data is a full PortfolioData object
+          const response = await fetch('http://localhost:3000/portfolio', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(imported),
+          });
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
           setData(imported);
-          alert('Data imported successfully!');
+          alert('Data imported and saved successfully!');
         } catch (error) {
-          alert('Error importing data. Please check the JSON format.');
+          alert('Error importing or saving data. Please check the JSON format and server connection.');
+          console.error('Import error:', error);
         }
       };
       reader.readAsText(file);
@@ -171,9 +217,25 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
     }
   };
 
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-xl text-slate-700">Loading portfolio data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-xl text-red-500">Error: {error}. Could not load portfolio data. Is json-server running?</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
-      {/* Header */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
@@ -302,7 +364,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   <Input
                     id="title"
                     value={data.contact.title}
-                    onChange={(e) => setData({ ...data, contact: { ...data.contact, title: e.target.value }})}
+                    onChange={(e) => setData({ ...data.contact, title: e.target.value })}
                   />
                 </div>
                 <div className="md:col-span-2">
@@ -532,7 +594,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     <div className="flex items-center gap-3">
                       <span className="text-sm text-slate-500">#{index + 1}</span>
                       <Badge variant={project.featured ? "default" : "secondary"}>
-                        {project.featured ? "Featured" : "Regular"}
+                        {project.featured ? "Unfeature" : "Feature"}
                       </Badge>
                     </div>
                     <div className="flex items-center gap-2">
@@ -719,29 +781,33 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     />
                   </div>
                   <div>
-                    <Label>Location</Label>
+                    <Label htmlFor="location">Location</Label>
                     <Input
+                      id="location"
                       value={data.education.location}
                       onChange={(e) => setData({ ...data, education: { ...data.education, location: e.target.value }})}
                     />
                   </div>
                   <div>
-                    <Label>Duration</Label>
+                    <Label htmlFor="duration">Duration</Label>
                     <Input
+                      id="duration"
                       value={data.education.duration}
                       onChange={(e) => setData({ ...data, education: { ...data.education, duration: e.target.value }})}
                     />
                   </div>
                   <div>
-                    <Label>CGPA</Label>
+                    <Label htmlFor="cgpa">CGPA</Label>
                     <Input
+                      id="cgpa"
                       value={data.education.cgpa}
                       onChange={(e) => setData({ ...data, education: { ...data.education, cgpa: e.target.value }})}
                     />
                   </div>
                   <div>
-                    <Label>Focus Areas</Label>
+                    <Label htmlFor="focus">Focus Areas</Label>
                     <Input
+                      id="focus"
                       value={data.education.focus}
                       onChange={(e) => setData({ ...data, education: { ...data.education, focus: e.target.value }})}
                     />

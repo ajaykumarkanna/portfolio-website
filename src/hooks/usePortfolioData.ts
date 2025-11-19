@@ -1,25 +1,33 @@
 import { useState, useEffect } from 'react';
-import { portfolioData as defaultData, type PortfolioData } from '../data/portfolio-data';
+import { PortfolioData } from '../types/portfolio';
 
 /**
  * Custom hook to manage portfolio data
  * Syncs with localStorage to persist admin panel changes
  */
 export function usePortfolioData() {
-  const [data, setData] = useState<PortfolioData>(defaultData);
+  const [data, setData] = useState<PortfolioData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load from localStorage if available
-    const stored = localStorage.getItem('portfolioData');
-    if (stored) {
+    const fetchData = async () => {
       try {
-        const parsed = JSON.parse(stored);
-        setData(parsed);
-      } catch (error) {
-        console.error('Error loading portfolio data from localStorage:', error);
+        const response = await fetch('http://localhost:3000/portfolio');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (e: any) {
+        setError(e.message);
+        console.error("Failed to fetch portfolio data:", e);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
+    fetchData();
   }, []);
 
-  return data;
+  return { data, loading, error };
 }
