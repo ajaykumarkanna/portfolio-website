@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Quote } from 'lucide-react';
 import { Card } from '../ui/card';
 import type { PortfolioData } from '../../data/portfolio-data';
@@ -9,14 +9,16 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ data }: TestimonialsSectionProps) {
   const testimonialsScrollRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Auto-scroll for testimonials
   useEffect(() => {
     const scrollContainer = testimonialsScrollRef.current;
-    if (!scrollContainer) return;
+    if (!scrollContainer || isHovered) return;
 
     let scrollAmount = 0;
     const scroll = () => {
+      if (isHovered) return;
       scrollAmount += 0.5;
       if (scrollAmount >= scrollContainer.scrollWidth / 2) {
         scrollAmount = 0;
@@ -26,7 +28,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
 
     const interval = setInterval(scroll, 40);
     return () => clearInterval(interval);
-  }, []);
+  }, [isHovered]);
 
   return (
     <div className="mb-16">
@@ -39,6 +41,8 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
           ref={testimonialsScrollRef}
           className="flex gap-6 overflow-x-hidden pb-4"
           style={{ scrollBehavior: 'auto' }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {/* Duplicate testimonials for seamless loop */}
           {[...data.testimonials, ...data.testimonials].map((testimonial, index) => (

@@ -1,15 +1,19 @@
-import { useState } from 'react';
-import { Save, Plus, Trash2, Upload, Download, Eye, Settings, User, Briefcase, GraduationCap, Code, Users, MessageSquare, Building2, ArrowLeft, Edit2, Check, X, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { 
+  Save, Plus, Trash2, Upload, Download, Eye, Settings, User, Briefcase, GraduationCap, Code, Users, MessageSquare, Building2, ArrowLeft, Edit2, Check, X, Image as ImageIcon,
+  AlertCircle, CheckCircle, Info
+} from 'lucide-react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Alert, AlertDescription } from './ui/alert';
 import { portfolioData, type PortfolioData, type Project, type Experience, type Skill, type Client, type Testimonial } from '../data/portfolio-data';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormInput } from './forms/FormInput';
 import { FormTextarea } from './forms/FormTextarea';
-import { FileUpload } from './forms/FileUpload';
+import { AssetSelector } from './forms/AssetSelector';
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -44,12 +48,33 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
   
   const [activeTab, setActiveTab] = useState('contact');
   const [saved, setSaved] = useState(false);
+  const [unsavedChanges, setUnsavedChanges] = useState(false);
 
   const handleSaveWithFeedback = () => {
     handleSave();
     setSaved(true);
+    setUnsavedChanges(false);
     setTimeout(() => setSaved(false), 2000);
   };
+
+  // Track unsaved changes
+  useEffect(() => {
+    setUnsavedChanges(true);
+  }, [data]);
+
+  // Handle before unload to warn about unsaved changes
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (unsavedChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+        return '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [unsavedChanges]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
@@ -74,6 +99,12 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              {unsavedChanges && (
+                <Badge variant="destructive" className="flex items-center gap-1">
+                  <AlertCircle className="w-3 h-3" />
+                  Unsaved Changes
+                </Badge>
+              )}
               <input
                 type="file"
                 accept=".json"
@@ -109,10 +140,11 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                 size="sm"
                 className="bg-indigo-600 hover:bg-indigo-700"
                 onClick={handleSaveWithFeedback}
+                disabled={!unsavedChanges}
               >
                 {saved ? (
                   <>
-                    <Check className="w-4 h-4 mr-2" />
+                    <CheckCircle className="w-4 h-4 mr-2" />
                     Saved!
                   </>
                 ) : (
@@ -127,6 +159,18 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
         </div>
       </header>
 
+      {/* Warning for unsaved changes */}
+      {unsavedChanges && (
+        <div className="max-w-7xl mx-auto px-6 py-3">
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              You have unsaved changes. Don't forget to save before leaving!
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8">
@@ -135,7 +179,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               <span className="hidden sm:inline">Contact</span>
             </TabsTrigger>
             <TabsTrigger value="about" className="flex items-center gap-2">
-              <Settings className="w-4 h-4" />
+              <Info className="w-4 h-4" />
               <span className="hidden sm:inline">About</span>
             </TabsTrigger>
             <TabsTrigger value="projects" className="flex items-center gap-2">
@@ -234,24 +278,19 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   error={errors.contact?.whatsapp}
                 />
                 <div className="md:col-span-2">
-                  <FileUpload
+                  <AssetSelector
                     id="profileImage"
                     label="Profile Image"
                     value={data.contact.profileImage}
                     onChange={(value) => setData({ ...data, contact: { ...data.contact, profileImage: value }})}
-                    onFileUpload={handleFileUpload}
-                    accept="image/*"
-                    preview={true}
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <FileUpload
+                  <AssetSelector
                     id="resumePDF"
                     label="Resume PDF"
                     value={data.contact.resumePDF}
                     onChange={(value) => setData({ ...data, contact: { ...data.contact, resumePDF: value }})}
-                    onFileUpload={handleFileUpload}
-                    accept=".pdf"
                   />
                 </div>
               </div>
@@ -406,9 +445,9 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                       />
                     </div>
                     <div className="md:col-span-2">
-                      <FormInput
+                      <AssetSelector
                         id={`project-image-${project.id}`}
-                        label="Image URL"
+                        label="Project Image"
                         value={project.image}
                         onChange={(value) => updateProject(project.id, { image: value })}
                         error={errors[`project-${project.id}`]?.image}
@@ -641,47 +680,14 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                       error={errors[`client-${index}`]?.name}
                     />
                     <div>
-                      <label className="text-sm font-medium text-slate-700 mb-2 block">
-                        Logo URL
-                      </label>
-                      <div className="flex gap-2">
-                        <input
-                          id={`client-logo-${index}`}
-                          value={client.logo}
-                          onChange={(e) => updateClient(index, { logo: e.target.value })}
-                          placeholder="https://..."
-                          className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileUpload(e, (url) => updateClient(index, { logo: url }))}
-                          className="hidden"
-                          id={`client-logo-upload-${index}`}
-                        />
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={() => document.getElementById(`client-logo-upload-${index}`)?.click()}
-                        >
-                          <Upload className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      {errors[`client-${index}`]?.logo && (
-                        <p className="text-sm text-red-500 mt-1">{errors[`client-${index}`].logo}</p>
-                      )}
+                      <AssetSelector
+                        id={`client-logo-${index}`}
+                        label="Client Logo"
+                        value={client.logo}
+                        onChange={(value) => updateClient(index, { logo: value })}
+                        error={errors[`client-${index}`]?.logo}
+                      />
                     </div>
-                    {client.logo && (
-                      <div className="md:col-span-2">
-                        <label className="text-sm font-medium text-slate-700 mb-2 block">
-                          Logo Preview
-                        </label>
-                        <div className="mt-2 p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center justify-center">
-                          <img src={client.logo} alt={client.name} className="max-h-20 object-contain" />
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </Card>
               ))}
@@ -749,51 +755,14 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                       error={errors[`testimonial-${index}`]?.company}
                     />
                     <div>
-                      <label className="text-sm font-medium text-slate-700 mb-2 block">
-                        Profile Image URL (Optional)
-                      </label>
-                      <div className="flex gap-2">
-                        <input
-                          id={`testimonial-image-${index}`}
-                          value={testimonial.image || ''}
-                          onChange={(e) => updateTestimonial(index, { image: e.target.value })}
-                          placeholder="https://..."
-                          className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        />
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileUpload(e, (url) => updateTestimonial(index, { image: url }))}
-                          className="hidden"
-                          id={`testimonial-image-upload-${index}`}
-                        />
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={() => document.getElementById(`testimonial-image-upload-${index}`)?.click()}
-                        >
-                          <Upload className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      {errors[`testimonial-${index}`]?.image && (
-                        <p className="text-sm text-red-500 mt-1">{errors[`testimonial-${index}`].image}</p>
-                      )}
+                      <AssetSelector
+                        id={`testimonial-image-${index}`}
+                        label="Testimonial Image"
+                        value={testimonial.image || ''}
+                        onChange={(value) => updateTestimonial(index, { image: value })}
+                        error={errors[`testimonial-${index}`]?.image}
+                      />
                     </div>
-                    {testimonial.image && (
-                      <div className="md:col-span-2">
-                        <label className="text-sm font-medium text-slate-700 mb-2 block">
-                          Profile Preview
-                        </label>
-                        <div className="mt-2 p-4 border border-slate-200 rounded-lg bg-slate-50 flex items-center gap-4">
-                          <img src={testimonial.image} alt={testimonial.author} className="w-16 h-16 rounded-full object-cover" />
-                          <div>
-                            <p className="text-sm">{testimonial.author}</p>
-                            <p className="text-xs text-slate-500">{testimonial.role} at {testimonial.company}</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </Card>
               ))}

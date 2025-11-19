@@ -14,7 +14,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
     <div className="mb-20">
       <div className="flex items-center justify-between mb-10">
         <div>
-          <h2 className="text-2xl text-slate-900 mb-2">Featured Case Studies</h2>
+          <h2 className="text-2xl text-slate-900 mb-2">Featured Projects</h2>
           <p className="text-slate-600">Deep dives into impactful design projects</p>
         </div>
         <Badge variant="secondary" className="bg-indigo-100 text-indigo-700 px-4 py-2">Top 3</Badge>

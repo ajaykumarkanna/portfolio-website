@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Mail } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Breadcrumb } from '../ui/breadcrumb';
 
 interface PortfolioHeaderProps {
   onNavigateToResume: () => void;
@@ -27,13 +26,6 @@ export function PortfolioHeader({ onNavigateToResume }: PortfolioHeaderProps) {
       {/* Fixed Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4">
-          <Breadcrumb 
-            items={[
-              { label: 'Home', href: '/' },
-              { label: 'Portfolio', href: '/portfolio', current: true }
-            ]} 
-            className="mb-2"
-          />
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <Button 

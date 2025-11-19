@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Briefcase } from 'lucide-react';
 import { Card } from '../ui/card';
 import type { PortfolioData } from '../../data/portfolio-data';
@@ -9,14 +9,16 @@ interface ClientsSectionProps {
 
 export function ClientsSection({ data }: ClientsSectionProps) {
   const clientsScrollRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Auto-scroll for clients
   useEffect(() => {
     const scrollContainer = clientsScrollRef.current;
-    if (!scrollContainer) return;
+    if (!scrollContainer || isHovered) return;
 
     let scrollAmount = 0;
     const scroll = () => {
+      if (isHovered) return;
       scrollAmount += 1;
       if (scrollAmount >= scrollContainer.scrollWidth / 2) {
         scrollAmount = 0;
@@ -26,7 +28,7 @@ export function ClientsSection({ data }: ClientsSectionProps) {
 
     const interval = setInterval(scroll, 30);
     return () => clearInterval(interval);
-  }, []);
+  }, [isHovered]);
 
   return (
     <div className="mb-16">
@@ -39,6 +41,8 @@ export function ClientsSection({ data }: ClientsSectionProps) {
           ref={clientsScrollRef}
           className="flex gap-12 overflow-x-hidden"
           style={{ scrollBehavior: 'auto' }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
           {/* Duplicate clients for seamless loop */}
           {[...data.clients, ...data.clients].map((client, index) => (

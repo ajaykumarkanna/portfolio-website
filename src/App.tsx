@@ -4,6 +4,7 @@ import Portfolio from './components/Portfolio';
 import AdminPanel from './components/AdminPanel';
 import AdminLogin from './components/AdminLogin';
 import PrivateRoute from './components/PrivateRoute';
+import PreviewPage from './components/PreviewPage';
 import { useEffect } from 'react';
 
 function AppContent() {
@@ -28,11 +29,11 @@ function AppContent() {
         path="/admin"
         element={
           <PrivateRoute>
-            <AdminPanel onClose={() => navigate('/')} onPreview={() => navigate('/')} />
+            <AdminPanel onClose={() => navigate('/')} onPreview={() => navigate('/preview')} />
           </PrivateRoute>
         }
       />
-      <Route path="/preview_page.html" element={<Resume onNavigateToPortfolio={() => navigate('/portfolio')} />} />
+      <Route path="/preview" element={<PreviewPage />} />
     </Routes>
   );
 }

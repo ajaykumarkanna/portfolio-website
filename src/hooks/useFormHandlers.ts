@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { 
   PortfolioData, 
   Project, 
@@ -18,12 +18,28 @@ import {
 } from '../utils/validation';
 
 export function useFormHandlers(initialData: PortfolioData) {
-  const [data, setData] = useState<PortfolioData>(initialData);
+  const [data, setData] = useState<PortfolioData>(() => {
+    // Try to load data from localStorage first
+    const savedData = localStorage.getItem('portfolioData');
+    if (savedData) {
+      try {
+        return JSON.parse(savedData);
+      } catch (e) {
+        console.error('Failed to parse saved data:', e);
+        return initialData;
+      }
+    }
+    return initialData;
+  });
   const [errors, setErrors] = useState<Record<string, ValidationErrors>>({});
 
-  const handleSave = () => {
-    // In a real app, this would save to a database or API
+  // Save data to localStorage whenever it changes
+  useEffect(() => {
     localStorage.setItem('portfolioData', JSON.stringify(data));
+  }, [data]);
+
+  const handleSave = () => {
+    // Data is already saved to localStorage via useEffect
     console.log('Portfolio data saved:', data);
   };
 

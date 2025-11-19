@@ -102,22 +102,55 @@ export function AdditionalProjects({ projects }: AdditionalProjectsProps) {
           ))}
         </div>
       ) : (
-        <Card className="p-12 text-center border-dashed border-2 border-slate-300 bg-gradient-to-br from-slate-50 to-white hover:border-indigo-300 transition-colors">
-          <p className="text-slate-700 mb-2 text-lg">
-            {projects.length} More Projects
-          </p>
-          <p className="text-slate-600 mb-6">
-            Including AI governance, VR experiences, and design systems
-          </p>
-          <Button
-            onClick={() => setShowAllProjects(true)}
-            variant="outline"
-            className="mx-auto border-slate-300"
-          >
-            View All Projects
-            <ChevronDown className="w-4 h-4 ml-2" />
-          </Button>
-        </Card>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.slice(0, 3).map((project) => (
+            <Card key={project.id} className="group overflow-hidden border-slate-200 hover:shadow-xl transition-all duration-300 bg-white hover:border-indigo-200" aria-label={`Project: ${project.title}`}>
+              {/* Image */}
+              <div className="relative overflow-hidden h-48">
+                <ImageWithFallback
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  lazy={true}
+                  width="400"
+                  height="300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+              
+              {/* Content */}
+              <div className="p-5">
+                <h3 className="text-base text-slate-900 mb-1 group-hover:text-indigo-600 transition-colors truncate">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-slate-600 mb-3 truncate">{project.company}</p>
+
+                <div className="flex flex-wrap gap-1">
+                  {project.tags.slice(0, 2).map((tag, index) => (
+                    <Badge key={index} variant="secondary" className="text-xs px-2 py-0.5">
+                      {tag}
+                    </Badge>
+                  ))}
+                  {project.tags.length > 2 && (
+                    <Badge variant="secondary" className="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5">
+                      +{project.tags.length - 2}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            </Card>
+          ))}
+          <Card className="flex items-center justify-center border-2 border-dashed border-slate-300 bg-gradient-to-br from-slate-50 to-white hover:border-indigo-300 transition-colors cursor-pointer" onClick={() => setShowAllProjects(true)}>
+            <div className="text-center p-6">
+              <div className="text-2xl mb-2">+{projects.length - 3}</div>
+              <p className="text-slate-600 text-sm">More Projects</p>
+              <Button variant="outline" size="sm" className="mt-3 border-slate-300">
+                View All
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
+          </Card>
+        </div>
       )}
     </div>
   );

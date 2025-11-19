@@ -18,17 +18,17 @@ export function CallToAction({ data, onNavigateToPortfolio }: CallToActionProps)
           Open to full-time roles, consulting projects, and collaborative opportunities. Let's discuss how user-centered design can drive your business goals.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700" asChild>
+          <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 hover:text-white" asChild>
             <a href={`mailto:${data.contact.email}`}>
               <Mail className="w-5 h-5 mr-2" />
               Email Me
             </a>
           </Button>
-          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20" onClick={onNavigateToPortfolio}>
+          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 hover:text-white" onClick={onNavigateToPortfolio}>
             <Globe className="w-5 h-5 mr-2" />
             View Portfolio
           </Button>
-          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20" asChild>
+          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20 hover:text-white" asChild>
             <a href={data.contact.whatsapp} target="_blank" rel="noopener noreferrer">
               <MessageCircle className="w-5 h-5 mr-2" />
               WhatsApp

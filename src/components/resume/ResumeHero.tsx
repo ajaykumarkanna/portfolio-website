@@ -15,9 +15,9 @@ interface ResumeHeroProps {
 export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: ResumeHeroProps) {
   return (
     <div className="mb-20">
-      <div className="flex flex-col md:flex-row gap-12 items-center">
+      <div className="flex flex-col lg:flex-row gap-12 items-start">
         {/* Left: Photo */}
-        <div className="flex-shrink-0 w-72">
+        <div className="flex-shrink-0 w-full lg:w-1/3">
           <div className="relative">
             {/* Photo */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
@@ -33,22 +33,21 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         </div>
 
         {/* Right: Content */}
-        <div className="flex-1">
+        <div className="flex-1 w-full lg:w-2/3">
           <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full mb-4">
             <span className="w-2 h-2 bg-emerald-600 rounded-full animate-pulse"></span>
             <span className="text-sm">Available for new opportunities</span>
           </div>
           
-          <h2 className="text-5xl lg:text-6xl mb-4 leading-tight text-slate-900">
+          <h2 className="text-4xl lg:text-5xl mb-2 leading-tight text-slate-900">
             {data.contact.name}
           </h2>
           
-          <div className="mb-6">
-            <p className="text-2xl lg:text-3xl mb-4 text-indigo-600">{data.contact.title}</p>
-            <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-              Designing Intuitive Interfaces that Boost Conversion.
-            </p>
-          </div>
+          <p className="text-2xl lg:text-3xl mb-6 text-indigo-600">{data.contact.title}</p>
+          
+          <p className="text-lg text-slate-600 leading-relaxed mb-8">
+            Designing Intuitive Interfaces that Boost Conversion.
+          </p>
 
           {/* Meta Information Badges */}
           <div className="flex flex-wrap gap-4 mb-8">
@@ -67,7 +66,7 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
           </div>
 
           {/* Stats/Metrics */}
-          <div className="flex items-center gap-6 mb-6 pb-6 border-b border-slate-200">
+          <div className="flex items-center gap-6 mb-8 pb-6 border-b border-slate-200">
             <div className="text-center">
               <div className="text-3xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">{data.stats.projectsDelivered}</div>
               <div className="text-xs text-slate-600">Projects</div>
@@ -85,7 +84,7 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 mb-8">
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg shadow-indigo-600/30 text-white"
@@ -109,7 +108,7 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
               size="lg" 
               variant="outline"
               onClick={onNavigateToPortfolio}
-              className="border-2 border-slate-300 hover:border-purple-600 hover:bg-purple-50 hover:text-purple-600"
+              className="border-2 border-slate-300 hover:border-purple-600 hover:bg-purple-50 hover:text-purple-600 transition-colors duration-200"
             >
               View Portfolio
               <ArrowRight className="w-5 h-5 ml-2" />
@@ -125,9 +124,13 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             <a href={data.contact.whatsapp} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-emerald-100 flex items-center justify-center transition-colors group" aria-label="WhatsApp contact">
               <MessageCircle className="w-5 h-5 text-slate-600 group-hover:text-emerald-600" />
             </a>
-            <a href={data.contact.portfolio} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-purple-100 flex items-center justify-center transition-colors group" aria-label="Portfolio website">
+            <button 
+              onClick={onNavigateToPortfolio}
+              className="w-10 h-10 rounded-full bg-slate-100 hover:bg-purple-100 flex items-center justify-center transition-colors group" 
+              aria-label="Portfolio website"
+            >
               <Globe className="w-5 h-5 text-slate-600 group-hover:text-purple-600" />
-            </a>
+            </button>
             <a href={`tel:${data.contact.phone}`} className="w-10 h-10 rounded-full bg-slate-100 hover:bg-blue-100 flex items-center justify-center transition-colors group" aria-label={`Call ${data.contact.name}`}>
               <Phone className="w-5 h-5 text-slate-600 group-hover:text-blue-600" />
             </a>
