@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { usePortfolioData } from '../hooks/usePortfolioData';
-
+import profileImage from '../assets/profile-image.png';
 
 interface ResumeProps {
   onNavigateToPortfolio: () => void;
@@ -15,23 +15,7 @@ interface ResumeProps {
 
 export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
 
-  const { data, loading, error } = usePortfolioData();
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-xl text-slate-700">Loading portfolio data...</p>
-      </div>
-    );
-  }
-
-  if (error || !data) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <p className="text-xl text-red-500">Error: {error}. Could not load portfolio data. Is json-server running?</p>
-      </div>
-    );
-  }
+  const data = usePortfolioData();
 
   const clientsScrollRef = useRef<HTMLDivElement>(null);
 
@@ -255,7 +239,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
 
                   <ImageWithFallback
 
-                    src={data.contact.profileImage}
+                    src={profileImage}
 
                     alt={`${data.contact.name} - ${data.contact.title}`}
 
