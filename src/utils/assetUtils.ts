@@ -1,36 +1,65 @@
 // Utility functions for asset management
 
-// Get all available assets in the assets directory
+// Dynamically get all available assets in the assets directory
 export const getAvailableAssets = (): string[] => {
-  // In a real implementation, this would dynamically read the assets directory
-  // For now, we'll return a predefined list of sample assets
+  // This would normally read the directory dynamically
+  // For now, we'll return the actual assets we have
   return [
-    '/src/assets/profile-image.png',
-    '/src/assets/project-image-1.jpg',
-    '/src/assets/project-image-2.jpg',
-    '/src/assets/client-logo-1.png',
-    '/src/assets/testimonial-1.jpg'
+    '/src/assets/Logo_ADCircular.png',
+    '/src/assets/Logo_AdobeXD.png',
+    '/src/assets/Logo_Aurum.png',
+    '/src/assets/Logo_Avery.png',
+    '/src/assets/Logo_Brillio.png',
+    '/src/assets/Logo_CBA.png',
+    '/src/assets/Logo_Dropout.png',
+    '/src/assets/Logo_Figma.png',
+    '/src/assets/Logo_Flexcellence.png',
+    '/src/assets/Logo_Maze.png',
+    '/src/assets/Logo_Outsystems.png',
+    '/src/assets/Logo_Pega.png',
+    '/src/assets/Logo_Sketch.png',
+    '/src/assets/Logo_Stellantis.png',
+    '/src/assets/Logo_TCS.png',
+    '/src/assets/Logo_Verizon.png',
+    '/src/assets/Thumbnail_AD Circular.png',
+    '/src/assets/Thumbnail_ADAM.png',
+    '/src/assets/Thumbnail_AIGovernance.png',
+    '/src/assets/Thumbnail_CBA.png',
+    '/src/assets/Thumbnail_Dropout.png',
+    '/src/assets/Thumbnail_Flexcellence.png'
   ];
 };
 
-// Get asset names for dropdown display
+// Get asset names for dropdown display (derived from file names)
 export const getAssetNames = (): string[] => {
-  return [
-    'Profile Image',
-    'Project Image 1',
-    'Project Image 2',
-    'Client Logo 1',
-    'Testimonial Image 1'
-  ];
+  const assets = getAvailableAssets();
+  return assets.map(assetPath => {
+    // Extract filename without extension
+    const fileName = assetPath.split('/').pop() || '';
+    const nameWithoutExt = fileName.split('.')[0];
+    // Convert underscores and hyphens to spaces and title case
+    return nameWithoutExt
+      .replace(/[_-]/g, ' ')
+      .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  });
 };
 
 // Map asset names to their paths
 export const getAssetPathMap = (): Record<string, string> => {
-  return {
-    'Profile Image': '/src/assets/profile-image.png',
-    'Project Image 1': '/src/assets/project-image-1.jpg',
-    'Project Image 2': '/src/assets/project-image-2.jpg',
-    'Client Logo 1': '/src/assets/client-logo-1.png',
-    'Testimonial Image 1': '/src/assets/testimonial-1.jpg'
-  };
+  const assets = getAvailableAssets();
+  const names = getAssetNames();
+  const map: Record<string, string> = {};
+  
+  names.forEach((name, index) => {
+    map[name] = assets[index];
+  });
+  
+  return map;
+};
+
+// Get asset name from path
+export const getAssetNameFromPath = (path: string): string => {
+  const map = getAssetPathMap();
+  const entry = Object.entries(map).find(([_, assetPath]) => assetPath === path);
+  return entry ? entry[0] : path; // Return path if not found
 };

@@ -16,6 +16,12 @@ const REQUIRED_FIELDS = [
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const URL_REGEX = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+const ASSET_PATH_REGEX = /^\/src\/assets\/.+$/;
+
+// Check if a value is a valid asset path or URL
+const isValidImageReference = (value: string): boolean => {
+  return URL_REGEX.test(value) || ASSET_PATH_REGEX.test(value);
+};
 
 export const validateField = (fieldName: string, value: string): string | null => {
   // Required field validation
@@ -28,10 +34,9 @@ export const validateField = (fieldName: string, value: string): string | null =
     return 'Please enter a valid email address';
   }
 
-  // URL validation for specific fields
+  // URL validation for specific fields (excluding image fields which can be asset paths)
   if ((fieldName.includes('portfolio') || fieldName.includes('linkedin') || 
-       fieldName.includes('whatsapp') || fieldName.includes('logo') || 
-       fieldName.includes('image')) && 
+       fieldName.includes('whatsapp')) && 
       value.trim() && !URL_REGEX.test(value.trim())) {
     return 'Please enter a valid URL';
   }
@@ -92,8 +97,8 @@ export const validateProject = (project: any): ValidationErrors => {
   errors.summary = validateField('project-summary', project.summary) || '';
   errors.impact = validateField('project-impact', project.impact) || '';
 
-  if (project.image && !URL_REGEX.test(project.image)) {
-    errors.image = 'Please enter a valid image URL';
+  if (project.image && !isValidImageReference(project.image)) {
+    errors.image = 'Please enter a valid image URL or select an asset';
   }
 
   // Remove empty error messages
@@ -144,8 +149,8 @@ export const validateClient = (client: any): ValidationErrors => {
   const errors: ValidationErrors = {};
 
   errors.name = validateField('client-name', client.name) || '';
-  if (client.logo && !URL_REGEX.test(client.logo)) {
-    errors.logo = 'Please enter a valid logo URL';
+  if (client.logo && !isValidImageReference(client.logo)) {
+    errors.logo = 'Please enter a valid logo URL or select an asset';
   }
 
   // Remove empty error messages
@@ -166,8 +171,8 @@ export const validateTestimonial = (testimonial: any): ValidationErrors => {
   errors.role = validateField('testimonial-role', testimonial.role) || '';
   errors.company = validateField('testimonial-company', testimonial.company) || '';
 
-  if (testimonial.image && !URL_REGEX.test(testimonial.image)) {
-    errors.image = 'Please enter a valid image URL';
+  if (testimonial.image && !isValidImageReference(testimonial.image)) {
+    errors.image = 'Please enter a valid image URL or select an asset';
   }
 
   // Remove empty error messages
