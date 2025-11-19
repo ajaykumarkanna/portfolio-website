@@ -44,13 +44,17 @@ export function AssetSelector({
       <Select value={selectedAsset} onValueChange={handleAssetChange}>
         <SelectTrigger 
           id={id}
-          className={error ? 'border-red-500' : ''}
+          className={`bg-white ${error ? 'border-red-500' : 'border-slate-300'}`}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white border-slate-200">
           {assetNames.map((assetName) => (
-            <SelectItem key={assetName} value={assetName}>
+            <SelectItem 
+              key={assetName} 
+              value={assetName}
+              className="hover:bg-slate-100 focus:bg-slate-100"
+            >
               {assetName}
             </SelectItem>
           ))}
