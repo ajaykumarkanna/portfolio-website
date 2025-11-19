@@ -10,6 +10,19 @@ interface AdditionalProjectsProps {
 }
 
 export function AdditionalProjects({ projects }: AdditionalProjectsProps) {
+  // Function to convert asset path to actual import or URL
+  const getImageSrc = (imagePath: string) => {
+    // If it's an asset path, we need to map it to the actual file
+    if (imagePath.startsWith('/src/assets/')) {
+      // Extract the filename
+      const fileName = imagePath.split('/').pop();
+      // In a real implementation, you would map this to the actual import
+      // For now, we'll just return the path as is and let ImageWithFallback handle it
+      return imagePath;
+    }
+    return imagePath;
+  };
+
   return (
     <div className="mb-16">
       <div className="flex items-center justify-between mb-10">

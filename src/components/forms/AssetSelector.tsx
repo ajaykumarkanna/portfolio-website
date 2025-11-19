@@ -69,7 +69,7 @@ export function AssetSelector({
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent 
-          className="bg-white border-slate-200 p-1 max-h-60"
+          className="bg-white border-slate-200 p-1 max-h-60 overflow-y-auto"
           position="popper"
           sideOffset={5}
         >

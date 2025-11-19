@@ -96,12 +96,6 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
       {/* Fixed Header with Contact Info */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4">
-          <Breadcrumb 
-            items={[
-              { label: 'Home', href: '/', current: true }
-            ]} 
-            className="mb-2"
-          />
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
               <h1 className="text-xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">

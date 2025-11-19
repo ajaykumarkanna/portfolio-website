@@ -15,15 +15,15 @@ interface ResumeHeroProps {
 export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: ResumeHeroProps) {
   return (
     <div className="mb-20">
-      {/* Profile section with image on left and title/role on right */}
-      <div className="flex flex-col lg:flex-row gap-8 items-start mb-12">
+      {/* Profile section with 2-grid responsive layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
         {/* Left: Photo */}
-        <div className="flex-shrink-0 w-full lg:w-auto">
+        <div className="flex justify-center lg:justify-start">
           <div className="relative">
             {/* Photo */}
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white w-64 h-80">
               <ImageWithFallback
-                src={profileImage}
+                src={data.contact.profileImage || profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
                 className="w-full h-full object-cover"
                 width="256"
@@ -34,7 +34,7 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         </div>
 
         {/* Right: Name, Title, and Tagline */}
-        <div className="flex-1">
+        <div className="flex flex-col justify-center">
           <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full mb-4">
             <span className="w-2 h-2 bg-emerald-600 rounded-full animate-pulse"></span>
             <span className="text-sm">Available for new opportunities</span>

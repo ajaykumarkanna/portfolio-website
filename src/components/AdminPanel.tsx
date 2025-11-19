@@ -257,13 +257,6 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                   onChange={(value) => setData({ ...data, contact: { ...data.contact, location: value }})}
                 />
                 <FormInput
-                  id="portfolio"
-                  label="Portfolio URL"
-                  value={data.contact.portfolio}
-                  onChange={(value) => setData({ ...data, contact: { ...data.contact, portfolio: value }})}
-                  error={errors.contact?.portfolio}
-                />
-                <FormInput
                   id="linkedin"
                   label="LinkedIn URL"
                   value={data.contact.linkedin}
