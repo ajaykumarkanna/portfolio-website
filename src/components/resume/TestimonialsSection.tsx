@@ -10,24 +10,32 @@ interface TestimonialsSectionProps {
 export function TestimonialsSection({ data }: TestimonialsSectionProps) {
   const testimonialsScrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const animationRef = useRef<number>(0);
+  const scrollPosition = useRef(0);
 
-  // Auto-scroll for testimonials
+  // Auto-scroll for testimonials with smooth pause on hover
   useEffect(() => {
     const scrollContainer = testimonialsScrollRef.current;
-    if (!scrollContainer || isHovered) return;
+    if (!scrollContainer) return;
 
-    let scrollAmount = 0;
     const scroll = () => {
-      if (isHovered) return;
-      scrollAmount += 0.5;
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
+      if (!isHovered) {
+        scrollPosition.current += 0.3;
+        if (scrollPosition.current >= scrollContainer.scrollWidth / 2) {
+          scrollPosition.current = 0;
+        }
+        scrollContainer.scrollLeft = scrollPosition.current;
       }
-      scrollContainer.scrollLeft = scrollAmount;
+      animationRef.current = requestAnimationFrame(scroll);
     };
 
-    const interval = setInterval(scroll, 40);
-    return () => clearInterval(interval);
+    animationRef.current = requestAnimationFrame(scroll);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, [isHovered]);
 
   return (
@@ -40,7 +48,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
         <div 
           ref={testimonialsScrollRef}
           className="flex gap-6 overflow-x-hidden pb-4"
-          style={{ scrollBehavior: 'auto' }}
+          style={{ scrollBehavior: 'smooth' }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

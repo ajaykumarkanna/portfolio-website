@@ -10,24 +10,32 @@ interface ClientsSectionProps {
 export function ClientsSection({ data }: ClientsSectionProps) {
   const clientsScrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const animationRef = useRef<number>(0);
+  const scrollPosition = useRef(0);
 
-  // Auto-scroll for clients
+  // Auto-scroll for clients with smooth pause on hover
   useEffect(() => {
     const scrollContainer = clientsScrollRef.current;
-    if (!scrollContainer || isHovered) return;
+    if (!scrollContainer) return;
 
-    let scrollAmount = 0;
     const scroll = () => {
-      if (isHovered) return;
-      scrollAmount += 1;
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
+      if (!isHovered) {
+        scrollPosition.current += 0.5;
+        if (scrollPosition.current >= scrollContainer.scrollWidth / 2) {
+          scrollPosition.current = 0;
+        }
+        scrollContainer.scrollLeft = scrollPosition.current;
       }
-      scrollContainer.scrollLeft = scrollAmount;
+      animationRef.current = requestAnimationFrame(scroll);
     };
 
-    const interval = setInterval(scroll, 30);
-    return () => clearInterval(interval);
+    animationRef.current = requestAnimationFrame(scroll);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, [isHovered]);
 
   return (
@@ -40,7 +48,7 @@ export function ClientsSection({ data }: ClientsSectionProps) {
         <div 
           ref={clientsScrollRef}
           className="flex gap-12 overflow-x-hidden"
-          style={{ scrollBehavior: 'auto' }}
+          style={{ scrollBehavior: 'smooth' }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
