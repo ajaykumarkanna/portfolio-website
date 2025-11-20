@@ -1,33 +1,23 @@
 // Utility functions for asset management
 
-// Dynamically get all available assets in the assets directory
+// Dynamically import all assets from the assets directory
+// This will be handled by Vite's import.meta.glob
+const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true });
+
+// Get all available assets dynamically
 export const getAvailableAssets = (): string[] => {
-  // This would normally read the directory dynamically
-  // For now, we'll return the actual assets we have
-  return [
-    '/src/assets/Logo_ADCircular.png',
-    '/src/assets/Logo_AdobeXD.png',
-    '/src/assets/Logo_Aurum.png',
-    '/src/assets/Logo_Avery.png',
-    '/src/assets/Logo_Brillio.png',
-    '/src/assets/Logo_CBA.png',
-    '/src/assets/Logo_Dropout.png',
-    '/src/assets/Logo_Figma.png',
-    '/src/assets/Logo_Flexcellence.png',
-    '/src/assets/Logo_Maze.png',
-    '/src/assets/Logo_Outsystems.png',
-    '/src/assets/Logo_Pega.png',
-    '/src/assets/Logo_Sketch.png',
-    '/src/assets/Logo_Stellantis.png',
-    '/src/assets/Logo_TCS.png',
-    '/src/assets/Logo_Verizon.png',
-    '/src/assets/Thumbnail_AD Circular.png',
-    '/src/assets/Thumbnail_ADAM.png',
-    '/src/assets/Thumbnail_AIGovernance.png',
-    '/src/assets/Thumbnail_CBA.png',
-    '/src/assets/Thumbnail_Dropout.png',
-    '/src/assets/Thumbnail_Flexcellence.png'
-  ];
+  const assets: string[] = [];
+  
+  // Convert the glob import results to asset paths
+  Object.keys(assetModules).forEach((key) => {
+    // Convert the import path to our asset path format
+    const fileName = key.split('/').pop();
+    if (fileName) {
+      assets.push(`/src/assets/${fileName}`);
+    }
+  });
+  
+  return assets;
 };
 
 // Get asset names for dropdown display (derived from file names)
@@ -68,10 +58,14 @@ export const getAssetNameFromPath = (path: string): string => {
 export const importAsset = async (assetPath: string): Promise<string> => {
   try {
     // Convert the asset path to a relative path for import
-    const relativePath = assetPath.replace('/src/assets/', './');
+    const fileName = assetPath.split('/').pop();
+    if (!fileName) {
+      throw new Error('Invalid asset path');
+    }
     
-    // Dynamically import the asset
-    const module = await import(relativePath);
+    // Use the glob import to find the matching asset
+    const modulePath = `../assets/${fileName}`;
+    const module = await import(/* @vite-ignore */ modulePath);
     return module.default;
   } catch (error) {
     console.error(`Failed to import asset: ${assetPath}`, error);
