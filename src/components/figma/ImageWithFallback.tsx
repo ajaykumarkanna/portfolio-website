@@ -36,6 +36,11 @@ export function ImageWithFallback({
     ? `.${src}` // Convert to relative path
     : src;
 
+  // For asset paths, we need to handle them differently in the browser
+  // Since we're using Vite, we need to import the images or use a different approach
+  // For now, we'll just use the src directly and let the browser handle it
+  // In a real implementation, you would use dynamic imports or a different approach
+
   return didError ? (
     <div
       className={`inline-block bg-gray-100 text-center align-middle ${className ?? ''}`}
