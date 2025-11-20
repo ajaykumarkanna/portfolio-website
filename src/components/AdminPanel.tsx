@@ -447,6 +447,13 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                       />
                     </div>
                     <FormInput
+                      id={`project-external-link-${project.id}`}
+                      label="External Link (Case Study)"
+                      value={project.externalLink || ''}
+                      onChange={(value) => updateProject(project.id, { externalLink: value })}
+                      placeholder="https://example.com/case-study"
+                    />
+                    <FormInput
                       id={`project-tags-${project.id}`}
                       label="Tags (comma-separated)"
                       value={project.tags.join(', ')}

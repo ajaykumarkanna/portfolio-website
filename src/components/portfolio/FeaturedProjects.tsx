@@ -10,19 +10,6 @@ interface FeaturedProjectsProps {
 }
 
 export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
-  // Function to convert asset path to actual import or URL
-  const getImageSrc = (imagePath: string) => {
-    // If it's an asset path, we need to map it to the actual file
-    if (imagePath.startsWith('/src/assets/')) {
-      // Extract the filename
-      const fileName = imagePath.split('/').pop();
-      // In a real implementation, you would map this to the actual import
-      // For now, we'll just return the path as is and let ImageWithFallback handle it
-      return imagePath;
-    }
-    return imagePath;
-  };
-
   return (
     <div className="mb-20">
       <div className="flex items-center justify-between mb-10">
@@ -59,7 +46,18 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
                     </h3>
                     <p className="text-slate-600">{project.company}</p>
                   </div>
-                  <ExternalLink className="w-6 h-6 text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-indigo-600 transition-all transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  {/* External link icon */}
+                  {project.externalLink && (
+                    <a 
+                      href={project.externalLink} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-indigo-100 hover:bg-indigo-600 flex items-center justify-center transition-colors group"
+                      aria-label={`View case study for ${project.title}`}
+                    >
+                      <ExternalLink className="w-5 h-5 text-indigo-600 group-hover:text-white" />
+                    </a>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">

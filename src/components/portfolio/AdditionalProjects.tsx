@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Calendar, TrendingUp } from 'lucide-react';
+import { User, Calendar, TrendingUp, ExternalLink as ExternalLinkIcon } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
@@ -10,19 +10,6 @@ interface AdditionalProjectsProps {
 }
 
 export function AdditionalProjects({ projects }: AdditionalProjectsProps) {
-  // Function to convert asset path to actual import or URL
-  const getImageSrc = (imagePath: string) => {
-    // If it's an asset path, we need to map it to the actual file
-    if (imagePath.startsWith('/src/assets/')) {
-      // Extract the filename
-      const fileName = imagePath.split('/').pop();
-      // In a real implementation, you would map this to the actual import
-      // For now, we'll just return the path as is and let ImageWithFallback handle it
-      return imagePath;
-    }
-    return imagePath;
-  };
-
   return (
     <div className="mb-16">
       <div className="flex items-center justify-between mb-10">
@@ -46,6 +33,18 @@ export function AdditionalProjects({ projects }: AdditionalProjectsProps) {
                 height="300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              {/* External link icon overlay */}
+              {project.externalLink && (
+                <a 
+                  href={project.externalLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 hover:bg-indigo-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
+                  aria-label={`View case study for ${project.title}`}
+                >
+                  <ExternalLinkIcon className="w-4 h-4 text-slate-700 group-hover:text-white" />
+                </a>
+              )}
             </div>
             
             {/* Content */}
