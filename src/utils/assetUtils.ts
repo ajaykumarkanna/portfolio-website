@@ -63,3 +63,19 @@ export const getAssetNameFromPath = (path: string): string => {
   const entry = Object.entries(map).find(([_, assetPath]) => assetPath === path);
   return entry ? entry[0] : path; // Return path if not found
 };
+
+// Function to dynamically import an asset by its path
+export const importAsset = async (assetPath: string): Promise<string> => {
+  try {
+    // Convert the asset path to a relative path for import
+    const relativePath = assetPath.replace('/src/assets/', './');
+    
+    // Dynamically import the asset
+    const module = await import(relativePath);
+    return module.default;
+  } catch (error) {
+    console.error(`Failed to import asset: ${assetPath}`, error);
+    // Return a fallback image or the original path
+    return assetPath;
+  }
+};

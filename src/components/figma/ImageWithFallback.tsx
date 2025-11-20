@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { importAsset } from '../../utils/assetUtils'
 
 // Default error image
 const ERROR_IMG_SRC =
@@ -26,20 +27,30 @@ export function ImageWithFallback({
   ...props 
 }: ImageWithFallbackProps) {
   const [didError, setDidError] = useState(false)
+  const [processedSrc, setProcessedSrc] = useState(src)
 
   const handleError = () => {
     setDidError(true)
   }
 
   // Process the source to handle asset paths
-  const processedSrc = src.startsWith('/src/assets/') 
-    ? `.${src}` // Convert to relative path
-    : src;
+  useEffect(() => {
+    const processSrc = async () => {
+      if (src.startsWith('/src/assets/')) {
+        try {
+          const importedSrc = await importAsset(src);
+          setProcessedSrc(importedSrc);
+        } catch (error) {
+          console.error('Failed to process asset:', error);
+          setProcessedSrc(src);
+        }
+      } else {
+        setProcessedSrc(src);
+      }
+    };
 
-  // For asset paths, we need to handle them differently in the browser
-  // Since we're using Vite, we need to import the images or use a different approach
-  // For now, we'll just use the src directly and let the browser handle it
-  // In a real implementation, you would use dynamic imports or a different approach
+    processSrc();
+  }, [src]);
 
   return didError ? (
     <div
