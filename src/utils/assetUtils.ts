@@ -57,19 +57,22 @@ export const getAssetNameFromPath = (path: string): string => {
 // Function to dynamically import an asset by its path
 export const importAsset = async (assetPath: string): Promise<string> => {
   try {
-    // Convert the asset path to a relative path for import
     const fileName = assetPath.split('/').pop();
     if (!fileName) {
-      throw new Error('Invalid asset path');
+      return assetPath;
     }
     
-    // Use the glob import to find the matching asset
-    const modulePath = `../assets/${fileName}`;
-    const module = await import(/* @vite-ignore */ modulePath);
-    return module.default;
+    // Look up the asset in the eager-loaded modules
+    const moduleKey = `../assets/${fileName}`;
+    const module = assetModules[moduleKey] as { default: string } | undefined;
+    
+    if (module && module.default) {
+      return module.default;
+    }
+    
+    return assetPath;
   } catch (error) {
-    console.error(`Failed to import asset: ${assetPath}`, error);
-    // Return a fallback image or the original path
+    console.error(`Failed to resolve asset: ${assetPath}`, error);
     return assetPath;
   }
 };

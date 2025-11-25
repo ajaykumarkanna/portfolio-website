@@ -20,7 +20,7 @@ import {
 export function useFormHandlers(initialData: PortfolioData) {
   const [data, setData] = useState<PortfolioData>(() => {
     // Try to load data from localStorage first
-    const savedData = localStorage.getItem('portfolioData');
+    const savedData = localStorage.getItem('portfolioData_v2');
     if (savedData) {
       try {
         return JSON.parse(savedData);
@@ -35,7 +35,7 @@ export function useFormHandlers(initialData: PortfolioData) {
 
   // Save data to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('portfolioData', JSON.stringify(data));
+    localStorage.setItem('portfolioData_v2', JSON.stringify(data));
   }, [data]);
 
   const handleSave = () => {
