@@ -152,7 +152,7 @@ export const portfolioData: PortfolioData = {
     location: "Hyderabad, India",
     phone: "+91 9629619859",
     email: "ajaykumar.jai1111@gmail.com",
-    portfolio: "https://ajaykumarjai11119.wixsite.com/kannaajaykumar",
+    portfolio: "https://kannaajaykumar.com",
     linkedin: "https://linkedin.com/in/kannaajaykumar",
     whatsapp: "https://wa.me/919629619859",
     profileImage: Profile_Image,
