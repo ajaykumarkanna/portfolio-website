@@ -10,7 +10,7 @@ export function usePortfolioData() {
 
   useEffect(() => {
     // Load from localStorage if available
-    const stored = localStorage.getItem('portfolioData');
+    const stored = localStorage.getItem('portfolioData_v2');
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
