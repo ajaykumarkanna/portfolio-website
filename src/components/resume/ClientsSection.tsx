@@ -48,7 +48,6 @@ export function ClientsSection({ data }: ClientsSectionProps) {
         <div 
           ref={clientsScrollRef}
           className="flex gap-12 overflow-x-hidden"
-          style={{ scrollBehavior: 'smooth' }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

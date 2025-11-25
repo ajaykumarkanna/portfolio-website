@@ -48,7 +48,6 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
         <div 
           ref={testimonialsScrollRef}
           className="flex gap-6 overflow-x-hidden pb-4"
-          style={{ scrollBehavior: 'smooth' }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

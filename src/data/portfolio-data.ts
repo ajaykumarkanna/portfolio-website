@@ -1,6 +1,28 @@
 // Centralized Portfolio Data Configuration
 // This file serves as the single source of truth for all portfolio content
 
+// Import Assets
+import Logo_Verizon from '../assets/Logo_Verizon.png';
+import Logo_CBA from '../assets/Logo_CBA.png';
+import Logo_Avery from '../assets/Logo_Avery.png';
+import Logo_TCS from '../assets/Logo_TCS.png';
+import Logo_Brillio from '../assets/Logo_Brillio.png';
+import Logo_Flexcellence from '../assets/Logo_Flexcellence.png';
+import Logo_Stellantis from '../assets/Logo_Stellantis.png';
+import Logo_Aurum from '../assets/Logo_Aurum.png';
+// import Logo_ADCircular from '../assets/Logo_ADCircular.png'; // No longer needed for profile
+import Profile_Image from '../assets/Profile_Image.png'; // New Profile Image
+
+import Thumbnail_CBA from '../assets/Thumbnail_CBA.png';
+import Thumbnail_ADCircular from '../assets/Thumbnail_AD Circular.png';
+import Thumbnail_Flexcellence from '../assets/Thumbnail_Flexcellence.png';
+import Thumbnail_AIGovernance from '../assets/Thumbnail_AIGovernance.png';
+import Thumbnail_ADAM from '../assets/Thumbnail_ADAM.png';
+import Thumbnail_Dropout from '../assets/Thumbnail_Dropout.png';
+
+// Resume File
+import ResumePDF from '../assets/Ajay_Kumar_Resume_Oct25.pdf'; // Now a PDF
+
 export interface Project {
   id: number;
   featured: boolean;
@@ -15,7 +37,7 @@ export interface Project {
   image: string;
   category: string;
   problemStatement: string;
-  externalLink?: string; // Add external link field
+  externalLink?: string;
 }
 
 export interface Experience {
@@ -59,7 +81,7 @@ export interface Hobby {
 
 export interface Client {
   name: string;
-  logo: string; // Changed from optional to required
+  logo: string;
 }
 
 export interface Testimonial {
@@ -67,7 +89,7 @@ export interface Testimonial {
   author: string;
   role: string;
   company: string;
-  image?: string; // Optional profile image
+  image?: string;
 }
 
 export interface ContactInfo {
@@ -120,8 +142,8 @@ export const portfolioData: PortfolioData = {
     portfolio: "https://ajaykumarjai11119.wixsite.com/kannaajaykumar",
     linkedin: "https://linkedin.com/in/kannaajaykumar",
     whatsapp: "https://wa.me/919629619859",
-    profileImage: "https://images.unsplash.com/photo-1737574821698-862e77f044c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGJ1c2luZXNzbWFufGVufDF8fHx8MTc2MzAxNTU1MHww&ixlib=rb-4.1.0&q=80&w=1080",
-    resumePDF: "/path/to/resume.pdf" // Update with actual PDF path
+    profileImage: Profile_Image,
+    resumePDF: ResumePDF
   },
 
   stats: {
@@ -147,12 +169,12 @@ export const portfolioData: PortfolioData = {
       role: "Lead UI/UX Consultant",
       summary: "Complete redesign of Verizon's in-store iPad ordering application, integrating AI-driven features to streamline the purchase journey for both customers and sales representatives.",
       impact: "Improved ordering speed, reduced friction points, and increased user satisfaction scores",
-      deliverables: ["User Research & Personas", "AI-Driven Prototypes", "Design System Integration", "Usability Testing"],
+      deliverables: ["User Research", "AI-Driven Prototypes", "Design System Integration", "Usability Testing"],
       tags: ["AI/UX", "Enterprise", "Tablet Design", "Retail"],
-      image: "https://images.unsplash.com/photo-1658077830601-8903acdbd3b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZXJpem9uJTIwc3RvcmUlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc2MzEwMzU3OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_ADAM, // Using ADAM as placeholder for Verizon
       category: "Enterprise UX",
       problemStatement: "Streamlining a complex in-store ordering process.",
-      externalLink: "https://example.com/verizon-case-study" // Add external link
+      externalLink: "https://example.com/verizon-case-study"
     },
     {
       id: 2,
@@ -165,10 +187,10 @@ export const portfolioData: PortfolioData = {
       impact: "30% improvement in usability metrics, reduced training time for bank staff",
       deliverables: ["UX Audit", "Information Architecture", "Component Library", "Interaction Patterns", "User Testing"],
       tags: ["Enterprise", "Banking", "Migration", "Design System"],
-      image: "https://images.unsplash.com/photo-1726065235203-4368c41c6f19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYW5raW5nJTIwYXBwJTIwaW50ZXJmYWNlfGVufDF8fHx8MTc2MzEwMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_CBA,
       category: "Fintech",
       problemStatement: "Modernizing legacy banking applications.",
-      externalLink: "https://example.com/cba-case-study" // Add external link
+      externalLink: "https://example.com/cba-case-study"
     },
     {
       id: 3,
@@ -178,13 +200,13 @@ export const portfolioData: PortfolioData = {
       duration: "Nov 2020 – Jun 2025",
       role: "Lead UI/UX Designer",
       summary: "End-to-end design of a sustainability-focused web platform that connects businesses with recycling services, promoting circular economy practices.",
-      impact: "20% increase in user engagement, positive feedback on intuitive navigation",
-      deliverables: ["User Journey Mapping", "Wireframes & Prototypes", "Visual Design", "Responsive Web Design"],
+      impact: "20% increase in user engagement",
+      deliverables: ["User Journey Mapping", "Wireframes", "Visual Design", "Responsive Web Design"],
       tags: ["Web Design", "Sustainability", "E2E", "B2B"],
-      image: "https://images.unsplash.com/photo-1642402806417-e451280d845b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWN5Y2xpbmclMjBzdXN0YWluYWJpbGl0eXxlbnwxfHx8fDE3NjMwODkwMTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_ADCircular,
       category: "Web Platform",
       problemStatement: "Connecting businesses for a circular economy.",
-      externalLink: "https://example.com/avery-case-study" // Add external link
+      externalLink: "https://example.com/avery-case-study"
     },
     {
       id: 4,
@@ -194,13 +216,13 @@ export const portfolioData: PortfolioData = {
       duration: "Jan 2025 – Sep 2025",
       role: "Product Designer",
       summary: "Mobile app redesign focused on health tracking and habit monitoring with emphasis on user motivation and engagement.",
-      impact: "Enhanced user engagement through gamification and personalized insights",
+      impact: "Enhanced user engagement",
       deliverables: ["User Research", "Wireframing", "UI Design", "Usability Testing", "Design Handoff"],
       tags: ["Mobile", "Health Tech", "User Research", "B2C"],
-      image: "https://images.unsplash.com/photo-1748280621226-91f9530fc329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGglMjBmaXRuZXNzJTIwYXBwfGVufDF8fHx8MTc2MzAyMjA1OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_Flexcellence,
       category: "Mobile App",
       problemStatement: "Boosting user motivation in health tracking.",
-      externalLink: "https://example.com/flexellence-case-study" // Add external link
+      externalLink: "https://example.com/flexellence-case-study"
     },
     {
       id: 5,
@@ -210,13 +232,13 @@ export const portfolioData: PortfolioData = {
       duration: "Nov 2020 – Jun 2025",
       role: "UX Designer",
       summary: "Designed proof-of-concept for an AI governance and compliance tool in Pega platform, ensuring EU AI Act compliance with intuitive error handling.",
-      impact: "15% reduction in compliance errors through improved UI/UX",
+      impact: "15% reduction in compliance errors",
       deliverables: ["Competitive Analysis", "Workflow Design", "Dashboard Design", "Error Prevention Patterns"],
       tags: ["AI Governance", "Enterprise", "Compliance", "POC"],
-      image: "https://images.unsplash.com/photo-1717501220725-83f151c447e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBSSUyMGdvdmVybmFuY2UlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc2MzEwMzU4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_AIGovernance,
       category: "Enterprise Tool",
       problemStatement: "Ensuring AI compliance with intuitive design.",
-      externalLink: "https://example.com/ai-governance-case-study" // Add external link
+      externalLink: "https://example.com/ai-governance-case-study"
     },
     {
       id: 6,
@@ -226,13 +248,13 @@ export const portfolioData: PortfolioData = {
       duration: "Nov 2020 – Jun 2025",
       role: "UX Researcher & Designer",
       summary: "Explored immersive shopping experiences using Virtual Reality, creating prototypes for retail metaverse concepts.",
-      impact: "Identified key UX challenges and opportunities in VR commerce",
+      impact: "Identified key UX challenges and opportunities",
       deliverables: ["VR Prototyping", "User Testing", "Interaction Design", "Research Report"],
       tags: ["VR", "Metaverse", "Retail", "Emerging Tech"],
-      image: "https://images.unsplash.com/photo-1656717040132-d08704e789c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxWUiUyMG1ldGF2ZXJzZXxlbnwxfHx8fDE3NjMxMDM1ODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_Dropout,
       category: "Emerging Tech",
       problemStatement: "Prototyping the future of retail.",
-      externalLink: "https://example.com/vr-case-study" // Add external link
+      externalLink: "https://example.com/vr-case-study"
     },
     {
       id: 7,
@@ -242,13 +264,13 @@ export const portfolioData: PortfolioData = {
       duration: "Nov 2020 – Jun 2025",
       role: "Design System Contributor",
       summary: "Contributed to building and maintaining design system components for enterprise applications, ensuring consistency and accessibility.",
-      impact: "Improved design-development handoff and consistency across products",
+      impact: "Improved design-development handoff and consistency",
       deliverables: ["Component Design", "Documentation", "Accessibility Guidelines", "Design Tokens"],
       tags: ["Design System", "Accessibility", "Enterprise", "Documentation"],
-      image: "https://images.unsplash.com/photo-1756576357697-13dfc5fff61c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXNpZ24lMjBzeXN0ZW0lMjBpbnRlcmZhY2V8ZW58MXx8fHwxNzYzMDQxMDM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: Thumbnail_CBA,
       category: "Design System",
       problemStatement: "Ensuring consistency at scale.",
-      externalLink: "https://example.com/design-system-case-study" // Add external link
+      externalLink: "https://example.com/design-system-case-study"
     }
   ],
 
@@ -366,27 +388,35 @@ export const portfolioData: PortfolioData = {
   clients: [
     { 
       name: "Verizon",
-      logo: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=200&h=100&fit=crop"
+      logo: Logo_Verizon
     },
     { 
       name: "Commonwealth Bank Australia",
-      logo: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=200&h=100&fit=crop"
+      logo: Logo_CBA
     },
     { 
       name: "Avery Dennison",
-      logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&h=100&fit=crop"
+      logo: Logo_Avery
     },
     { 
       name: "TCS",
-      logo: "https://images.unsplash.com/photo-1599658880436-c61792e70672?w=200&h=100&fit=crop"
+      logo: Logo_TCS
     },
     { 
       name: "Brillio",
-      logo: "https://images.unsplash.com/photo-1599658880436-c61792e70672?w=200&h=100&fit=crop"
+      logo: Logo_Brillio
     },
     { 
       name: "Flexellence",
-      logo: "https://images.unsplash.com/photo-1599658880436-c61792e70672?w=200&h=100&fit=crop"
+      logo: Logo_Flexcellence
+    },
+    {
+      name: "Stellantis",
+      logo: Logo_Stellantis
+    },
+    {
+      name: "Aurum",
+      logo: Logo_Aurum
     }
   ],
 
@@ -395,43 +425,37 @@ export const portfolioData: PortfolioData = {
       quote: "Ajay consistently delivers pixel-perfect designs with measurable business impact. His ability to balance user needs with technical constraints makes him invaluable for enterprise projects.",
       author: "Sarah Mitchell",
       role: "Design Lead",
-      company: "TCS Enterprise Projects",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
+      company: "TCS Enterprise Projects"
     },
     {
       quote: "Working with Ajay on the Verizon project was exceptional. He brought fresh AI-driven UX ideas that transformed our in-store experience.",
       author: "Michael Chen",
       role: "Product Manager",
-      company: "Brillio",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop"
+      company: "Brillio"
     },
     {
       quote: "Ajay's research-driven approach to UX design helped us achieve a 30% improvement in usability metrics. He's a true professional.",
       author: "Emma Thompson",
       role: "Head of Digital",
-      company: "Commonwealth Bank Australia",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop"
+      company: "Commonwealth Bank Australia"
     },
     {
       quote: "His work on our sustainability platform exceeded expectations. Ajay understands both design aesthetics and business goals.",
       author: "David Rodriguez",
       role: "VP of Innovation",
-      company: "Avery Dennison",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop"
+      company: "Avery Dennison"
     },
     {
       quote: "Ajay brings a unique blend of technical knowledge and design thinking. His Pega UX work has set new standards for our projects.",
       author: "Priya Sharma",
       role: "Senior Manager",
-      company: "TCS",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop"
+      company: "TCS"
     },
     {
       quote: "The best part about working with Ajay is his ability to translate complex requirements into intuitive designs that users love.",
       author: "James Wilson",
       role: "CTO",
-      company: "TCS Digital",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop"
+      company: "TCS Digital"
     }
   ]
 };

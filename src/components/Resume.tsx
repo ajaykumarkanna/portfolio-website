@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, Globe, Linkedin, MessageCircle, MapPin, Award, Briefcase, GraduationCap, Code, Palette, Users, TrendingUp, ExternalLink, Download, ArrowRight, Coffee, Gamepad2, Camera, Sparkles, Quote } from 'lucide-react';
 import { Badge } from './ui/badge';
@@ -19,7 +18,6 @@ import { HobbiesSection } from './resume/HobbiesSection';
 import { ClientsSection } from './resume/ClientsSection';
 import { TestimonialsSection } from './resume/TestimonialsSection';
 import { CallToAction } from './resume/CallToAction';
-import profileImage from '../assets/profile-image.png';
 
 interface ResumeProps {
   onNavigateToPortfolio: () => void;
@@ -29,45 +27,6 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
   const data = usePortfolioData();
   const { scrollToSection } = useSmoothScroll();
   const { skipToContent } = useAccessibility();
-
-  const clientsScrollRef = useRef<HTMLDivElement>(null);
-  const testimonialsScrollRef = useRef<HTMLDivElement>(null);
-
-  // Auto-scroll for clients
-  useEffect(() => {
-    const scrollContainer = clientsScrollRef.current;
-    if (!scrollContainer) return;
-
-    let scrollAmount = 0;
-    const scroll = () => {
-      scrollAmount += 1;
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
-      }
-      scrollContainer.scrollLeft = scrollAmount;
-    };
-
-    const interval = setInterval(scroll, 30);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Auto-scroll for testimonials
-  useEffect(() => {
-    const scrollContainer = testimonialsScrollRef.current;
-    if (!scrollContainer) return;
-
-    let scrollAmount = 0;
-    const scroll = () => {
-      scrollAmount += 0.5;
-      if (scrollAmount >= scrollContainer.scrollWidth / 2) {
-        scrollAmount = 0;
-      }
-      scrollContainer.scrollLeft = scrollAmount;
-    };
-
-    const interval = setInterval(scroll, 40);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleDownloadPDF = () => {
     if (data.contact.resumePDF) {

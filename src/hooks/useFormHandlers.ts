@@ -100,7 +100,7 @@ export function useFormHandlers(initialData: PortfolioData) {
       impact: "Impact statement",
       deliverables: ["Deliverable 1"],
       tags: ["Tag1"],
-      image: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=800",
+      image: "",
       category: "Category",
       problemStatement: "Problem statement"
     };
@@ -235,7 +235,7 @@ export function useFormHandlers(initialData: PortfolioData) {
   const addClient = () => {
     const newClient: Client = {
       name: "Client Name",
-      logo: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=200&h=100&fit=crop"
+      logo: ""
     };
     setData({ ...data, clients: [...data.clients, newClient] });
   };
@@ -280,8 +280,7 @@ export function useFormHandlers(initialData: PortfolioData) {
       quote: "Add testimonial quote here...",
       author: "Author Name",
       role: "Job Title",
-      company: "Company Name",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
+      company: "Company Name"
     };
     setData({ ...data, testimonials: [...data.testimonials, newTestimonial] });
   };
