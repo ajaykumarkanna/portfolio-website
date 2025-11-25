@@ -13,7 +13,13 @@ export const getAvailableAssets = (): string[] => {
     // Convert the import path to our asset path format
     const fileName = key.split('/').pop();
     if (fileName) {
-      assets.push(`/src/assets/${fileName}`);
+      // Use the actual module path for assets
+      const module = assetModules[key] as { default: string } | undefined;
+      if (module && module.default) {
+        assets.push(module.default);
+      } else {
+        assets.push(fileName);
+      }
     }
   });
   
@@ -22,26 +28,46 @@ export const getAvailableAssets = (): string[] => {
 
 // Get asset names for dropdown display (derived from file names)
 export const getAssetNames = (): string[] => {
-  const assets = getAvailableAssets();
-  return assets.map(assetPath => {
-    // Extract filename without extension
-    const fileName = assetPath.split('/').pop() || '';
-    const nameWithoutExt = fileName.split('.')[0];
-    // Convert underscores and hyphens to spaces and title case
-    return nameWithoutExt
-      .replace(/[_-]/g, ' ')
-      .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  const names: string[] = [];
+  
+  // Get names directly from the asset modules
+  Object.keys(assetModules).forEach((key) => {
+    const fileName = key.split('/').pop();
+    if (fileName) {
+      // Create the display name from the file name
+      const nameWithoutExt = fileName.split('.')[0];
+      const displayName = nameWithoutExt
+        .replace(/[_-]/g, ' ')
+        .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+      names.push(displayName);
+    }
   });
+  
+  return names;
 };
 
 // Map asset names to their paths
 export const getAssetPathMap = (): Record<string, string> => {
-  const assets = getAvailableAssets();
-  const names = getAssetNames();
   const map: Record<string, string> = {};
   
-  names.forEach((name, index) => {
-    map[name] = assets[index];
+  // Directly map from the asset modules
+  Object.keys(assetModules).forEach((key) => {
+    const fileName = key.split('/').pop();
+    if (fileName) {
+      // Create the display name from the file name
+      const nameWithoutExt = fileName.split('.')[0];
+      const displayName = nameWithoutExt
+        .replace(/[_-]/g, ' ')
+        .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+      
+      // Use the actual module path for assets
+      const module = assetModules[key] as { default: string } | undefined;
+      if (module && module.default) {
+        map[displayName] = module.default;
+      } else {
+        map[displayName] = fileName;
+      }
+    }
   });
   
   return map;
@@ -51,7 +77,7 @@ export const getAssetPathMap = (): Record<string, string> => {
 export const getAssetNameFromPath = (path: string): string => {
   const map = getAssetPathMap();
   const entry = Object.entries(map).find(([_, assetPath]) => assetPath === path);
-  return entry ? entry[0] : path; // Return path if not found
+  return entry ? entry[0] : ''; // Return empty string if not found
 };
 
 // Function to dynamically import an asset by its path
