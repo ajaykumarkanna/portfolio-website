@@ -6,9 +6,13 @@ import AdminLogin from './components/AdminLogin';
 import PrivateRoute from './components/PrivateRoute';
 import PreviewPage from './components/PreviewPage';
 import { useEffect } from 'react';
+import { getAssetReferences } from './data/portfolio-data';
 
 function AppContent() {
   const navigate = useNavigate();
+
+  // Prevent tree-shaking of assets
+  getAssetReferences();
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {

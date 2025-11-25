@@ -2,15 +2,16 @@
 // This file serves as the single source of truth for all portfolio content
 
 // Import Assets
-import Logo_Verizon from '../assets/Logo_Verizon.png';
-import Logo_CBA from '../assets/Logo_CBA.png';
-import Logo_Avery from '../assets/Logo_Avery.png';
-import Logo_TCS from '../assets/Logo_TCS.png';
-import Logo_Brillio from '../assets/Logo_Brillio.png';
-import Logo_Flexcellence from '../assets/Logo_Flexcellence.png';
-import Logo_Stellantis from '../assets/Logo_Stellantis.png';
-import Logo_Aurum from '../assets/Logo_Aurum.png';
-// import Logo_ADCircular from '../assets/Logo_ADCircular.png'; // No longer needed for profile
+// Logo assets are now referenced from the public directory to avoid tree-shaking issues
+const Logo_Verizon = '/Logo_Verizon.png';
+const Logo_CBA = '/Logo_CBA.png';
+const Logo_Avery = '/Logo_Avery.png';
+const Logo_TCS = '/Logo_TCS.png';
+const Logo_Brillio = '/Logo_Brillio.png';
+const Logo_Flexcellence = '/Logo_Flexcellence.png';
+const Logo_Stellantis = '/Logo_Stellantis.png';
+const Logo_Aurum = '/Logo_Aurum.png';
+// const Logo_ADCircular = '/Logo_ADCircular.png'; // No longer needed for profile
 import Profile_Image from '../assets/Profile_Image.png'; // New Profile Image
 
 import Thumbnail_CBA from '../assets/Thumbnail_CBA.png';
@@ -22,6 +23,18 @@ import Thumbnail_Dropout from '../assets/Thumbnail_Dropout.png';
 
 // Resume File
 import ResumePDF from '../assets/Ajay_Kumar_Resume_Oct25.pdf'; // Now a PDF
+
+// Prevent tree-shaking of assets by creating a dummy reference
+export const getAssetReferences = () => [
+  Profile_Image,
+  Thumbnail_CBA,
+  Thumbnail_ADCircular,
+  Thumbnail_Flexcellence,
+  Thumbnail_AIGovernance,
+  Thumbnail_ADAM,
+  Thumbnail_Dropout,
+  ResumePDF
+];
 
 export interface Project {
   id: number;

@@ -5,7 +5,7 @@
 
   export default defineConfig({
     base: '/',
-    assetsInclude: ['**/*.docx'],
+    assetsInclude: ['**/*.docx', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg', '**/*.webp'],
     plugins: [react()],
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
