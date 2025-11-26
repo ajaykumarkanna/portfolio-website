@@ -20,14 +20,14 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         {/* Left: Photo */}
         <div className="flex flex-col items-center lg:items-start">
           <div className="relative">
-            {/* Photo */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white w-80 h-96 lg:w-full lg:h-auto lg:aspect-[3/4] max-w-md">
+            {/* Photo - Changed to circular as per requirements */}
+            <div className="relative rounded-full overflow-hidden shadow-2xl border-4 border-white w-80 h-80 lg:w-[320px] lg:h-[320px] max-w-md mx-auto lg:mx-0">
               <ImageWithFallback
                 src={data.contact.profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
                 className="w-full h-full object-cover"
                 width="400"
-                height="500"
+                height="400"
               />
             </div>
           </div>
@@ -53,10 +53,6 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
           {/* Tags */}
           <div className="flex flex-wrap gap-3 mb-8">
             <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-200 text-slate-700">
-              <Briefcase className="w-4 h-4 text-indigo-600" />
-              <span className="text-sm font-medium">5+ Years Exp.</span>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-full border border-slate-200 text-slate-700">
               <MapPin className="w-4 h-4 text-indigo-600" />
               <span className="text-sm font-medium">{data.contact.location}</span>
             </div>
@@ -79,8 +75,8 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             </div>
             <div className="w-px h-10 bg-slate-200"></div>
             <div className="text-center lg:text-left">
-              <div className="text-3xl font-bold text-slate-900">{data.stats.clientSatisfaction}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Satisfaction</div>
+              <div className="text-3xl font-bold text-slate-900">5+</div>
+              <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Years Exp.</div>
             </div>
           </div>
 

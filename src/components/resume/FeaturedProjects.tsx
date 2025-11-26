@@ -30,7 +30,7 @@ export function FeaturedProjects({ data, onNavigateToPortfolio }: FeaturedProjec
         </Button>
       </div>
       
-      {/* Featured Projects */}
+      {/* Featured Projects - Updated layout to match reference */}
       <div className="grid md:grid-cols-3 gap-6 mb-8">
         {featuredProjects.map((project) => (
           <Card 
