@@ -13,6 +13,14 @@ interface ResumeHeroProps {
 }
 
 export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: ResumeHeroProps) {
+  // Function to scroll to a specific section
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="mb-12">
       {/* Profile section with 2-grid responsive layout - Text on left, Image on right */}
@@ -50,19 +58,28 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             </div>
           </div>
 
-          {/* Stats row - Enhanced with card-like design */}
+          {/* Stats row - Enhanced with interactive cards */}
           <div className="flex flex-wrap gap-4 mb-6 mt-2">
-            <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-shadow">
+            <div 
+              className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+              onClick={() => scrollToSection('experience')}
+            >
+              <div className="text-3xl font-bold text-indigo-600 mb-1">5+</div>
+              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Years Exp.</div>
+            </div>
+            <div 
+              className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+              onClick={() => scrollToSection('projects')}
+            >
               <div className="text-3xl font-bold text-indigo-600 mb-1">{data.stats.projectsDelivered}</div>
               <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Projects</div>
             </div>
-            <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-shadow">
+            <div 
+              className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+              onClick={() => scrollToSection('clients')}
+            >
               <div className="text-3xl font-bold text-indigo-600 mb-1">{data.stats.globalClients}</div>
               <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Global Clients</div>
-            </div>
-            <div className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-shadow">
-              <div className="text-3xl font-bold text-indigo-600 mb-1">5+</div>
-              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Years Exp.</div>
             </div>
           </div>
 
@@ -98,25 +115,21 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             </Button>
           </div>
 
-          {/* Social links row - Reverted to previous breathable, round, clean, minimal style */}
+          {/* Social links row - Interactive like header */}
           <div className="flex items-center gap-4 mt-2">
             <span className="text-sm font-medium text-slate-500 mr-2">Also find me on:</span>
-            <a href={data.contact.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 hover:bg-[#0077b5] hover:text-white flex items-center justify-center transition-all duration-300" aria-label="LinkedIn profile">
+            <a href={data.contact.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-[#0077b5] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md" aria-label="LinkedIn profile">
               <Linkedin className="w-5 h-5" />
             </a>
-            <a href={data.contact.whatsapp} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 hover:bg-[#25D366] hover:text-white flex items-center justify-center transition-all duration-300" aria-label="WhatsApp contact">
-              <MessageCircle className="w-5 h-5" />
+            <a href={`mailto:${data.contact.email}`} className="w-10 h-10 rounded-full bg-slate-100 hover:bg-gray-700 hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md" aria-label={`Email ${data.contact.name}`}>
+              <Mail className="w-5 h-5" />
             </a>
-            <a href={`tel:${data.contact.phone}`} className="w-10 h-10 rounded-full bg-slate-50 hover:bg-indigo-500 hover:text-white flex items-center justify-center transition-all duration-300" aria-label={`Call ${data.contact.name}`}>
+            <a href={`tel:${data.contact.phone}`} className="w-10 h-10 rounded-full bg-slate-100 hover:bg-indigo-500 hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md" aria-label={`Call ${data.contact.name}`}>
               <Phone className="w-5 h-5" />
             </a>
-            <button 
-              onClick={onNavigateToPortfolio}
-              className="w-10 h-10 rounded-full bg-slate-50 hover:bg-purple-500 hover:text-white flex items-center justify-center transition-all duration-300" 
-              aria-label="Portfolio website"
-            >
-              <Globe className="w-5 h-5" />
-            </button>
+            <a href={data.contact.whatsapp} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-100 hover:bg-[#25D366] hover:text-white flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-md" aria-label="WhatsApp contact">
+              <MessageCircle className="w-5 h-5" />
+            </a>
           </div>
         </div>
 
@@ -127,8 +140,8 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             <div className="absolute -top-6 -left-6 w-64 h-64 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10"></div>
             <div className="absolute -bottom-6 -right-6 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10"></div>
             
-            {/* Reduced profile image with enhanced styling */}
-            <div className="relative rounded-[30px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-[280px] h-[280px] lg:w-[280px] lg:h-[280px] max-w-md mx-auto lg:mx-0 transition-transform duration-500 hover:scale-[1.02]">
+            {/* Further reduced profile image with enhanced styling */}
+            <div className="relative rounded-[30px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-[220px] h-[220px] lg:w-[220px] lg:h-[220px] max-w-md mx-auto lg:mx-0 transition-transform duration-500 hover:scale-[1.02]">
               <ImageWithFallback
                 src={data.contact.profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
