@@ -20,8 +20,8 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         {/* Left: Photo */}
         <div className="flex flex-col items-center lg:items-start">
           <div className="relative">
-            {/* Photo - Changed to circular as per requirements */}
-            <div className="relative rounded-full overflow-hidden shadow-2xl border-4 border-white w-80 h-80 lg:w-[320px] lg:h-[320px] max-w-md mx-auto lg:mx-0">
+            {/* Photo - Increased size to better align with right content */}
+            <div className="relative rounded-full overflow-hidden shadow-2xl border-4 border-white w-96 h-96 lg:w-[380px] lg:h-[380px] max-w-md mx-auto lg:mx-0">
               <ImageWithFallback
                 src={data.contact.profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
