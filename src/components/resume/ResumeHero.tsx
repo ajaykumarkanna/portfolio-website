@@ -20,8 +20,8 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         {/* Left: Photo */}
         <div className="flex flex-col items-center lg:items-start">
           <div className="relative">
-            {/* Photo - Enhanced with rounded rectangle, shadow, and hover animation */}
-            <div className="relative rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-80 h-80 lg:w-[320px] lg:h-[320px] max-w-md mx-auto lg:mx-0 transition-transform duration-500 hover:scale-105">
+            {/* Photo - Enhanced with rounded rectangle radius, shadow, and zoom-on-hover */}
+            <div className="relative rounded-[30px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-80 h-80 lg:w-[320px] lg:h-[320px] max-w-md mx-auto lg:mx-0 transition-transform duration-500 hover:scale-[1.02]">
               <ImageWithFallback
                 src={data.contact.profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
