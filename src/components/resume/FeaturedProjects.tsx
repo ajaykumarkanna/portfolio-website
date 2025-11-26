@@ -1,8 +1,9 @@
 import React from 'react';
-import { Briefcase, ExternalLink, TrendingUp, ArrowRight, ChevronRight } from 'lucide-react';
+import { User, Calendar, TrendingUp, ExternalLink as ExternalLinkIcon, Briefcase, ArrowRight } from 'lucide-react';
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 import type { PortfolioData } from '../../data/portfolio-data';
 
 interface FeaturedProjectsProps {
@@ -30,45 +31,80 @@ export function FeaturedProjects({ data, onNavigateToPortfolio }: FeaturedProjec
         </Button>
       </div>
       
-      {/* Featured Projects - Updated layout to match reference */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+      {/* Featured Projects - Updated layout to match AdditionalProjects in portfolio page */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {featuredProjects.map((project) => (
           <Card 
             key={project.id} 
             onClick={onNavigateToPortfolio}
-            className="group p-6 flex flex-col h-full hover:shadow-xl transition-all duration-300 border-slate-100 bg-white/50 hover:bg-white cursor-pointer relative overflow-hidden"
+            className="group overflow-hidden border-slate-200 hover:shadow-xl transition-all duration-300 bg-white hover:border-indigo-200 cursor-pointer"
           >
-            <div className="absolute top-0 left-0 w-1 h-full bg-indigo-600 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-            
-            <div className="flex items-start justify-between mb-4">
-              <Badge className="bg-slate-100 text-slate-700 hover:bg-slate-200 border-none">{project.category}</Badge>
-              <div className="p-2 rounded-full bg-slate-50 group-hover:bg-indigo-50 transition-colors">
-                <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-indigo-600" />
-              </div>
+            {/* Image */}
+            <div className="relative overflow-hidden h-56">
+              <ImageWithFallback
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                lazy={true}
+                width="400"
+                height="300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              {/* External link icon overlay */}
+              {project.externalLink && (
+                <a 
+                  href={project.externalLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 hover:bg-indigo-600 flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
+                  aria-label={`View case study for ${project.title}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ExternalLinkIcon className="w-4 h-4 text-slate-700 group-hover:text-white" />
+                </a>
+              )}
             </div>
             
-            <h4 className="text-xl font-medium text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">{project.title}</h4>
-            <p className="text-sm text-slate-500 mb-4 font-medium">{project.problemStatement}</p>
-            
-            <p className="text-sm text-slate-600 mb-6 leading-relaxed line-clamp-3 flex-grow">{project.summary}</p>
-            
-            <div className="mt-auto space-y-4">
-              <div className="flex items-center gap-2 text-sm text-emerald-700">
-                <TrendingUp className="w-4 h-4 flex-shrink-0" />
-                <span className="font-medium">{project.impact}</span>
-              </div>
-              
-              <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                 <div className="flex flex-wrap gap-2">
-                  {project.tags.slice(0, 2).map((tag, tagIndex) => (
-                    <span key={tagIndex} className="text-xs text-slate-500 bg-slate-50 px-2 py-1 rounded">
-                      {tag}
-                    </span>
-                  ))}
+            {/* Content */}
+            <div className="p-6">
+              <h4 className="text-lg text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                {project.title}
+              </h4>
+              <p className="text-sm text-slate-600 mb-4">{project.company}</p>
+
+              <div className="grid grid-cols-2 gap-3 mb-4 text-xs text-slate-600">
+                <div className="flex items-center gap-2">
+                  <User className="w-3 h-3 text-indigo-600" />
+                  <span className="truncate">{project.role}</span>
                 </div>
-                <span className="text-xs font-semibold text-indigo-600 flex items-center opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0 duration-300">
-                  View Case Study <ChevronRight className="w-3 h-3 ml-1" />
-                </span>
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-3 h-3 text-indigo-600" />
+                  <span className="truncate">{project.duration}</span>
+                </div>
+              </div>
+
+              <p className="text-sm text-slate-600 mb-4 line-clamp-2 leading-relaxed">
+                {project.summary}
+              </p>
+
+              <div className="mb-4 p-3 bg-emerald-50 rounded-lg border border-emerald-100">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-3 h-3 text-emerald-600 flex-shrink-0" />
+                  <span className="text-xs text-emerald-700 line-clamp-1">{project.impact}</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5">
+                {project.tags.slice(0, 3).map((tag, index) => (
+                  <Badge key={index} variant="secondary" className="text-xs">
+                    {tag}
+                  </Badge>
+                ))}
+                {project.tags.length > 3 && (
+                  <Badge variant="secondary" className="text-xs bg-indigo-100 text-indigo-700">
+                    +{project.tags.length - 3}
+                  </Badge>
+                )}
               </div>
             </div>
           </Card>
