@@ -62,21 +62,23 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             </div>
           </div>
 
-          {/* Stats - Cleaned up */}
-          <div className="flex items-center gap-8 mb-10">
-            <div className="text-center lg:text-left">
-              <div className="text-3xl font-bold text-slate-900">{data.stats.projectsDelivered}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Projects</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div className="text-center lg:text-left">
-              <div className="text-3xl font-bold text-slate-900">{data.stats.globalClients}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Global Clients</div>
-            </div>
-            <div className="w-px h-10 bg-slate-200"></div>
-            <div className="text-center lg:text-left">
-              <div className="text-3xl font-bold text-slate-900">5+</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Years Exp.</div>
+          {/* Simplified Stats Section - Grouped into one horizontal pill-like bar */}
+          <div className="bg-[#f5f5ff] rounded-xl p-4 mb-10">
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-slate-900">{data.stats.projectsDelivered}</div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider">Projects</div>
+              </div>
+              <div className="w-px h-10 bg-slate-200"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-slate-900">{data.stats.globalClients}</div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider">Global Clients</div>
+              </div>
+              <div className="w-px h-10 bg-slate-200"></div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-slate-900">5+</div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider">Years Exp.</div>
+              </div>
             </div>
           </div>
 
