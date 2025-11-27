@@ -15,7 +15,7 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         <Code className="w-5 h-5 text-indigo-600" />
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-3 gap-6">
         {data.skills.map((skillCategory, index) => (
           <Card key={index} className={`p-5 border-${index % 2 === 0 ? 'indigo' : 'purple'}-100 bg-gradient-to-br from-${index % 2 === 0 ? 'indigo' : 'purple'}-50/50 to-white`}>
             <h4 className="text-sm text-slate-700 mb-3">{skillCategory.category}</h4>

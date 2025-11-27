@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Mail, Phone, Globe, Linkedin, MessageCircle, MapPin, Award, Briefcase, GraduationCap, Code, Palette, Users, TrendingUp, ExternalLink, Download, ArrowRight, Coffee, Gamepad2, Camera, Sparkles, Quote } from 'lucide-react';
 import { Badge } from './ui/badge';
 import { Card } from './ui/card';
@@ -18,6 +18,7 @@ import { HobbiesSection } from './resume/HobbiesSection';
 import { ClientsSection } from './resume/ClientsSection';
 import { TestimonialsSection } from './resume/TestimonialsSection';
 import { CallToAction } from './resume/CallToAction';
+// import { MainNavigation } from './MainNavigation';  // Removed as per request
 
 interface ResumeProps {
   onNavigateToPortfolio: () => void;
@@ -27,6 +28,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
   const data = usePortfolioData();
   const { scrollToSection } = useSmoothScroll();
   const { skipToContent } = useAccessibility();
+  const location = useLocation();
 
   const handleDownloadPDF = () => {
     if (data.contact.resumePDF) {
@@ -78,6 +80,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              {/* <MainNavigation currentPath={location.pathname} /> */}  {/* Removed as per request */}
               <Button 
                 variant="outline"
                 size="sm"
@@ -111,18 +114,31 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
         
         <AboutSection data={data} />
         
-        <FeaturedProjects 
-          data={data} 
-          onNavigateToPortfolio={onNavigateToPortfolio} 
-        />
+        {/* Featured Projects Section */}
+        <div id="projects">
+          <FeaturedProjects 
+            data={data} 
+            onNavigateToPortfolio={onNavigateToPortfolio} 
+          />
+        </div>
         
-        <ExperienceEducation data={data} />
+        {/* Experience & Education Section */}
+        <div id="experience">
+          <ExperienceEducation data={data} />
+        </div>
         
-        <SkillsSection data={data} />
+        {/* Skills Section */}
+        <div id="skills">
+          <SkillsSection data={data} />
+        </div>
         
+        {/* Hobbies Section */}
         <HobbiesSection data={data} />
         
-        <ClientsSection data={data} />
+        {/* Clients Section */}
+        <div id="clients">
+          <ClientsSection data={data} />
+        </div>
         
         <TestimonialsSection data={data} />
         
@@ -134,6 +150,9 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
         {/* Footer */}
         <div className="mt-12 text-center text-sm text-slate-500">
           <p>Designed & coded with attention to detail — showcasing what I do best ✨</p>
+          <p className="mt-2">
+            © {new Date().getFullYear()} kannaajaykumar.com
+          </p>
         </div>
       </div>
     </div>

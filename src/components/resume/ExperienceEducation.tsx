@@ -44,14 +44,20 @@ export function ExperienceEducation({ data }: ExperienceEducationProps) {
           <h3 className="text-xl text-slate-800">Education & Certifications</h3>
         </div>
         <div className="space-y-6">
-          <Card className="p-5 bg-gradient-to-br from-slate-50 to-white border-slate-200">
-            <h4 className="text-slate-800 mb-1">{data.education.degree}</h4>
-            <p className="text-sm text-slate-600 mb-2">{data.education.institution}, {data.education.location}</p>
-            <div className="flex items-center justify-between text-sm text-slate-500">
-              <span>{data.education.duration}</span>
-              <span>CGPA: {data.education.cgpa}</span>
+          <Card className="p-6 bg-gradient-to-br from-slate-50 to-white border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-3">
+              <div>
+                <h4 className="text-lg font-semibold text-slate-800 mb-1">{data.education.degree}</h4>
+                <p className="text-sm text-slate-600">{data.education.institution}, {data.education.location}</p>
+              </div>
+              <span className="text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full whitespace-nowrap">
+                {data.education.duration}
+              </span>
             </div>
-            <p className="text-xs text-slate-500 mt-2">Focus: {data.education.focus}</p>
+            <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-500 pt-3 border-t border-slate-100">
+              <span>CGPA: <span className="font-medium text-slate-700">{data.education.cgpa}</span></span>
+              <span className="text-xs bg-slate-100 px-2 py-1 rounded">Focus: {data.education.focus}</span>
+            </div>
           </Card>
 
           <div className="space-y-3">

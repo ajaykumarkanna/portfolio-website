@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Mail, Phone, Globe, Linkedin, MessageCircle, MapPin, Briefcase, Sparkles, Download, ArrowRight } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 // import profileImage from '../../assets/Logo_ADCircular.png'; // Removed default profile image import
 import type { PortfolioData } from '../../data/portfolio-data';
+import { useAnimatedCounter } from '../../hooks/useAnimatedCounter';
 
 interface ResumeHeroProps {
   data: PortfolioData;
@@ -21,15 +22,23 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
     }
   };
 
+  // Animated counters
+  const yearsExperienceCount = useAnimatedCounter(data.stats.yearsExperience || "5+", 1500);
+  const projectsDeliveredCount = useAnimatedCounter(data.stats.projectsDelivered, 1500);
+  const globalClientsCount = useAnimatedCounter(data.stats.globalClients, 1500);
+
+  // State for card hover animations
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
   return (
-    <div className="mb-12">
+    <div className="mb-16">
       {/* Profile section with 2-grid responsive layout - Text on left, Image on right */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
         {/* Left: Text Block (the MOST important content) */}
-        <div className="flex flex-col justify-start order-2 lg:order-1 pl-5">
+        <div className="flex flex-col justify-start">
           {/* Availability badge */}
-          <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full mb-3 w-fit">
-            <span className="w-2 h-2 bg-emerald-600 rounded-full animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-2 rounded-full mb-3 w-fit animate-pulse">
+            <span className="w-2 h-2 bg-emerald-600 rounded-full"></span>
             <span className="text-sm font-medium">Available for new opportunities</span>
           </div>
           
@@ -61,24 +70,42 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
           {/* Stats row - Enhanced with interactive cards */}
           <div className="flex flex-wrap gap-4 mb-6 mt-2">
             <div 
-              className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all cursor-pointer transform ${
+                hoveredCard === 'experience' 
+                  ? 'shadow-md -translate-y-1 scale-105' 
+                  : 'hover:shadow-md hover:-translate-y-1'
+              }`}
               onClick={() => scrollToSection('experience')}
+              onMouseEnter={() => setHoveredCard('experience')}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="text-3xl font-bold text-indigo-600 mb-1">5+</div>
+              <div className="text-3xl font-bold text-indigo-600 mb-1">{yearsExperienceCount}</div>
               <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Years Exp.</div>
             </div>
             <div 
-              className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all cursor-pointer transform ${
+                hoveredCard === 'projects' 
+                  ? 'shadow-md -translate-y-1 scale-105' 
+                  : 'hover:shadow-md hover:-translate-y-1'
+              }`}
               onClick={() => scrollToSection('projects')}
+              onMouseEnter={() => setHoveredCard('projects')}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="text-3xl font-bold text-indigo-600 mb-1">{data.stats.projectsDelivered}</div>
+              <div className="text-3xl font-bold text-indigo-600 mb-1">{projectsDeliveredCount}</div>
               <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Projects</div>
             </div>
             <div 
-              className="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex-1 min-w-[120px] text-center hover:shadow-md transition-all cursor-pointer transform hover:-translate-y-1"
+              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all cursor-pointer transform ${
+                hoveredCard === 'clients' 
+                  ? 'shadow-md -translate-y-1 scale-105' 
+                  : 'hover:shadow-md hover:-translate-y-1'
+              }`}
               onClick={() => scrollToSection('clients')}
+              onMouseEnter={() => setHoveredCard('clients')}
+              onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="text-3xl font-bold text-indigo-600 mb-1">{data.stats.globalClients}</div>
+              <div className="text-3xl font-bold text-indigo-600 mb-1">{globalClientsCount}</div>
               <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Global Clients</div>
             </div>
           </div>
@@ -87,7 +114,7 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
           <div className="flex flex-wrap gap-4 mb-10 mt-2">
             <Button 
               size="lg" 
-              className="bg-indigo-600 hover:bg-indigo-700 text-white px-8"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 font-medium"
               asChild
             >
               <a href={`mailto:${data.contact.email}`}>
@@ -97,18 +124,18 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             </Button>
             <Button 
               size="lg" 
-              variant="outline"
-              onClick={handleDownloadPDF}
-              className="border-slate-300 hover:border-indigo-600 hover:text-indigo-600 px-6"
+              className="bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 px-6 py-3 font-medium"
+              asChild
             >
-              <Download className="w-5 h-5 mr-2" />
-              Resume
+              <a href={data.contact.resumePDF} download>
+                <Download className="w-5 h-5 mr-2" />
+                Resume
+              </a>
             </Button>
             <Button 
               size="lg" 
-              variant="ghost"
+              className="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-6 py-3 font-medium"
               onClick={onNavigateToPortfolio}
-              className="text-indigo-600 hover:bg-indigo-50 px-6 group"
             >
               Portfolio
               <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
@@ -134,18 +161,18 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         </div>
 
         {/* Right: Profile Image (secondary, supporting) */}
-        <div className="flex flex-col items-center lg:items-end justify-start order-1 lg:order-2 -mt-10">
+        <div className="flex flex-col justify-start">
           <div className="relative">
             {/* Subtle light blob or pattern design behind profile image */}
-            <div className="absolute -top-6 -left-6 w-64 h-64 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10"></div>
-            <div className="absolute -bottom-6 -right-6 w-64 h-64 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10"></div>
+            <div className="absolute -top-6 -left-6 w-32 h-32 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10"></div>
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10"></div>
             
-            {/* Further reduced profile image with enhanced styling */}
-            <div className="relative rounded-[30px] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-[220px] h-[220px] lg:w-[220px] lg:h-[220px] max-w-md mx-auto lg:mx-0 transition-transform duration-500 hover:scale-[1.02]">
+            {/* Further reduced profile image with curved corners, centered both vertically and horizontally */}
+            <div className="relative rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-[80px] h-[80px] max-w-md mx-auto transition-transform duration-500 hover:scale-[1.02]">
               <ImageWithFallback
                 src={data.contact.profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
-                className="w-full h-full object-cover"
+                className="object-cover"
                 width="400"
                 height="400"
               />

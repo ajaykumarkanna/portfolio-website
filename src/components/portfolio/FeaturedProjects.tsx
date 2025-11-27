@@ -89,20 +89,8 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
                   <div className="flex items-start gap-3">
                     <TrendingUp className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-xs text-emerald-600 mb-1">Impact</div>
                       <div className="text-emerald-700">{project.impact}</div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <p className="text-xs text-slate-500 mb-3">Key Deliverables</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.deliverables.map((deliverable, index) => (
-                      <Badge key={index} variant="outline" className="text-xs border-slate-300">
-                        {deliverable}
-                      </Badge>
-                    ))}
                   </div>
                 </div>
 

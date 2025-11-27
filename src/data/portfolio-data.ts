@@ -15,7 +15,7 @@ const Logo_Aurum = '/Logo_Aurum.png';
 import Profile_Image from '../assets/Profile_Image.png'; // New Profile Image
 
 import Thumbnail_CBA from '../assets/Thumbnail_CBA.png';
-import Thumbnail_ADCircular from '../assets/Thumbnail_AD Circular.png';
+import Thumbnail_ADCircular from '../assets/Thumbnail_ADCircular.png';
 import Thumbnail_Flexcellence from '../assets/Thumbnail_Flexcellence.png';
 import Thumbnail_AIGovernance from '../assets/Thumbnail_AIGovernance.png';
 import Thumbnail_ADAM from '../assets/Thumbnail_ADAM.png';
@@ -126,6 +126,7 @@ export interface PortfolioData {
     globalClients: string;
     usabilityImprovement: string;
     clientSatisfaction: string;
+    yearsExperience?: string;
   };
   about: {
     background: string;

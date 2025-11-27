@@ -9,11 +9,14 @@ import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Alert, AlertDescription } from './ui/alert';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
 import { portfolioData, type PortfolioData, type Project, type Experience, type Skill, type Client, type Testimonial } from '../data/portfolio-data';
 import { useFormHandlers } from '../hooks/useFormHandlers';
 import { FormInput } from './forms/FormInput';
 import { FormTextarea } from './forms/FormTextarea';
 import { AssetSelector } from './forms/AssetSelector';
+// import { MainNavigation } from './MainNavigation';  // Removed as per request
 
 interface AdminPanelProps {
   onClose: () => void;
@@ -112,34 +115,31 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                 className="hidden"
                 id="import-json"
               />
+              <Label htmlFor="import-json">
+                <Button variant="outline" asChild>
+                  <span>
+                    <Upload className="w-4 h-4 mr-2" />
+                    Import
+                  </span>
+                </Button>
+              </Label>
               <Button 
-                variant="outline"
-                size="sm"
-                onClick={() => document.getElementById('import-json')?.click()}
-              >
-                <Upload className="w-4 h-4 mr-2" />
-                Import
-              </Button>
-              <Button 
-                variant="outline"
-                size="sm"
+                variant="outline" 
                 onClick={handleExportJSON}
               >
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>
               <Button 
-                variant="outline"
-                size="sm"
+                variant="outline" 
                 onClick={onPreview}
               >
                 <Eye className="w-4 h-4 mr-2" />
                 Preview
               </Button>
               <Button 
-                size="sm"
-                className="bg-indigo-600 hover:bg-indigo-700"
                 onClick={handleSaveWithFeedback}
+                className="bg-indigo-600 hover:bg-indigo-700"
                 disabled={!unsavedChanges}
               >
                 {saved ? (
@@ -296,8 +296,8 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
               <h2 className="text-2xl mb-6 text-slate-900">About & Stats</h2>
               
               <div className="mb-8">
-                <h3 className="text-lg mb-4 text-slate-800">Statistics</h3>
-                <div className="grid md:grid-cols-4 gap-4">
+                <h3 className="text-lg mb-4 text-slate-800">Key Statistics</h3>
+                <div className="grid md:grid-cols-3 gap-4">
                   <FormInput
                     id="projectsDelivered"
                     label="Projects Delivered"
@@ -311,17 +311,12 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     onChange={(value) => setData({ ...data, stats: { ...data.stats, globalClients: value }})}
                   />
                   <FormInput
-                    id="usabilityImprovement"
-                    label="Usability Improvement"
-                    value={data.stats.usabilityImprovement}
-                    onChange={(value) => setData({ ...data, stats: { ...data.stats, usabilityImprovement: value }})}
+                    id="yearsExperience"
+                    label="Years of Experience"
+                    value={data.stats.yearsExperience || ""}
+                    onChange={(value) => setData({ ...data, stats: { ...data.stats, yearsExperience: value }})}
                   />
-                  <FormInput
-                    id="clientSatisfaction"
-                    label="Client Satisfaction"
-                    value={data.stats.clientSatisfaction}
-                    onChange={(value) => setData({ ...data, stats: { ...data.stats, clientSatisfaction: value }})}
-                  />
+                  <p className="text-sm text-slate-500 mt-1">Leave empty to display as '5+' in resume</p>
                 </div>
               </div>
 
