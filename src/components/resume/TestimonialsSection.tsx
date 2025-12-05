@@ -20,6 +20,11 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
+  // Helper function to get initials
+  const getInitials = (name: string): string => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+  };
+
   // Set up auto-scroll
   useEffect(() => {
     const startAutoScroll = () => {
@@ -98,12 +103,16 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
                 <div className="flex flex-col h-full">
                   <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
                     <div className="flex items-start gap-4 mb-5">
-                      {testimonial.image && (
+                      {testimonial.image ? (
                         <img
                           src={testimonial.image}
                           alt={testimonial.author}
                           className="w-14 h-14 rounded-full object-cover flex-shrink-0"
                         />
+                      ) : (
+                        <div className="w-14 h-14 rounded-full bg-indigo-600 text-white flex items-center justify-center flex-shrink-0 text-xl font-semibold">
+                          {getInitials(testimonial.author)}
+                        </div>
                       )}
                       <div className="space-y-1">
                         <h5 className="text-slate-900 font-semibold text-base">{testimonial.author}</h5>
