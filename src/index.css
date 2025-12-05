@@ -163,7 +163,7 @@
 
     p {
       font-size: var(--text-base);
-      font-weight: var(--font-weight-normal);
+      font-weight: var(--font-weight-medium);
       line-height: 1.5;
     }
 
@@ -189,41 +189,4 @@
 
 html {
   font-size: var(--font-size);
-}
-
-/* Missing classes for profile image decoration - now handled by @import "tailwindcss", but kept just in case user had custom behavior */
-.-top-6 {
-  top: calc(var(--spacing) * -6);
-}
-
-.-left-6 {
-  left: calc(var(--spacing) * -6);
-}
-
-.w-32 {
-  width: calc(var(--spacing) * 32);
-}
-
-.h-32 {
-  height: calc(var(--spacing) * 32);
-}
-
-.blur-3xl {
-  --tw-blur: blur(48px);
-  filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
-}
-
-.opacity-50 {
-  opacity: 0.5;
-}
-
-.-z-10 {
-  z-index: -10;
-}
-
-/* Custom hover class for carousel dots */
-@media (hover: hover) {
-  .hover\:bg-slate-500:hover {
-    background-color: #64748b; /* slate-500 color */
-  }
 }

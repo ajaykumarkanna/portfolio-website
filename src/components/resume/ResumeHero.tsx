@@ -161,11 +161,14 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
         </div>
 
         {/* Right: Profile Image (secondary, supporting) */}
-        <div className="flex flex-col justify-start">
+        <div className="flex flex-col justify-center items-center relative">
           <div className="relative">
+            {/* Decorative rotating ring */}
+            <div className="absolute inset-0 m-auto w-[340px] h-[340px] border-2 border-dashed border-indigo-300 rounded-full animate-[spin_10s_linear_infinite]"></div>
+            
             {/* Subtle light blob or pattern design behind profile image */}
-            <div className="absolute -top-6 -left-6 w-32 h-32 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10"></div>
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10"></div>
+            <div className="absolute -top-6 -left-6 w-32 h-32 bg-indigo-300 rounded-full blur-2xl"></div>
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-300 rounded-full blur-2xl"></div>
             
             {/* Further reduced profile image with curved corners, centered both vertically and horizontally */}
             <div className="relative rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-80 h-80 max-w-md mx-auto transition-transform duration-500 hover:scale-[1.02]">
