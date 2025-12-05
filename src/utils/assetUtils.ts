@@ -1,41 +1,52 @@
 // Utility functions for asset management
 
+// Simple approach to avoid TypeScript issues with import.meta.glob
 // We'll manually maintain a mapping of assets since dynamic imports with subdirectories
 // can cause TypeScript issues
+
+// Helper function to create display names from file names
+const createDisplayName = (fileName: string): string => {
+  const nameWithoutExt = fileName.split('.')[0];
+  return nameWithoutExt
+    .replace(/[_-]/g, ' ')
+    .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+};
+
+// Manually maintained asset map - this will be updated when assets change
 const assetMap: Record<string, string> = {
   // Profile images
-  'Profile Image': '/src/assets/profile/Profile_Image.png',
+  'Profile Image': '../assets/profile/Profile_Image.png',
   
   // Thumbnails
-  'Thumbnail CBA': '/src/assets/thumbnails/Thumbnail_CBA.png',
-  'Thumbnail ADCircular': '/src/assets/thumbnails/Thumbnail_ADCircular.png',
-  'Thumbnail Flexcellence': '/src/assets/thumbnails/Thumbnail_Flexcellence.png',
-  'Thumbnail AIGovernance': '/src/assets/thumbnails/Thumbnail_AIGovernance.png',
-  'Thumbnail ADAM': '/src/assets/thumbnails/Thumbnail_ADAM.png',
-  'Thumbnail JohnCoffeeBeans': '/src/assets/thumbnails/Thumbnail_JohnCoffeeBeans.png',
-  'Thumbnail VR': '/src/assets/thumbnails/Thumbnail_VR.png',
+  'Thumbnail CBA': '../assets/thumbnails/Thumbnail_CBA.png',
+  'Thumbnail ADCircular': '../assets/thumbnails/Thumbnail_ADCircular.png',
+  'Thumbnail Flexcellence': '../assets/thumbnails/Thumbnail_Flexcellence.png',
+  'Thumbnail AIGovernance': '../assets/thumbnails/Thumbnail_AIGovernance.png',
+  'Thumbnail ADAM': '../assets/thumbnails/Thumbnail_ADAM.png',
+  'Thumbnail JohnCoffeeBeans': '../assets/thumbnails/Thumbnail_JohnCoffeeBeans.png',
+  'Thumbnail VR': '../assets/thumbnails/Thumbnail_VR.png',
   
   // Logos
-  'Logo Verizon': '/src/assets/logos/Logo_Verizon.png',
-  'Logo CBA': '/src/assets/logos/Logo_CBA.png',
-  'Logo Avery': '/src/assets/logos/Logo_Avery.png',
-  'Logo TCS': '/src/assets/logos/Logo_TCS.png',
-  'Logo Brillio': '/src/assets/logos/Logo_Brillio.png',
-  'Logo Flexcellence': '/src/assets/logos/Logo_Flexcellence.png',
-  'Logo Stellantis': '/src/assets/logos/Logo_Stellantis.png',
-  'Logo Aurum': '/src/assets/logos/Logo_Aurum.png',
-  'Logo ADCircular': '/src/assets/logos/Logo_ADCircular.png',
-  'Logo AdobeXD': '/src/assets/logos/Logo_AdobeXD.png',
-  'Logo Dropout': '/src/assets/logos/Logo_Dropout.png',
-  'Logo Figma': '/src/assets/logos/Logo_Figma.png',
-  'Logo Maze': '/src/assets/logos/Logo_Maze.png',
-  'Logo Outsystems': '/src/assets/logos/Logo_Outsystems.png',
-  'Logo Pega': '/src/assets/logos/Logo_Pega.png',
-  'Logo Sketch': '/src/assets/logos/Logo_Sketch.png',
+  'Logo Verizon': '../assets/logos/Logo_Verizon.png',
+  'Logo CBA': '../assets/logos/Logo_CBA.png',
+  'Logo Avery': '../assets/logos/Logo_Avery.png',
+  'Logo TCS': '../assets/logos/Logo_TCS.png',
+  'Logo Brillio': '../assets/logos/Logo_Brillio.png',
+  'Logo Flexcellence': '../assets/logos/Logo_Flexcellence.png',
+  'Logo Stellantis': '../assets/logos/Logo_Stellantis.png',
+  'Logo Aurum': '../assets/logos/Logo_Aurum.png',
+  'Logo ADCircular': '../assets/logos/Logo_ADCircular.png',
+  'Logo AdobeXD': '../assets/logos/Logo_AdobeXD.png',
+  'Logo Dropout': '../assets/logos/Logo_Dropout.png',
+  'Logo Figma': '../assets/logos/Logo_Figma.png',
+  'Logo Maze': '../assets/logos/Logo_Maze.png',
+  'Logo Outsystems': '../assets/logos/Logo_Outsystems.png',
+  'Logo Pega': '../assets/logos/Logo_Pega.png',
+  'Logo Sketch': '../assets/logos/Logo_Sketch.png',
   
   // Other assets
-  'Resume PDF': '/src/assets/Ajay_Kumar_Resume_Oct25.pdf',
-  'Favicon': '/src/assets/Favicon.svg'
+  'Resume PDF': '../assets/Ajay_Kumar_Resume_Oct25.pdf',
+  'Favicon': '../assets/Favicon.svg'
 };
 
 // Get all available assets dynamically

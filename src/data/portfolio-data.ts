@@ -2,7 +2,7 @@
 // This file serves as the single source of truth for all portfolio content
 
 // Import Assets
-// Logo assets are now referenced from the public directory to avoid tree-shaking issues
+// Logo assets are referenced from the public directory
 const Logo_Verizon = '/Logo_Verizon.png';
 const Logo_CBA = '/Logo_CBA.png';
 const Logo_Avery = '/Logo_Avery.png';

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { importAsset } from '../../utils/assetUtils'
 
 // Default error image
 const ERROR_IMG_SRC =
@@ -27,30 +26,14 @@ export function ImageWithFallback({
   ...props 
 }: ImageWithFallbackProps) {
   const [didError, setDidError] = useState(false)
-  const [processedSrc, setProcessedSrc] = useState(src)
 
   const handleError = () => {
     setDidError(true)
   }
 
-  // Process the source to handle asset paths
-  useEffect(() => {
-    const processSrc = async () => {
-      if (src.startsWith('/src/assets/')) {
-        try {
-          const importedSrc = await importAsset(src);
-          setProcessedSrc(importedSrc);
-        } catch (error) {
-          console.error('Failed to process asset:', error);
-          setProcessedSrc(src);
-        }
-      } else {
-        setProcessedSrc(src);
-      }
-    };
-
-    processSrc();
-  }, [src]);
+  // For imported assets (which are already processed by Vite), use them directly
+  // For root paths (like /Logo_Verizon.png), use them directly as they're served from public directory
+  // The component doesn't need to do any processing for these cases
 
   return didError ? (
     <div
@@ -71,7 +54,7 @@ export function ImageWithFallback({
     </div>
   ) : (
     <img 
-      src={processedSrc}
+      src={src}
       alt={alt}
       className={className}
       style={style}
