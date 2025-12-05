@@ -168,7 +168,7 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-100 rounded-full blur-3xl opacity-50 -z-10"></div>
             
             {/* Further reduced profile image with curved corners, centered both vertically and horizontally */}
-            <div className="relative rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-[80px] h-[80px] max-w-md mx-auto transition-transform duration-500 hover:scale-[1.02]">
+            <div className="relative rounded-2xl overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-4 border-white w-40 h-40 max-w-md mx-auto transition-transform duration-500 hover:scale-[1.02]">
               <ImageWithFallback
                 src={data.contact.profileImage}
                 alt={`${data.contact.name} - ${data.contact.title}`}
