@@ -42,7 +42,7 @@ export function SkillsSection({ data }: SkillsSectionProps) {
   return (
     <div className="mb-16">
       <div className="inline-flex items-center gap-2 mb-6">
-        <Code className="w-5 h-5 text-indigo-600" />
+        <Wrench className="w-5 h-5 text-indigo-600" />
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
