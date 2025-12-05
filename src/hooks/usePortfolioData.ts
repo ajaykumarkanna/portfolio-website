@@ -10,15 +10,18 @@ export function usePortfolioData() {
 
   useEffect(() => {
     const loadData = () => {
-      // Load from localStorage if available
       const stored = localStorage.getItem('portfolioData_v3');
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
           setData(parsed);
         } catch (error) {
-          console.error('Error loading portfolio data from localStorage:', error);
+          console.error('Error loading portfolio data from localStorage, resetting:', error);
+          localStorage.removeItem('portfolioData_v3'); // Clear corrupted data
+          setData(defaultData); // Explicitly set default data
         }
+      } else {
+        setData(defaultData); // Ensure defaultData is set if nothing in localStorage
       }
     };
 

@@ -23,9 +23,11 @@ export function useFormHandlers(initialData: PortfolioData) {
     const savedData = localStorage.getItem('portfolioData_v3');
     if (savedData) {
       try {
-        return JSON.parse(savedData);
+        const parsed = JSON.parse(savedData);
+        return parsed;
       } catch (e) {
-        console.error('Failed to parse saved data:', e);
+        console.error('Failed to parse saved data from localStorage, resetting to initialData:', e);
+        localStorage.removeItem('portfolioData_v3'); // Clear corrupted data
         return initialData;
       }
     }
