@@ -1,5 +1,36 @@
 // Utility functions for asset management
 
+// Import all assets to get their Vite-resolved public URLs
+import Profile_Image from '../assets/profile/Profile_Image.png';
+
+import Thumbnail_CBA from '../assets/thumbnails/Thumbnail_CBA.png';
+import Thumbnail_ADCircular from '../assets/thumbnails/Thumbnail_ADCircular.png';
+import Thumbnail_Flexcellence from '../assets/thumbnails/Thumbnail_Flexcellence.png';
+import Thumbnail_AIGovernance from '../assets/thumbnails/Thumbnail_AIGovernance.png';
+import Thumbnail_ADAM from '../assets/thumbnails/Thumbnail_ADAM.png';
+import Thumbnail_JohnCoffeeBeans from '../assets/thumbnails/Thumbnail_JohnCoffeeBeans.png';
+import Thumbnail_VR from '../assets/thumbnails/Thumbnail_VR.png';
+
+import Logo_Verizon from '../assets/logos/Logo_Verizon.png';
+import Logo_CBA from '../assets/logos/Logo_CBA.png';
+import Logo_Avery from '../assets/logos/Logo_Avery.png';
+import Logo_TCS from '../assets/logos/Logo_TCS.png';
+import Logo_Brillio from '../assets/logos/Logo_Brillio.png';
+import Logo_Flexcellence from '../assets/logos/Logo_Flexcellence.png';
+import Logo_Stellantis from '../assets/logos/Logo_Stellantis.png';
+import Logo_Aurum from '../assets/logos/Logo_Aurum.png';
+import Logo_ADCircular from '../assets/logos/Logo_ADCircular.png';
+import Logo_AdobeXD from '../assets/logos/Logo_AdobeXD.png';
+import Logo_Dropout from '../assets/logos/Logo_Dropout.png';
+import Logo_Figma from '../assets/logos/Logo_Figma.png';
+import Logo_Maze from '../assets/logos/Logo_Maze.png';
+import Logo_Outsystems from '../assets/logos/Logo_Outsystems.png';
+import Logo_Pega from '../assets/logos/Logo_Pega.png';
+import Logo_Sketch from '../assets/logos/Logo_Sketch.png';
+
+import ResumePDF from '../assets/Ajay_Kumar_Resume_Oct25.pdf';
+import FaviconAsset from '../assets/Favicon.svg'; // Renamed to avoid conflict
+
 // Simple approach to avoid TypeScript issues with import.meta.glob
 // We'll manually maintain a mapping of assets since dynamic imports with subdirectories
 // can cause TypeScript issues
@@ -15,38 +46,38 @@ const createDisplayName = (fileName: string): string => {
 // Manually maintained asset map - this will be updated when assets change
 const assetMap: Record<string, string> = {
   // Profile images
-  'Profile Image': '../assets/profile/Profile_Image.png',
+  'Profile Image': Profile_Image,
   
   // Thumbnails
-  'Thumbnail CBA': '../assets/thumbnails/Thumbnail_CBA.png',
-  'Thumbnail ADCircular': '../assets/thumbnails/Thumbnail_ADCircular.png',
-  'Thumbnail Flexcellence': '../assets/thumbnails/Thumbnail_Flexcellence.png',
-  'Thumbnail AIGovernance': '../assets/thumbnails/Thumbnail_AIGovernance.png',
-  'Thumbnail ADAM': '../assets/thumbnails/Thumbnail_ADAM.png',
-  'Thumbnail JohnCoffeeBeans': '../assets/thumbnails/Thumbnail_JohnCoffeeBeans.png',
-  'Thumbnail VR': '../assets/thumbnails/Thumbnail_VR.png',
+  'Thumbnail CBA': Thumbnail_CBA,
+  'Thumbnail ADCircular': Thumbnail_ADCircular,
+  'Thumbnail Flexcellence': Thumbnail_Flexcellence,
+  'Thumbnail AIGovernance': Thumbnail_AIGovernance,
+  'Thumbnail ADAM': Thumbnail_ADAM,
+  'Thumbnail JohnCoffeeBeans': Thumbnail_JohnCoffeeBeans,
+  'Thumbnail VR': Thumbnail_VR,
   
   // Logos
-  'Logo Verizon': '../assets/logos/Logo_Verizon.png',
-  'Logo CBA': '../assets/logos/Logo_CBA.png',
-  'Logo Avery': '../assets/logos/Logo_Avery.png',
-  'Logo TCS': '../assets/logos/Logo_TCS.png',
-  'Logo Brillio': '../assets/logos/Logo_Brillio.png',
-  'Logo Flexcellence': '../assets/logos/Logo_Flexcellence.png',
-  'Logo Stellantis': '../assets/logos/Logo_Stellantis.png',
-  'Logo Aurum': '../assets/logos/Logo_Aurum.png',
-  'Logo ADCircular': '../assets/logos/Logo_ADCircular.png',
-  'Logo AdobeXD': '../assets/logos/Logo_AdobeXD.png',
-  'Logo Dropout': '../assets/logos/Logo_Dropout.png',
-  'Logo Figma': '../assets/logos/Logo_Figma.png',
-  'Logo Maze': '../assets/logos/Logo_Maze.png',
-  'Logo Outsystems': '../assets/logos/Logo_Outsystems.png',
-  'Logo Pega': '../assets/logos/Logo_Pega.png',
-  'Logo Sketch': '../assets/logos/Logo_Sketch.png',
+  'Logo Verizon': Logo_Verizon,
+  'Logo CBA': Logo_CBA,
+  'Logo Avery': Logo_Avery,
+  'Logo TCS': Logo_TCS,
+  'Logo Brillio': Logo_Brillio,
+  'Logo Flexcellence': Logo_Flexcellence,
+  'Logo Stellantis': Logo_Stellantis,
+  'Logo Aurum': Logo_Aurum,
+  'Logo ADCircular': Logo_ADCircular,
+  'Logo AdobeXD': Logo_AdobeXD,
+  'Logo Dropout': Logo_Dropout,
+  'Logo Figma': Logo_Figma,
+  'Logo Maze': Logo_Maze,
+  'Logo Outsystems': Logo_Outsystems,
+  'Logo Pega': Logo_Pega,
+  'Logo Sketch': Logo_Sketch,
   
   // Other assets
-  'Resume PDF': '../assets/Ajay_Kumar_Resume_Oct25.pdf',
-  'Favicon': '../assets/Favicon.svg'
+  'Resume PDF': ResumePDF,
+  'Favicon': FaviconAsset
 };
 
 // Get all available assets dynamically
