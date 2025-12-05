@@ -110,7 +110,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
                           className="w-14 h-14 rounded-full object-cover flex-shrink-0"
                         />
                       ) : (
-                        <div className="w-14 h-14 rounded-full bg-indigo-600 text-white flex items-center justify-center flex-shrink-0 text-xl font-semibold">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 text-slate-700 flex items-center justify-center flex-shrink-0 text-xl font-semibold border border-indigo-200">
                           {getInitials(testimonial.author)}
                         </div>
                       )}
