@@ -9,16 +9,30 @@ export function usePortfolioData() {
   const [data, setData] = useState<PortfolioData>(defaultData);
 
   useEffect(() => {
-    // Load from localStorage if available
-    const stored = localStorage.getItem('portfolioData_v3');
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setData(parsed);
-      } catch (error) {
-        console.error('Error loading portfolio data from localStorage:', error);
+    const loadData = () => {
+      // Load from localStorage if available
+      const stored = localStorage.getItem('portfolioData_v3');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          setData(parsed);
+        } catch (error) {
+          console.error('Error loading portfolio data from localStorage:', error);
+        }
       }
-    }
+    };
+
+    // Initial load
+    loadData();
+
+    // Listen for changes
+    window.addEventListener('storage', loadData);
+    window.addEventListener('portfolio-data-update', loadData);
+
+    return () => {
+      window.removeEventListener('storage', loadData);
+      window.removeEventListener('portfolio-data-update', loadData);
+    };
   }, []);
 
   return data;

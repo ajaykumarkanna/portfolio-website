@@ -36,6 +36,7 @@ export function useFormHandlers(initialData: PortfolioData) {
   // Save data to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('portfolioData_v3', JSON.stringify(data));
+    window.dispatchEvent(new Event('portfolio-data-update'));
   }, [data]);
 
   const handleSave = () => {
