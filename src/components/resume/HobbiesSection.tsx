@@ -14,6 +14,8 @@ export function HobbiesSection({ data }: HobbiesSectionProps) {
         <Sparkles className="w-5 h-5 text-indigo-600" />
         <h3 className="text-xl text-slate-800">Beyond Design</h3>
       </div>
+      
+      {/* Hobbies List */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {data.hobbies.map((hobby, index) => {
           const iconMap: { [key: string]: any } = {

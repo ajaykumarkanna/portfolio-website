@@ -1,6 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Briefcase } from 'lucide-react';
 import { Card } from '../ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi
+} from '../ui/carousel';
 import type { PortfolioData } from '../../data/portfolio-data';
 
 interface ClientsSectionProps {
@@ -8,35 +14,63 @@ interface ClientsSectionProps {
 }
 
 export function ClientsSection({ data }: ClientsSectionProps) {
-  const clientsScrollRef = useRef<HTMLDivElement>(null);
+  const carouselApiRef = useRef<CarouselApi | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const animationRef = useRef<number>(0);
-  const scrollPosition = useRef(0);
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
-  // Auto-scroll for clients with smooth pause on hover
+  // Set up auto-scroll
   useEffect(() => {
-    const scrollContainer = clientsScrollRef.current;
-    if (!scrollContainer) return;
-
-    const scroll = () => {
-      if (!isHovered) {
-        scrollPosition.current += 0.5;
-        if (scrollPosition.current >= scrollContainer.scrollWidth / 2) {
-          scrollPosition.current = 0;
-        }
-        scrollContainer.scrollLeft = scrollPosition.current;
+    const startAutoScroll = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
-      animationRef.current = requestAnimationFrame(scroll);
+
+      intervalRef.current = setInterval(() => {
+        if (carouselApiRef.current && !isHovered) {
+          carouselApiRef.current.scrollNext();
+        }
+      }, 3000);
     };
 
-    animationRef.current = requestAnimationFrame(scroll);
-    
+    if (carouselApiRef.current) {
+      startAutoScroll();
+    }
+
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
     };
   }, [isHovered]);
+
+  // Track carousel position
+  useEffect(() => {
+    if (!carouselApiRef.current) return;
+
+    setCount(carouselApiRef.current.scrollSnapList().length);
+    setCurrent(carouselApiRef.current.selectedScrollSnap());
+
+    carouselApiRef.current.on('select', () => {
+      if (carouselApiRef.current) {
+        setCurrent(carouselApiRef.current.selectedScrollSnap());
+      }
+    });
+  }, [carouselApiRef.current]);
+
+  // Pause autoplay on hover
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const scrollTo = (index: number) => {
+    carouselApiRef.current?.scrollTo(index);
+  };
 
   return (
     <div className="mb-16">
@@ -44,25 +78,50 @@ export function ClientsSection({ data }: ClientsSectionProps) {
         <Briefcase className="w-5 h-5 text-indigo-600" />
         <h3 className="text-xl text-slate-800">Trusted by Leading Organizations</h3>
       </div>
-      <Card className="p-8 bg-gradient-to-r from-slate-50 to-indigo-50/30 border-slate-200 overflow-hidden">
-        <div 
-          ref={clientsScrollRef}
-          className="flex gap-12 overflow-x-hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+      <Card
+        className="p-8 bg-gradient-to-r from-slate-50 to-indigo-50/30 border-slate-200 relative"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+            slidesToScroll: 1,
+          }}
+          setApi={(api) => (carouselApiRef.current = api)}
+          className="w-full"
         >
-          {/* Duplicate clients for seamless loop */}
-          {[...data.clients, ...data.clients].map((client, index) => (
-            <div key={index} className="flex-shrink-0 flex flex-col items-center justify-center gap-3 min-w-[200px]">
-              <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow h-24 flex items-center justify-center w-full">
-                <img 
-                  src={client.logo} 
-                  alt={client.name} 
-                  className="max-h-16 max-w-full object-contain grayscale hover:grayscale-0 transition-all"
-                />
-              </div>
-              <p className="text-sm text-slate-600 text-center">{client.name}</p>
-            </div>
+          <CarouselContent className="-ml-4">
+            {data.clients.map((client, index) => (
+              <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
+                <div className="flex flex-col items-center justify-center gap-3 min-w-[200px]">
+                  <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow h-24 flex items-center justify-center w-full">
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="max-h-16 max-w-full object-contain grayscale hover:grayscale-0 transition-all"
+                    />
+                  </div>
+                  <p className="text-sm text-slate-600 text-center">{client.name}</p>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        {/* Carousel Dots Navigation */}
+        <div className="flex justify-center gap-2 mt-6">
+          {Array.from({ length: count }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => scrollTo(index)}
+              className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${index === current
+                  ? 'w-8 bg-indigo-600'
+                  : 'w-2 bg-slate-300 hover:bg-slate-500'
+                }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
           ))}
         </div>
       </Card>

@@ -16,15 +16,15 @@ export function PortfolioCTA({ onNavigateToResume }: PortfolioCTAProps) {
           Let's discuss how I can help bring your product vision to life with user-centered design.
         </p>
         <div className="flex flex-wrap gap-4 justify-center">
-          <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/30" onClick={onNavigateToResume} aria-label="Back to resume">
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Resume
-          </Button>
-          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20" asChild aria-label="Contact via email">
+          <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/30" asChild aria-label="Contact via email">
             <a href="mailto:ajaykumar.jai1111@gmail.com">
               <Mail className="w-5 h-5 mr-2" />
               Get in Touch
             </a>
+          </Button>
+          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20" onClick={onNavigateToResume} aria-label="Back to resume">
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back to Resume
           </Button>
         </div>
       </Card>

@@ -70,43 +70,43 @@ export function ResumeHero({ data, onNavigateToPortfolio, handleDownloadPDF }: R
           {/* Stats row - Enhanced with interactive cards */}
           <div className="flex flex-wrap gap-4 mb-6 mt-2">
             <div 
-              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all cursor-pointer transform ${
+              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all duration-300 cursor-pointer transform ${
                 hoveredCard === 'experience' 
-                  ? 'shadow-md -translate-y-1 scale-105' 
-                  : 'hover:shadow-md hover:-translate-y-1'
+                  ? 'shadow-md -translate-y-1 scale-105 bg-indigo-50 border-indigo-100' 
+                  : 'hover:shadow-md hover:-translate-y-1 hover:bg-slate-100'
               }`}
               onClick={() => scrollToSection('experience')}
               onMouseEnter={() => setHoveredCard('experience')}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="text-3xl font-bold text-indigo-600 mb-1">{yearsExperienceCount}</div>
-              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Years Exp.</div>
+              <div className="text-3xl font-bold text-indigo-600 mb-1 transition-colors duration-300">{yearsExperienceCount}</div>
+              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium transition-colors duration-300">Years Exp.</div>
             </div>
             <div 
-              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all cursor-pointer transform ${
+              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all duration-300 cursor-pointer transform ${
                 hoveredCard === 'projects' 
-                  ? 'shadow-md -translate-y-1 scale-105' 
-                  : 'hover:shadow-md hover:-translate-y-1'
+                  ? 'shadow-md -translate-y-1 scale-105 bg-indigo-50 border-indigo-100' 
+                  : 'hover:shadow-md hover:-translate-y-1 hover:bg-slate-100'
               }`}
               onClick={() => scrollToSection('projects')}
               onMouseEnter={() => setHoveredCard('projects')}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="text-3xl font-bold text-indigo-600 mb-1">{projectsDeliveredCount}</div>
-              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Projects</div>
+              <div className="text-3xl font-bold text-indigo-600 mb-1 transition-colors duration-300">{projectsDeliveredCount}+</div>
+              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium transition-colors duration-300">Projects</div>
             </div>
             <div 
-              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all cursor-pointer transform ${
+              className={`bg-slate-50 rounded-xl p-5 border border-slate-100 shadow-sm flex-1 min-w-[120px] text-center transition-all duration-300 cursor-pointer transform ${
                 hoveredCard === 'clients' 
-                  ? 'shadow-md -translate-y-1 scale-105' 
-                  : 'hover:shadow-md hover:-translate-y-1'
+                  ? 'shadow-md -translate-y-1 scale-105 bg-indigo-50 border-indigo-100' 
+                  : 'hover:shadow-md hover:-translate-y-1 hover:bg-slate-100'
               }`}
               onClick={() => scrollToSection('clients')}
               onMouseEnter={() => setHoveredCard('clients')}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <div className="text-3xl font-bold text-indigo-600 mb-1">{globalClientsCount}</div>
-              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">Global Clients</div>
+              <div className="text-3xl font-bold text-indigo-600 mb-1 transition-colors duration-300">{globalClientsCount}</div>
+              <div className="text-sm text-slate-500 uppercase tracking-wider font-medium transition-colors duration-300">Global Clients</div>
             </div>
           </div>
 

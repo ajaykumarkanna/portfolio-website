@@ -162,7 +162,7 @@ export const portfolioData: PortfolioData = {
 
   stats: {
     projectsDelivered: "30+",
-    globalClients: "4",
+    globalClients: "4+",
     usabilityImprovement: "40%",
     clientSatisfaction: "100%"
   },

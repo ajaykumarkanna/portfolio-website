@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-// import { MainNavigation } from './MainNavigation';  // Removed as per request
+import { useNavigate } from 'react-router-dom';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Card } from './ui/card';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -31,44 +33,43 @@ export default function AdminLogin() {
             <h1 className="text-xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               Admin Portal
             </h1>
-            {/* <MainNavigation currentPath="/admin-login" /> */}  {/* Removed as per request */}
           </div>
         </div>
       </header>
 
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 80px)' }}>
-        <div style={{ padding: '2rem', border: '1px solid #ddd', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', backgroundColor: 'white' }}>
-          <h2 style={{ marginBottom: '1rem' }}>Admin Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '1rem' }}>
-              <input
+      <div className="flex justify-center items-center h-[calc(100vh-80px)] p-4">
+        <Card className="p-8 w-full max-w-md border-slate-200 shadow-md bg-white">
+          <h2 className="text-2xl font-bold mb-6 text-slate-900">Admin Login</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <Input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                style={{ padding: '10px', width: '300px', display: 'block', borderRadius: '4px', border: '1px solid #ccc' }}
                 required
+                className="w-full"
               />
             </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <input
+            <div>
+              <Input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={{ padding: '10px', width: '300px', display: 'block', borderRadius: '4px', border: '1px solid #ccc' }}
                 required
+                className="w-full"
               />
             </div>
-            <button 
+            <Button 
               type="submit"
-              style={{ padding: '10px 20px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
             >
               Login
-            </button>
+            </Button>
           </form>
-          {error && <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>}
-        </div>
+          {error && <p className="text-red-600 mt-4 text-sm text-center">{error}</p>}
+        </Card>
       </div>
     </div>
   );
