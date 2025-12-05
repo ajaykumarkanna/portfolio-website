@@ -62,12 +62,16 @@ export function useFormHandlers(initialData: PortfolioData) {
         try {
           const imported = JSON.parse(e.target?.result as string);
           setData(imported);
+          alert('Portfolio data imported successfully!');
         } catch (error) {
           console.error('Error importing data:', error);
+          alert('Error importing data: Invalid JSON format.');
         }
       };
       reader.readAsText(file);
     }
+    // Reset the input value to allow selecting the same file again
+    event.target.value = '';
   };
 
   // Validation helpers
