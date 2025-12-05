@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { 
+import {
   Save, Plus, Trash2, Upload, Download, Eye, Settings, User, Briefcase, GraduationCap, Code, Users, MessageSquare, Building2, ArrowLeft, Edit2, Check, X, Image as ImageIcon,
-  AlertCircle, CheckCircle, Info
-} from 'lucide-react';
-import { Card } from './ui/card';
+  AlertCircle, CheckCircle, Info, Gamepad2
+} from 'lucide-react';import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
