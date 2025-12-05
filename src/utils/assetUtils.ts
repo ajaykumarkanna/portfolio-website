@@ -1,104 +1,67 @@
 // Utility functions for asset management
 
-// Dynamically import all assets from the assets directory
-// This will be handled by Vite's import.meta.glob
-const assetModules = import.meta.glob('../assets/*.{png,jpg,jpeg,gif,svg,webp}', { eager: true });
+// We'll manually maintain a mapping of assets since dynamic imports with subdirectories
+// can cause TypeScript issues
+const assetMap: Record<string, string> = {
+  // Profile images
+  'Profile Image': '/src/assets/profile/Profile_Image.png',
+  
+  // Thumbnails
+  'Thumbnail CBA': '/src/assets/thumbnails/Thumbnail_CBA.png',
+  'Thumbnail ADCircular': '/src/assets/thumbnails/Thumbnail_ADCircular.png',
+  'Thumbnail Flexcellence': '/src/assets/thumbnails/Thumbnail_Flexcellence.png',
+  'Thumbnail AIGovernance': '/src/assets/thumbnails/Thumbnail_AIGovernance.png',
+  'Thumbnail ADAM': '/src/assets/thumbnails/Thumbnail_ADAM.png',
+  'Thumbnail JohnCoffeeBeans': '/src/assets/thumbnails/Thumbnail_JohnCoffeeBeans.png',
+  'Thumbnail VR': '/src/assets/thumbnails/Thumbnail_VR.png',
+  
+  // Logos
+  'Logo Verizon': '/src/assets/logos/Logo_Verizon.png',
+  'Logo CBA': '/src/assets/logos/Logo_CBA.png',
+  'Logo Avery': '/src/assets/logos/Logo_Avery.png',
+  'Logo TCS': '/src/assets/logos/Logo_TCS.png',
+  'Logo Brillio': '/src/assets/logos/Logo_Brillio.png',
+  'Logo Flexcellence': '/src/assets/logos/Logo_Flexcellence.png',
+  'Logo Stellantis': '/src/assets/logos/Logo_Stellantis.png',
+  'Logo Aurum': '/src/assets/logos/Logo_Aurum.png',
+  'Logo ADCircular': '/src/assets/logos/Logo_ADCircular.png',
+  'Logo AdobeXD': '/src/assets/logos/Logo_AdobeXD.png',
+  'Logo Dropout': '/src/assets/logos/Logo_Dropout.png',
+  'Logo Figma': '/src/assets/logos/Logo_Figma.png',
+  'Logo Maze': '/src/assets/logos/Logo_Maze.png',
+  'Logo Outsystems': '/src/assets/logos/Logo_Outsystems.png',
+  'Logo Pega': '/src/assets/logos/Logo_Pega.png',
+  'Logo Sketch': '/src/assets/logos/Logo_Sketch.png',
+  
+  // Other assets
+  'Resume PDF': '/src/assets/Ajay_Kumar_Resume_Oct25.pdf',
+  'Favicon': '/src/assets/Favicon.svg'
+};
 
 // Get all available assets dynamically
 export const getAvailableAssets = (): string[] => {
-  const assets: string[] = [];
-  
-  // Convert the glob import results to asset paths
-  Object.keys(assetModules).forEach((key) => {
-    // Convert the import path to our asset path format
-    const fileName = key.split('/').pop();
-    if (fileName) {
-      // Use the actual module path for assets
-      const module = assetModules[key] as { default: string } | undefined;
-      if (module && module.default) {
-        assets.push(module.default);
-      } else {
-        assets.push(fileName);
-      }
-    }
-  });
-  
-  return assets;
+  return Object.values(assetMap);
 };
 
 // Get asset names for dropdown display (derived from file names)
 export const getAssetNames = (): string[] => {
-  const names: string[] = [];
-  
-  // Get names directly from the asset modules
-  Object.keys(assetModules).forEach((key) => {
-    const fileName = key.split('/').pop();
-    if (fileName) {
-      // Create the display name from the file name
-      const nameWithoutExt = fileName.split('.')[0];
-      const displayName = nameWithoutExt
-        .replace(/[_-]/g, ' ')
-        .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-      names.push(displayName);
-    }
-  });
-  
-  return names;
+  return Object.keys(assetMap);
 };
 
 // Map asset names to their paths
 export const getAssetPathMap = (): Record<string, string> => {
-  const map: Record<string, string> = {};
-  
-  // Directly map from the asset modules
-  Object.keys(assetModules).forEach((key) => {
-    const fileName = key.split('/').pop();
-    if (fileName) {
-      // Create the display name from the file name
-      const nameWithoutExt = fileName.split('.')[0];
-      const displayName = nameWithoutExt
-        .replace(/[_-]/g, ' ')
-        .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-      
-      // Use the actual module path for assets
-      const module = assetModules[key] as { default: string } | undefined;
-      if (module && module.default) {
-        map[displayName] = module.default;
-      } else {
-        map[displayName] = fileName;
-      }
-    }
-  });
-  
-  return map;
+  return assetMap;
 };
 
 // Get asset name from path
 export const getAssetNameFromPath = (path: string): string => {
-  const map = getAssetPathMap();
-  const entry = Object.entries(map).find(([_, assetPath]) => assetPath === path);
+  const entry = Object.entries(assetMap).find(([_, assetPath]) => assetPath === path);
   return entry ? entry[0] : ''; // Return empty string if not found
 };
 
 // Function to dynamically import an asset by its path
 export const importAsset = async (assetPath: string): Promise<string> => {
-  try {
-    const fileName = assetPath.split('/').pop();
-    if (!fileName) {
-      return assetPath;
-    }
-    
-    // Look up the asset in the eager-loaded modules
-    const moduleKey = `../assets/${fileName}`;
-    const module = assetModules[moduleKey] as { default: string } | undefined;
-    
-    if (module && module.default) {
-      return module.default;
-    }
-    
-    return assetPath;
-  } catch (error) {
-    console.error(`Failed to resolve asset: ${assetPath}`, error);
-    return assetPath;
-  }
+  // In this implementation, we're returning the path directly since we're using
+  // Vite's asset handling which resolves paths at build time
+  return assetPath;
 };

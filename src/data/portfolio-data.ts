@@ -12,14 +12,14 @@ const Logo_Flexcellence = '/Logo_Flexcellence.png';
 const Logo_Stellantis = '/Logo_Stellantis.png';
 const Logo_Aurum = '/Logo_Aurum.png';
 // const Logo_ADCircular = '/Logo_ADCircular.png'; // No longer needed for profile
-import Profile_Image from '../assets/Profile_Image.png'; // New Profile Image
+import Profile_Image from '../assets/profile/Profile_Image.png'; // New Profile Image
 
-import Thumbnail_CBA from '../assets/Thumbnail_CBA.png';
-import Thumbnail_ADCircular from '../assets/Thumbnail_ADCircular.png';
-import Thumbnail_Flexcellence from '../assets/Thumbnail_Flexcellence.png';
-import Thumbnail_AIGovernance from '../assets/Thumbnail_AIGovernance.png';
-import Thumbnail_ADAM from '../assets/Thumbnail_ADAM.png';
-import Thumbnail_Dropout from '../assets/Thumbnail_Dropout.png';
+import Thumbnail_CBA from '../assets/thumbnails/Thumbnail_CBA.png';
+import Thumbnail_ADCircular from '../assets/thumbnails/Thumbnail_ADCircular.png';
+import Thumbnail_Flexcellence from '../assets/thumbnails/Thumbnail_Flexcellence.png';
+import Thumbnail_AIGovernance from '../assets/thumbnails/Thumbnail_AIGovernance.png';
+import Thumbnail_ADAM from '../assets/thumbnails/Thumbnail_ADAM.png';
+import Thumbnail_JohnCoffeeBeans from '../assets/thumbnails/Thumbnail_JohnCoffeeBeans.png';
 
 // Resume File
 import ResumePDF from '../assets/Ajay_Kumar_Resume_Oct25.pdf'; // Now a PDF
@@ -32,7 +32,7 @@ export const getAssetReferences = () => [
   Thumbnail_Flexcellence,
   Thumbnail_AIGovernance,
   Thumbnail_ADAM,
-  Thumbnail_Dropout,
+  Thumbnail_JohnCoffeeBeans,
   ResumePDF
 ];
 
@@ -265,7 +265,7 @@ export const portfolioData: PortfolioData = {
       impact: "Identified key UX challenges and opportunities",
       deliverables: ["VR Prototyping", "User Testing", "Interaction Design", "Research Report"],
       tags: ["VR", "Metaverse", "Retail", "Emerging Tech"],
-      image: Thumbnail_Dropout,
+      image: Thumbnail_JohnCoffeeBeans,
       category: "Emerging Tech",
       problemStatement: "Prototyping the future of retail.",
       externalLink: "https://example.com/vr-case-study"
