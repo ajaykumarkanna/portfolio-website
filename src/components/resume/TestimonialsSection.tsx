@@ -122,7 +122,7 @@ export function TestimonialsSection({ data }: TestimonialsSectionProps) {
                     </div>
                     <Quote className="w-6 h-6 text-indigo-200 mb-6 mt-6 flex-shrink-0" />
                     <div className="flex-grow">
-                      <p className="text-sm text-slate-600 leading-relaxed mb-2 text-italic">
+                      <p className="text-sm text-slate-600 leading-relaxed mb-2" style={{ fontStyle: 'italic' }}>
                         {testimonial.quote}
                       </p>
                     </div>

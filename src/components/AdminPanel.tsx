@@ -173,7 +173,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8">
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8 sticky top-[68px] z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
             <TabsTrigger value="contact" className="flex items-center gap-2">
               <User className="w-4 h-4" />
               <span className="hidden sm:inline">Contact</span>
@@ -205,6 +205,10 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
             <TabsTrigger value="testimonials" className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4" />
               <span className="hidden sm:inline">Testimonials</span>
+            </TabsTrigger>
+            <TabsTrigger value="hobbies" className="flex items-center gap-2">
+              <Gamepad2 className="w-4 h-4" />
+              <span className="hidden sm:inline">Hobbies</span>
             </TabsTrigger>
           </TabsList>
 
@@ -693,7 +697,6 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
             </div>
           </TabsContent>
 
-          {/* Testimonials Tab */}
           <TabsContent value="testimonials">
             <div className="space-y-6">
               <div className="flex items-center justify-between">
@@ -761,6 +764,57 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                         onChange={(value) => updateTestimonial(index, { image: value })}
                         error={errors[`testimonial-${index}`]?.image}
                         assetType="profile"
+                      />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+          {/* Hobbies Tab */}
+          <TabsContent value="hobbies">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-2xl text-slate-900">Hobbies</h2>
+                <Button onClick={addHobby} className="bg-indigo-600 hover:bg-indigo-700">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Hobby
+                </Button>
+              </div>
+
+              {data.hobbies.map((hobby, index) => (
+                <Card key={index} className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="text-sm text-slate-500">Hobby #{index + 1}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => deleteHobby(index)}
+                    >
+                      <Trash2 className="w-4 h-4 text-red-600" />
+                    </Button>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <FormInput
+                      id={`hobby-icon-${index}`}
+                      label="Icon Name (e.g., Camera, Sparkles)"
+                      value={hobby.icon}
+                      onChange={(value) => updateHobby(index, { icon: value })}
+                    />
+                    <FormInput
+                      id={`hobby-title-${index}`}
+                      label="Title"
+                      value={hobby.title}
+                      onChange={(value) => updateHobby(index, { title: value })}
+                    />
+                    <div className="md:col-span-2">
+                      <FormTextarea
+                        id={`hobby-description-${index}`}
+                        label="Description"
+                        value={hobby.description}
+                        onChange={(value) => updateHobby(index, { description: value })}
+                        rows={3}
                       />
                     </div>
                   </div>

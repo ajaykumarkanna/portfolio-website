@@ -326,6 +326,25 @@ export function useFormHandlers(initialData: PortfolioData) {
     }
   };
 
+  // Hobby handlers
+  const addHobby = () => {
+    const newHobby: Hobby = {
+      icon: "Sparkles", // Default icon
+      title: "New Hobby",
+      description: "Description of new hobby"
+    };
+    setData({ ...data, hobbies: [...data.hobbies, newHobby] });
+  };
+
+  const deleteHobby = (index: number) => {
+    setData({ ...data, hobbies: data.hobbies.filter((_, i) => i !== index) });
+  };
+
+  const updateHobby = (index: number, updates: Partial<Hobby>) => {
+    const updatedHobbies = data.hobbies.map((hobby, i) => i === index ? { ...hobby, ...updates } : hobby);
+    setData({ ...data, hobbies: updatedHobbies });
+  };
+
   // File upload handler
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>, callback: (url: string) => void) => {
     const file = event.target.files?.[0];
@@ -366,6 +385,10 @@ export function useFormHandlers(initialData: PortfolioData) {
     addTestimonial,
     deleteTestimonial,
     updateTestimonial,
+    // Hobby handlers
+    addHobby,
+    deleteHobby,
+    updateHobby,
     // File upload handler
     handleFileUpload
   };

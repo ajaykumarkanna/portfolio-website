@@ -24,7 +24,7 @@ export function ExperienceEducation({ data }: ExperienceEducationProps) {
             {data.experience.map((exp, index) => (
               <div key={exp.id} className="relative">
                 {/* Timeline dot - centered vertically to card */}
-                <div className={`absolute left-0 top-6 w-4 h-4 rounded-full border-4 transform -translate-x-1/2 -translate-y-1/2 ${
+                <div className={`absolute left-0 top-1/2 w-4 h-4 rounded-full border-4 transform -translate-x-1/2 -translate-y-1/2 ${
                   exp.current ? 'bg-indigo-600 border-indigo-200' : 'bg-white border-slate-300'
                 }`}></div>
                 
