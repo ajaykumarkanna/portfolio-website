@@ -2,15 +2,14 @@
 // This file serves as the single source of truth for all portfolio content
 
 // Import Assets
-// Logo assets are referenced from the public directory
-const Logo_Verizon = '/Logo_Verizon.png';
-const Logo_CBA = '/Logo_CBA.png';
-const Logo_Avery = '/Logo_Avery.png';
-const Logo_TCS = '/Logo_TCS.png';
-const Logo_Brillio = '/Logo_Brillio.png';
-const Logo_Flexcellence = '/Logo_Flexcellence.png';
-const Logo_Stellantis = '/Logo_Stellantis.png';
-const Logo_Aurum = '/Logo_Aurum.png';
+import Logo_Verizon from '../assets/logos/Logo_Verizon.png';
+import Logo_CBA from '../assets/logos/Logo_CBA.png';
+import Logo_Avery from '../assets/logos/Logo_Avery.png';
+import Logo_TCS from '../assets/logos/Logo_TCS.png';
+import Logo_Brillio from '../assets/logos/Logo_Brillio.png';
+import Logo_Flexcellence from '../assets/logos/Logo_Flexcellence.png';
+import Logo_Stellantis from '../assets/logos/Logo_Stellantis.png';
+import Logo_Aurum from '../assets/logos/Logo_Aurum.png';
 // const Logo_ADCircular = '/Logo_ADCircular.png'; // No longer needed for profile
 import Profile_Image from '../assets/profile/Profile_Image.png'; // New Profile Image
 
@@ -33,7 +32,15 @@ export const getAssetReferences = () => [
   Thumbnail_AIGovernance,
   Thumbnail_ADAM,
   Thumbnail_JohnCoffeeBeans,
-  ResumePDF
+  ResumePDF,
+  Logo_Verizon,
+  Logo_CBA,
+  Logo_Avery,
+  Logo_TCS,
+  Logo_Brillio,
+  Logo_Flexcellence,
+  Logo_Stellantis,
+  Logo_Aurum
 ];
 
 export interface Project {
