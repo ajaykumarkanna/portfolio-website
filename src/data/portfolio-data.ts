@@ -2,23 +2,24 @@
 // This file serves as the single source of truth for all portfolio content
 
 // Import Assets
-import Logo_Verizon from '../assets/logos/Logo_Verizon.png';
-import Logo_CBA from '../assets/logos/Logo_CBA.png';
-import Logo_Avery from '../assets/logos/Logo_Avery.png';
-import Logo_TCS from '../assets/logos/Logo_TCS.png';
-import Logo_Brillio from '../assets/logos/Logo_Brillio.png';
-import Logo_Flexcellence from '../assets/logos/Logo_Flexcellence.png';
-import Logo_Stellantis from '../assets/logos/Logo_Stellantis.png';
-import Logo_Aurum from '../assets/logos/Logo_Aurum.png';
-// const Logo_ADCircular = '/Logo_ADCircular.png'; // No longer needed for profile
-import Profile_Image from '../assets/profile/Profile_Image.png'; // New Profile Image
+import Profile_Image from '../assets/Profile_Image.png'; // New Profile Image
 
-import Thumbnail_CBA from '../assets/thumbnails/Thumbnail_CBA.png';
-import Thumbnail_ADCircular from '../assets/thumbnails/Thumbnail_ADCircular.png';
-import Thumbnail_Flexcellence from '../assets/thumbnails/Thumbnail_Flexcellence.png';
-import Thumbnail_AIGovernance from '../assets/thumbnails/Thumbnail_AIGovernance.png';
-import Thumbnail_ADAM from '../assets/thumbnails/Thumbnail_ADAM.png';
-import Thumbnail_JohnCoffeeBeans from '../assets/thumbnails/Thumbnail_JohnCoffeeBeans.png';
+import Thumbnail_CBA from '../assets/Thumbnail_CBA.png';
+import Thumbnail_ADCircular from '../assets/Thumbnail_ADCircular.png';
+import Thumbnail_Flexcellence from '../assets/Thumbnail_Flexcellence.png';
+import Thumbnail_AIGovernance from '../assets/Thumbnail_AIGovernance.png';
+import Thumbnail_ADAM from '../assets/Thumbnail_ADAM.png';
+import Thumbnail_JohnCoffeeBeans from '../assets/Thumbnail_JohnCoffeeBeans.png';
+
+// Import Logo Assets
+import Logo_Verizon from '../assets/Logo_Verizon.png';
+import Logo_CBA from '../assets/Logo_CBA.png';
+import Logo_Avery from '../assets/Logo_Avery.png';
+import Logo_TCS from '../assets/Logo_TCS.png';
+import Logo_Brillio from '../assets/Logo_Brillio.png';
+import Logo_Flexcellence from '../assets/Logo_Flexcellence.png';
+import Logo_Stellantis from '../assets/Logo_Stellantis.png';
+import Logo_Aurum from '../assets/Logo_Aurum.png';
 
 // Resume File
 import ResumePDF from '../assets/Ajay_Kumar_Resume_Oct25.pdf'; // Now a PDF
