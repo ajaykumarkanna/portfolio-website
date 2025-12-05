@@ -45,6 +45,9 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
     addTestimonial,
     deleteTestimonial,
     updateTestimonial,
+    addHobby,
+    deleteHobby,
+    updateHobby,
     handleFileUpload
   } = useFormHandlers(portfolioData);
   
