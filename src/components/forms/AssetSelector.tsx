@@ -7,6 +7,7 @@ interface AssetSelectorProps {
   onChange: (value: string) => void;
   placeholder?: string;
   error?: string;
+  assetType?: 'thumbnail' | 'logo' | 'profile' | 'pdf' | 'favicon'; // Add asset type filter
 }
 
 export function AssetSelector({
@@ -15,7 +16,8 @@ export function AssetSelector({
   value,
   onChange,
   placeholder = 'Select an asset',
-  error
+  error,
+  assetType // New prop for filtering assets
 }: AssetSelectorProps) {
   const [assetNames, setAssetNames] = useState<string[]>([]);
   const [selectedAsset, setSelectedAsset] = useState('');
@@ -29,8 +31,29 @@ export function AssetSelector({
     try {
       // Dynamically import asset utilities when needed
       const { getAssetNames, getAssetPathMap, getAssetNameFromPath } = await import('../../utils/assetUtils');
-      const names = getAssetNames();
+      let names = getAssetNames();
       const pathMap = getAssetPathMap();
+      
+      // Filter assets based on assetType prop
+      if (assetType) {
+        names = names.filter(name => {
+          switch (assetType) {
+            case 'thumbnail':
+              return name.toLowerCase().includes('thumbnail');
+            case 'logo':
+              return name.toLowerCase().includes('logo');
+            case 'profile':
+              return name.toLowerCase().includes('profile');
+            case 'pdf':
+              return name.toLowerCase().includes('pdf') || name.toLowerCase().includes('resume');
+            case 'favicon':
+              return name.toLowerCase().includes('favicon');
+            default:
+              return true;
+          }
+        });
+      }
+      
       setAssetNames(names);
       
       // Find the asset name that matches the current value

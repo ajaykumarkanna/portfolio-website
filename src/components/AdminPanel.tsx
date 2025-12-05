@@ -276,6 +276,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     label="Profile Image"
                     value={data.contact.profileImage}
                     onChange={(value) => setData({ ...data, contact: { ...data.contact, profileImage: value }})}
+                    assetType="profile"
                   />
                 </div>
                 <div className="md:col-span-2">
@@ -284,6 +285,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     label="Resume PDF"
                     value={data.contact.resumePDF}
                     onChange={(value) => setData({ ...data, contact: { ...data.contact, resumePDF: value }})}
+                    assetType="pdf"
                   />
                 </div>
               </div>
@@ -439,6 +441,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                         value={project.image}
                         onChange={(value) => updateProject(project.id, { image: value })}
                         error={errors[`project-${project.id}`]?.image}
+                        assetType="thumbnail"
                       />
                     </div>
                     <FormInput
@@ -681,6 +684,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                         value={client.logo}
                         onChange={(value) => updateClient(index, { logo: value })}
                         error={errors[`client-${index}`]?.logo}
+                        assetType="logo"
                       />
                     </div>
                   </div>
@@ -756,6 +760,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                         value={testimonial.image || ''}
                         onChange={(value) => updateTestimonial(index, { image: value })}
                         error={errors[`testimonial-${index}`]?.image}
+                        assetType="profile"
                       />
                     </div>
                   </div>
