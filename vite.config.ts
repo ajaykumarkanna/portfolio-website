@@ -4,7 +4,7 @@
   import path from 'path';
 
   export default defineConfig({
-    base: '/portfolio-website/',
+    base: '/',
     assetsInclude: ['**/*.docx', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg', '**/*.webp'],
     plugins: [react(), tailwindcss()],
     resolve: {
