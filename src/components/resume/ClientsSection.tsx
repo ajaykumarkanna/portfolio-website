@@ -94,8 +94,8 @@ export function ClientsSection({ data }: ClientsSectionProps) {
         >
           <CarouselContent className="-ml-4">
             {data.clients.map((client, index) => (
-              <CarouselItem key={index} className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4">
-                <div className="flex flex-col items-center justify-center gap-3 min-w-[200px]">
+              <CarouselItem key={index} className="pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5">
+                <div className="flex flex-col items-center justify-center gap-3 w-full">
                   <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow h-24 flex items-center justify-center w-full">
                     <img
                       src={client.logo}
