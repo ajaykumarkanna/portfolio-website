@@ -89,7 +89,7 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
                 aria-label="Download resume as PDF"
               >
                 <Download className="w-4 h-4 mr-2" />
-                PDF
+                RESUME
               </Button>
               <Button 
                 size="sm"
