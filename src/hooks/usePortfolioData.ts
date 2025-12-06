@@ -14,6 +14,10 @@ export function usePortfolioData() {
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
+          // Ensure skills is always an array, even if localStorage provides malformed data
+          if (!Array.isArray(parsed.skills)) {
+            parsed.skills = [];
+          }
           setData(parsed);
         } catch (error) {
           console.error('Error loading portfolio data from localStorage, resetting:', error);
