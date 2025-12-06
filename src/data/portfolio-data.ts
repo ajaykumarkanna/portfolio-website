@@ -91,6 +91,7 @@ export interface Activity {
 
 export interface Skill {
   category: string;
+  icon: string; // Added icon property
   items: string[];
 }
 

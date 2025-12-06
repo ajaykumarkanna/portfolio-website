@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, User, Monitor, Wrench } from 'lucide-react';
+import * as LucideIcons from 'lucide-react'; // Import all Lucide icons
 import { Card } from '../ui/card';
 import { Badge } from '../ui/badge';
 import type { PortfolioData } from '../../data/portfolio-data';
@@ -9,6 +9,12 @@ interface SkillsSectionProps {
 }
 
 export function SkillsSection({ data }: SkillsSectionProps) {
+  // Helper function to dynamically get the Lucide icon component
+  const getLucideIcon = (iconName: string): React.ElementType => {
+    const IconComponent = LucideIcons[iconName as keyof typeof LucideIcons];
+    return IconComponent || LucideIcons.Code; // Fallback to Code icon
+  };
+
   // Get class names for each category
   const getCategoryClasses = (category: string) => {
     switch (category) {
@@ -16,25 +22,21 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         return {
           cardBg: "bg-gradient-to-br from-indigo-50/50 to-white border-indigo-100",
           iconBg: "bg-indigo-100 text-indigo-600",
-          icon: <User className="w-4 h-4" />
         };
       case "UI & Prototyping":
         return {
           cardBg: "bg-gradient-to-br from-purple-50/50 to-white border-purple-100",
           iconBg: "bg-purple-100 text-purple-600",
-          icon: <Monitor className="w-4 h-4" />
         };
       case "Tools":
         return {
           cardBg: "bg-gradient-to-br from-blue-50/50 to-white border-blue-100",
           iconBg: "bg-blue-100 text-blue-600",
-          icon: <Wrench className="w-4 h-4" />
         };
       default:
         return {
           cardBg: "bg-gradient-to-br from-indigo-50/50 to-white border-indigo-100",
           iconBg: "bg-indigo-100 text-indigo-600",
-          icon: <Code className="w-4 h-4" />
         };
     }
   };
@@ -42,12 +44,13 @@ export function SkillsSection({ data }: SkillsSectionProps) {
   return (
     <div className="mb-16">
       <div className="inline-flex items-center gap-2 mb-6">
-        <Wrench className="w-5 h-5 text-indigo-600" />
+        <LucideIcons.Wrench className="w-5 h-5 text-indigo-600" /> {/* Changed to LucideIcons.Wrench */}
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
         {data.skills.map((skillCategory, index) => {
           const classes = getCategoryClasses(skillCategory.category);
+          const Icon = getLucideIcon(skillCategory.icon.trim()); // Dynamic icon lookup
           
           return (
             <Card 
@@ -56,7 +59,7 @@ export function SkillsSection({ data }: SkillsSectionProps) {
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className={`p-1.5 rounded-md ${classes.iconBg}`}>
-                  {classes.icon}
+                  <Icon className="w-4 h-4" /> {/* Render dynamic icon */}
                 </div>
                 <h4 className="text-sm font-medium text-slate-700">{skillCategory.category}</h4>
               </div>

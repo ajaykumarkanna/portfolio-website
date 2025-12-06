@@ -199,6 +199,7 @@ export function useFormHandlers(initialData: PortfolioData) {
   const addSkill = () => {
     const newSkill: Skill = {
       category: "New Category",
+      icon: "Code", // Default icon for skills
       items: ["Skill 1", "Skill 2"]
     };
     setData({ ...data, skills: [...data.skills, newSkill] });
