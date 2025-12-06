@@ -50,7 +50,7 @@ export function SkillsSection({ data }: SkillsSectionProps) {
       <div className="grid md:grid-cols-3 gap-6">
         {data.skills.map((skillCategory, index) => {
           const classes = getCategoryClasses(skillCategory.category);
-          const Icon = getLucideIcon(skillCategory.icon.trim()); // Dynamic icon lookup
+          const Icon = getLucideIcon((skillCategory.icon || '').trim()); // Dynamic icon lookup
           
           return (
             <Card 

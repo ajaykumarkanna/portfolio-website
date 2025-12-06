@@ -26,7 +26,7 @@ export function HobbiesSection({ data }: HobbiesSectionProps) {
       {/* Hobbies List */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {data.hobbies.map((hobby, index) => {
-          const Icon = getLucideIcon(hobby.icon.trim()); // Trim icon name for robustness
+          const Icon = getLucideIcon((hobby.icon || '').trim()); // Trim icon name for robustness
           return (
             <Card key={index} className="p-4 bg-white border-slate-200 hover:border-indigo-200 transition-colors">
               <Icon className="w-6 h-6 text-indigo-600 mb-2" />
