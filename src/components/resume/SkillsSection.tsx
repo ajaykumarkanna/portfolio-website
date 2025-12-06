@@ -48,36 +48,40 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
-        { (data.skills || []).reduce((acc: React.ReactNode[], skillCategory, index) => {
-          if (!skillCategory) { // Explicitly ensure skillCategory is not null/undefined
-            return acc;
-          }
-          const categoryName = (skillCategory.category || '').trim();
-          const Icon = getLucideIcon((skillCategory.icon || '').trim());
-          const classes = getCategoryClasses(categoryName);
-          
-          acc.push(
-            <Card
-              key={index}
-              className={`p-5 ${classes.cardBg}`}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <div className={`p-1.5 rounded-md ${classes.iconBg}`}>
-                  <Icon className="w-4 h-4" />
+        { (data.skills && Array.isArray(data.skills) && data.skills.length > 0) ? (
+          (data.skills || []).map((skillCategory, index) => {
+            if (!skillCategory) { // Check before accessing properties
+              console.warn(`SkillsSection: skillCategory at index ${index} is null or undefined. Skipping.`);
+              return null;
+            }
+            const categoryName = (skillCategory.category || '').trim();
+            const Icon = getLucideIcon((skillCategory.icon || '').trim());
+            const classes = getCategoryClasses(categoryName);
+            
+            return (
+              <Card
+                key={index}
+                className={`p-5 ${classes.cardBg}`}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div className={`p-1.5 rounded-md ${classes.iconBg}`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-sm font-medium text-slate-700">{categoryName || 'Unknown Category'}</h4>
                 </div>
-                <h4 className="text-sm font-medium text-slate-700">{categoryName || 'Unknown Category'}</h4>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {(skillCategory.items || []).map((skill, skillIndex) => (
-                  <Badge key={skillIndex} variant="secondary" className="text-xs bg-white border border-slate-200">
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </Card>
-          );
-          return acc;
-        }, [])}
+                <div className="flex flex-wrap gap-2">
+                  {(skillCategory.items || []).map((skill, skillIndex) => (
+                    <Badge key={skillIndex} variant="secondary" className="text-xs bg-white border border-slate-200">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </Card>
+            );
+          })
+        ) : (
+          <p className="text-slate-500 col-span-full">No skills data available. Please add skills in the admin panel.</p>
+        )}
       </div>
     </div>
   );
