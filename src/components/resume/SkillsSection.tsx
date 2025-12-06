@@ -42,11 +42,22 @@ export function SkillsSection({ data }: SkillsSectionProps) {
   };
 
   return (
+  return (
     <div className="mb-16">
+      {/* TEMPORARY DEBUGGING START */}
+      <div style={{ padding: '10px', backgroundColor: '#ffe0b2', border: '1px solid #ff9800', marginBottom: '15px' }}>
+        <p style={{ fontWeight: 'bold' }}>DEBUG: Skills Data Status</p>
+        {data.skills === undefined && <p>data.skills is UNDEFINED</p>}
+        {data.skills === null && <p>data.skills is NULL</p>}
+        {data.skills && !Array.isArray(data.skills) && <p>data.skills is NOT AN ARRAY. Type: {typeof data.skills}</p>}
+        {data.skills && Array.isArray(data.skills) && data.skills.length === 0 && <p>data.skills is an EMPTY ARRAY.</p>}
+        {data.skills && Array.isArray(data.skills) && data.skills.length > 0 && <p>data.skills is an ARRAY with {data.skills.length} items.</p>}
+      </div>
       <div className="inline-flex items-center gap-2 mb-6">
         <LucideIcons.Wrench className="w-5 h-5 text-indigo-600" /> {/* Changed to LucideIcons.Wrench */}
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
+      {/* TEMPORARY DEBUGGING END */}
       <div className="grid md:grid-cols-3 gap-6">
         { (data.skills && Array.isArray(data.skills) && data.skills.length > 0) ? (
           (data.skills || []).map((skillCategory, index) => {
