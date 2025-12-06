@@ -48,9 +48,10 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
-        {data.skills.filter(skillCategory => skillCategory).map((skillCategory, index) => { // Filter out undefined/null skillCategories
-          const classes = getCategoryClasses(skillCategory.category);
-          const Icon = getLucideIcon((skillCategory.icon || '').trim()); // Dynamic icon lookup
+        { (data.skills || []).filter(skillCategory => skillCategory).map((skillCategory, index) => {
+          const categoryName = (skillCategory.category || '').trim();
+          const Icon = getLucideIcon((skillCategory.icon || '').trim());
+          const classes = getCategoryClasses(categoryName);
           
           return (
             <Card 
@@ -61,10 +62,10 @@ export function SkillsSection({ data }: SkillsSectionProps) {
                 <div className={`p-1.5 rounded-md ${classes.iconBg}`}>
                   <Icon className="w-4 h-4" /> {/* Render dynamic icon */}
                 </div>
-                <h4 className="text-sm font-medium text-slate-700">{skillCategory.category}</h4>
+                <h4 className="text-sm font-medium text-slate-700">{categoryName || 'Unknown Category'}</h4>
               </div>
               <div className="flex flex-wrap gap-2">
-                {skillCategory.items.map((skill, skillIndex) => (
+                {(skillCategory.items || []).map((skill, skillIndex) => (
                   <Badge key={skillIndex} variant="secondary" className="text-xs bg-white border border-slate-200">
                     {skill}
                   </Badge>
