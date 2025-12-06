@@ -48,7 +48,7 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
-        {data.skills.map((skillCategory, index) => {
+        {data.skills.filter(skillCategory => skillCategory).map((skillCategory, index) => { // Filter out undefined/null skillCategories
           const classes = getCategoryClasses(skillCategory.category);
           const Icon = getLucideIcon((skillCategory.icon || '').trim()); // Dynamic icon lookup
           
