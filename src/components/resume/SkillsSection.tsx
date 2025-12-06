@@ -22,42 +22,35 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         return {
           cardBg: "bg-gradient-to-br from-indigo-50/50 to-white border-indigo-100",
           iconBg: "bg-indigo-100 text-indigo-600",
+          icon: "User"
         };
       case "UI & Prototyping":
         return {
           cardBg: "bg-gradient-to-br from-purple-50/50 to-white border-purple-100",
           iconBg: "bg-purple-100 text-purple-600",
+          icon: "PenTool"
         };
       case "Tools":
         return {
           cardBg: "bg-gradient-to-br from-blue-50/50 to-white border-blue-100",
           iconBg: "bg-blue-100 text-blue-600",
+          icon: "Wrench"
         };
       default:
         return {
           cardBg: "bg-gradient-to-br from-indigo-50/50 to-white border-indigo-100",
           iconBg: "bg-indigo-100 text-indigo-600",
+          icon: "Code"
         };
     }
   };
 
   return (
-  return (
     <div className="mb-16">
-      {/* TEMPORARY DEBUGGING START */}
-      <div style={{ padding: '10px', backgroundColor: '#ffe0b2', border: '1px solid #ff9800', marginBottom: '15px' }}>
-        <p style={{ fontWeight: 'bold' }}>DEBUG: Skills Data Status</p>
-        {data.skills === undefined && <p>data.skills is UNDEFINED</p>}
-        {data.skills === null && <p>data.skills is NULL</p>}
-        {data.skills && !Array.isArray(data.skills) && <p>data.skills is NOT AN ARRAY. Type: {typeof data.skills}</p>}
-        {data.skills && Array.isArray(data.skills) && data.skills.length === 0 && <p>data.skills is an EMPTY ARRAY.</p>}
-        {data.skills && Array.isArray(data.skills) && data.skills.length > 0 && <p>data.skills is an ARRAY with {data.skills.length} items.</p>}
-      </div>
       <div className="inline-flex items-center gap-2 mb-6">
-        <LucideIcons.Wrench className="w-5 h-5 text-indigo-600" /> {/* Changed to LucideIcons.Wrench */}
+        <LucideIcons.Wrench className="w-5 h-5 text-indigo-600" />
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
-      {/* TEMPORARY DEBUGGING END */}
       <div className="grid md:grid-cols-3 gap-6">
         { (data.skills && Array.isArray(data.skills) && data.skills.length > 0) ? (
           (data.skills || []).map((skillCategory, index) => {
@@ -66,16 +59,16 @@ export function SkillsSection({ data }: SkillsSectionProps) {
               return null;
             }
             const categoryName = (skillCategory.category || '').trim();
-            const Icon = getLucideIcon((skillCategory.icon || '').trim());
-            const classes = getCategoryClasses(categoryName);
+            const categoryConfig = getCategoryClasses(categoryName);
+            const Icon = getLucideIcon(categoryConfig.icon);
             
             return (
               <Card
                 key={index}
-                className={`p-5 ${classes.cardBg}`}
+                className={`p-5 ${categoryConfig.cardBg}`}
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <div className={`p-1.5 rounded-md ${classes.iconBg}`}>
+                  <div className={`p-1.5 rounded-md ${categoryConfig.iconBg}`}>
                     <Icon className="w-4 h-4" />
                   </div>
                   <h4 className="text-sm font-medium text-slate-700">{categoryName || 'Unknown Category'}</h4>

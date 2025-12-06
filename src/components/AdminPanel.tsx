@@ -630,7 +630,7 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     <FormInput
                       id={`skill-category-${index}`}
                       label="Category Name"
-                      value={skillCategory.category}
+                      value={skill.category}
                       onChange={(value) => updateSkill(index, { category: value })}
                       placeholder="e.g., Design Tools"
                       error={errors[`skill-${index}`]?.category}
@@ -638,14 +638,14 @@ export default function AdminPanel({ onClose, onPreview }: AdminPanelProps) {
                     <FormInput
                       id={`skill-icon-${index}`}
                       label="Icon Name (e.g., Code, User)"
-                      value={skillCategory.icon || ''}
+                      value={skill.icon || ''}
                       onChange={(value) => updateSkill(index, { icon: value })}
                       placeholder="e.g., Code"
                     />
                     <FormTextarea
                       id={`skill-items-${index}`}
                       label="Skills (comma-separated)"
-                      value={skillCategory.items.join(', ')}
+                      value={skill.items.join(', ')}
                       onChange={(value) => updateSkill(index, { items: value.split(',').map(s => s.trim()).filter(s => s) })}
                       placeholder="e.g., Figma, Adobe XD, Sketch"
                       rows={3}
