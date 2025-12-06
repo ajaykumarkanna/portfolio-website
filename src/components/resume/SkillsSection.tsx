@@ -48,19 +48,22 @@ export function SkillsSection({ data }: SkillsSectionProps) {
         <h3 className="text-xl text-slate-800">Skills & Tools</h3>
       </div>
       <div className="grid md:grid-cols-3 gap-6">
-        { (data.skills || []).filter(skillCategory => skillCategory).map((skillCategory, index) => {
+        { (data.skills || []).reduce((acc: React.ReactNode[], skillCategory, index) => {
+          if (!skillCategory) { // Explicitly ensure skillCategory is not null/undefined
+            return acc;
+          }
           const categoryName = (skillCategory.category || '').trim();
           const Icon = getLucideIcon((skillCategory.icon || '').trim());
           const classes = getCategoryClasses(categoryName);
           
-          return (
-            <Card 
-              key={index} 
+          acc.push(
+            <Card
+              key={index}
               className={`p-5 ${classes.cardBg}`}
             >
               <div className="flex items-center gap-2 mb-3">
                 <div className={`p-1.5 rounded-md ${classes.iconBg}`}>
-                  <Icon className="w-4 h-4" /> {/* Render dynamic icon */}
+                  <Icon className="w-4 h-4" />
                 </div>
                 <h4 className="text-sm font-medium text-slate-700">{categoryName || 'Unknown Category'}</h4>
               </div>
@@ -73,7 +76,8 @@ export function SkillsSection({ data }: SkillsSectionProps) {
               </div>
             </Card>
           );
-        })}
+          return acc;
+        }, [])}
       </div>
     </div>
   );
