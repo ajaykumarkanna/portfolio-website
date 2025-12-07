@@ -17,21 +17,28 @@ import {
   validateTestimonial,
   ValidationErrors
 } from '../utils/validation';
+import savedData from '../data/saved-data.json';
 
 export function useFormHandlers(initialData: PortfolioData) {
   const [data, setData] = useState<PortfolioData>(() => {
-    // Try to load data from localStorage first
-    const savedData = localStorage.getItem('portfolioData_v3');
-    if (savedData) {
+    // 1. Try to load data from localStorage first
+    const savedLocal = localStorage.getItem('portfolioData_v3');
+    if (savedLocal) {
       try {
-        const parsed = JSON.parse(savedData);
+        const parsed = JSON.parse(savedLocal);
         return parsed;
       } catch (e) {
-        console.error('Failed to parse saved data from localStorage, resetting to initialData:', e);
-        localStorage.removeItem('portfolioData_v3'); // Clear corrupted data
-        return initialData;
+        console.error('Failed to parse saved data from localStorage:', e);
+        localStorage.removeItem('portfolioData_v3');
       }
     }
+    
+    // 2. Try to load data from server file (saved-data.json)
+    if (Object.keys(savedData).length > 0) {
+      return savedData as unknown as PortfolioData;
+    }
+
+    // 3. Fallback to initialData
     return initialData;
   });
   const [errors, setErrors] = useState<Record<string, ValidationErrors>>({});
@@ -44,9 +51,29 @@ export function useFormHandlers(initialData: PortfolioData) {
     window.dispatchEvent(event);
   }, [data]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Data is already saved to localStorage via useEffect
-    console.log('Portfolio data saved:', data);
+    console.log('Portfolio data saved to localStorage:', data);
+
+    // Attempt to save to local server
+    try {
+      const response = await fetch('http://localhost:3001/api/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        console.log('Portfolio data saved to server!');
+        // alert('Data saved to server successfully!'); // Optional: notify user
+      } else {
+        console.warn('Failed to save to server:', response.statusText);
+      }
+    } catch (error) {
+      console.warn('Server unreachable. Data saved to localStorage only.', error);
+    }
   };
 
   const handleExportJSON = () => {

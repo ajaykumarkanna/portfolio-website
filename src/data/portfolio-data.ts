@@ -10,6 +10,8 @@ import Thumbnail_Flexcellence from '../assets/thumbnails/Thumbnail_Flexcellence.
 import Thumbnail_AIGovernance from '../assets/thumbnails/Thumbnail_AIGovernance.png';
 import Thumbnail_ADAM from '../assets/thumbnails/Thumbnail_ADAM.png';
 import Thumbnail_JohnCoffeeBeans from '../assets/thumbnails/Thumbnail_JohnCoffeeBeans.png';
+import Thumbnail_VR from '../assets/thumbnails/Thumbnail_VR.png';
+
 
 // Import Logo Assets
 import Logo_Verizon from '../assets/logos/Logo_Verizon.png';
@@ -20,6 +22,18 @@ import Logo_Brillio from '../assets/logos/Logo_Brillio.png';
 import Logo_Flexcellence from '../assets/logos/Logo_Flexcellence.png';
 import Logo_Stellantis from '../assets/logos/Logo_Stellantis.png';
 import Logo_Aurum from '../assets/logos/Logo_Aurum.png';
+
+// Import profile Assets
+import Anurag from '../assets/profile/Anurag.jpg';
+import AshokKumarNaga from '../assets/profile/Ashok kumar naga.jpg';
+import KarabiBaruah from '../assets/profile/Karabi baruah.jpg';
+import MeenakshiDixit from '../assets/profile/Meenakshi Dixit.jpg';
+import NikeshMangavani from '../assets/profile/Nikesh Mangavani.jpg';
+import PurviGandhi from '../assets/profile/Purvi Gandhi.jpg';
+import RamyaPrakesh from '../assets/profile/Ramya Prakesh.jpg';
+import Senthil from '../assets/profile/Senthil.jpg';
+import VikashMediboina from '../assets/profile/Vikash Mediboina.jpg';
+import YasaswiniDesu from '../assets/profile/Yasaswini desu.jpg';
 
 // Resume File
 import ResumePDF from '../assets/Ajay_Kumar_Resume_Oct25.pdf'; // Now a PDF
@@ -33,7 +47,10 @@ export const getAssetReferences = () => [
   Thumbnail_AIGovernance,
   Thumbnail_ADAM,
   Thumbnail_JohnCoffeeBeans,
+  Thumbnail_VR,
+  
   ResumePDF,
+
   Logo_Verizon,
   Logo_CBA,
   Logo_Avery,
@@ -41,7 +58,17 @@ export const getAssetReferences = () => [
   Logo_Brillio,
   Logo_Flexcellence,
   Logo_Stellantis,
-  Logo_Aurum
+  Logo_Aurum,
+  
+  AshokKumarNaga,
+  KarabiBaruah,
+  MeenakshiDixit,
+  NikeshMangavani,
+  PurviGandhi,
+  RamyaPrakesh,
+  Senthil,
+  VikashMediboina,
+  YasaswiniDesu
 ];
 
 export interface Project {
@@ -163,7 +190,7 @@ export const portfolioData: PortfolioData = {
     phone: "+91 9629619859",
     email: "ajaykumar.jai1111@gmail.com",
     portfolio: "https://kannaajaykumar.com",
-    linkedin: "https://linkedin.com/in/kannaajaykumar",
+    linkedin: "https://linkedin.com/in/kanna-ajay-kumar",
     whatsapp: "https://wa.me/919629619859",
     profileImage: Profile_Image,
     resumePDF: ResumePDF
@@ -171,9 +198,10 @@ export const portfolioData: PortfolioData = {
 
   stats: {
     projectsDelivered: "30+",
-    globalClients: "4+",
-    usabilityImprovement: "40%",
-    clientSatisfaction: "100%"
+    globalClients: "8",
+    usabilityImprovement: "100%",
+    clientSatisfaction: "100%",
+    yearsExperience: "5"
   },
 
   about: {
@@ -186,95 +214,189 @@ export const portfolioData: PortfolioData = {
     {
       id: 1,
       featured: true,
-      title: "Verizon AI-Powered In-Store Ordering",
+      title: "ADAM Control Tower – AI Agent Monitoring & Governance Platform",
       company: "Brillio",
-      duration: "Jun 2025 – Present",
-      role: "Lead UI/UX Consultant",
-      summary: "Complete redesign of Verizon's in-store iPad ordering application, integrating AI-driven features to streamline the purchase journey for both customers and sales representatives.",
-      impact: "Improved ordering speed, reduced friction points, and increased user satisfaction scores",
-      deliverables: ["User Research", "AI-Driven Prototypes", "Design System Integration", "Usability Testing"],
-      tags: ["AI/UX", "Enterprise", "Tablet Design", "Retail"],
-      image: Thumbnail_ADAM, // Using ADAM as placeholder for Verizon
+      duration: "5 months",
+      role: "UI/UX Designer",
+      summary: "Designed an enterprise-level AI governance and monitoring dashboard that provides unified visibility across all AI agents within an organization.",
+      impact: "Faster anomaly detection for AI Ops teams, Higher agent reliability through human evaluation workflows, Scalable design system supporting 50+ AI agents",
+      deliverables: [
+        "UX Research",
+        "Dashboard Wireframes",
+        "Design System",
+        "High-Fidelity UI",
+        "Data Visualization Design"],
+      tags: [
+        "Enterprise Dashboard",
+        "AI Monitoring",
+        "Data Visualization"
+      ],
+      image: Thumbnail_ADAM,
       category: "Enterprise UX",
       problemStatement: "Streamlining a complex in-store ordering process.",
-      externalLink: "https://example.com/verizon-case-study"
+      externalLink: "https://famous-periodical-d0a.notion.site/ADAM-Control-Tower-UX-Case-Study-2b6eb739e83c80d18133fc7a3057b9b9?pvs=73"
     },
     {
       id: 2,
       featured: true,
-      title: "CBA Pega Constellation Migration",
-      company: "Tata Consultancy Services",
-      duration: "Nov 2020 – Jun 2025",
-      role: "UI/UX Designer",
-      summary: "Led the migration of Commonwealth Bank Australia's legacy applications to modern Pega Constellation framework, redesigning complex banking workflows with improved usability patterns.",
-      impact: "30% improvement in usability metrics, reduced training time for bank staff",
-      deliverables: ["UX Audit", "Information Architecture", "Component Library", "Interaction Patterns", "User Testing"],
-      tags: ["Enterprise", "Banking", "Migration", "Design System"],
-      image: Thumbnail_CBA,
+      title: "AD Circular – Responsive Recycling Website",
+      company: "Avery Dennison (via TCS)",
+      duration: "9 months",
+      role: "Sole UI/UX Designer",
+      summary: "Designed a fully responsive recycling website for Avery Dennison to promote paper circularity and increase transparency in their sustainability initiatives. The goal was to provide an intuitive platform for industries to schedule pickups, estimate recycling impact, and access multilingual educational content on circularity",
+      impact: "Increased user engagement, Delivered a scalable, multilingual design system improving consistency",
+      deliverables: [
+        "UX Audit",
+        "User Interviews",
+        "Competitor Analysis",
+        "User Journeys",
+        "Wireframes",
+        "Prototypes",
+        "Usability Testing",
+        "Developer Handoff"
+      ],
+      tags: [
+        "Sustainability",
+        "Multilingual UX",
+        "Design System",
+        "Enterprise UX",
+        "Web Design"
+      ],
+      image: Thumbnail_ADCircular,
       category: "Fintech",
       problemStatement: "Modernizing legacy banking applications.",
-      externalLink: "https://example.com/cba-case-study"
+      externalLink: "https://famous-periodical-d0a.notion.site/AD-Circular-1dfeb739e83c8035bca1cb5d450033aa"
     },
     {
       id: 3,
       featured: true,
-      title: "Avery Dennison Recycling Platform",
-      company: "Tata Consultancy Services",
-      duration: "Nov 2020 – Jun 2025",
-      role: "Lead UI/UX Designer",
-      summary: "End-to-end design of a sustainability-focused web platform that connects businesses with recycling services, promoting circular economy practices.",
-      impact: "20% increase in user engagement",
-      deliverables: ["User Journey Mapping", "Wireframes", "Visual Design", "Responsive Web Design"],
-      tags: ["Web Design", "Sustainability", "E2E", "B2B"],
-      image: Thumbnail_ADCircular,
+      title: "Holistic Health & Wellness Mobile App",
+      company: "Flexcellence (Freelance Project)",
+      duration: "9+ months",
+      role: "Product Designer",
+      summary: "Designed a mobile-first wellness app that helps working professionals improve their lifestyle through personalized coaching, AI-driven assistance, and integrated health tracking. The app unifies food journaling, workout tracking, hydration, sleep, and habit building into one cohesive platform while providing real-time human and AI support",
+      impact: "60% goal completion rate among pilot users, 50% increase in new users during MVP testing, AI assistant “TARA” used by 80% of users for food logging, ",
+      deliverables: [
+        "User Research",
+        "Surveys",
+        "User Personas",
+        "Competitor Analysis",
+        "User Journeys",
+        "Wireframes",
+        "Custom Design System",
+        "Prototypes",
+        "A/B Testing",
+        "Usability Testing",
+        "MVP Optimization"
+      ],
+      tags: [
+        "Health & Wellness",
+        "Mobile App",
+        "AI Assistant",
+        "Design System",
+        "User Testing",
+        "MVP Design"
+      ],
+      image: Thumbnail_Flexcellence,
       category: "Web Platform",
       problemStatement: "Connecting businesses for a circular economy.",
-      externalLink: "https://example.com/avery-case-study"
+      externalLink: "https://famous-periodical-d0a.notion.site/Flexcellence-UX-Case-study-293eb739e83c80118576d2329d3405fa"
     },
     {
       id: 4,
       featured: false,
-      title: "Flexellence Health & Habit Tracking",
-      company: "Product Design",
-      duration: "Jan 2025 – Sep 2025",
-      role: "Product Designer",
-      summary: "Mobile app redesign focused on health tracking and habit monitoring with emphasis on user motivation and engagement.",
-      impact: "Enhanced user engagement",
-      deliverables: ["User Research", "Wireframing", "UI Design", "Usability Testing", "Design Handoff"],
-      tags: ["Mobile", "Health Tech", "User Research", "B2C"],
-      image: Thumbnail_Flexcellence,
+      title: "Immersive Retail Store POC – VR Application for the Metaverse",
+      company: "Tata Consultancy Services (Internal POC)",
+      duration: "6 months",
+      role: "UX Researcher",
+      summary: "Designed a virtual retail store proof-of-concept using Unity to explore next-generation shopping experiences for the metaverse. UX methodologies—including personas, flows, affinity mapping, prioritization, and heuristic evaluation—were used to shape a prototype that could influence future enterprise VR retail initiatives.",
+      impact: "Presented to TCS unit head; received strong positive feedback, Built foundation for future user testing with target customer groups",
+      deliverables: [
+        "User Persona",
+        "Prioritization Matrix",
+        "Rough Sketches",
+        "Unity Wireframes",
+        "VR Interaction Concepts"
+      ],
+      tags: [
+        "VR Design",
+        "Metaverse",
+        "Unity",
+        "Enterprise Innovation",
+        "3D Experience Design"
+      ],
+      image: Thumbnail_VR,
       category: "Mobile App",
       problemStatement: "Boosting user motivation in health tracking.",
-      externalLink: "https://example.com/flexellence-case-study"
+      externalLink: "https://famous-periodical-d0a.notion.site/Immersive-Retail-Store-POC-VR-Application-for-the-Metaverse-118eb739e83c808f96d1f367374730d3"
     },
     {
       id: 5,
       featured: false,
-      title: "AI Governance Tool POC",
-      company: "Tata Consultancy Services",
-      duration: "Nov 2020 – Jun 2025",
-      role: "UX Designer",
-      summary: "Designed proof-of-concept for an AI governance and compliance tool in Pega platform, ensuring EU AI Act compliance with intuitive error handling.",
-      impact: "15% reduction in compliance errors",
-      deliverables: ["Competitive Analysis", "Workflow Design", "Dashboard Design", "Error Prevention Patterns"],
-      tags: ["AI Governance", "Enterprise", "Compliance", "POC"],
-      image: Thumbnail_AIGovernance,
+      title: "John Coffee Beans – Mobile App UI Design",
+      company: "Personal Project (Based on Random Project Generator)",
+      duration: "3 months",
+      role: "UX/UI Designer",
+      summary: "Designed a personalized coffee beans shopping mobile app targeted at 52-year-old business professionals who value convenience, premium quality, and quick decision-making",
+      impact: "Identified key UX blockers through Maze usability tests, Increased clarity in onboarding and product discovery",
+      deliverables: [
+        "User Persona",
+        "User Flow",
+        "Brainstorming",
+        "Affinity Diagram",
+        "Rough Sketches",
+        "Wireframes",
+        "Low-Fidelity Prototype",
+        "Moodboard",
+        "UI Design System",
+        "Components",
+        "High-Fidelity Prototype",
+        "Usability Testing",
+        "Insights & Improvements"
+      ],
+      tags: [
+        "Mobile App Design",
+        "UI Design",
+        "UX Research",
+        "E-commerce",
+        "Prototyping",
+        "User Testing"
+      ],
+      image: Thumbnail_JohnCoffeeBeans,
       category: "Enterprise Tool",
       problemStatement: "Ensuring AI compliance with intuitive design.",
-      externalLink: "https://example.com/ai-governance-case-study"
+      externalLink: "https://medium.com/@ajaykumar.jai1111/john-coffee-beans-6f9d5e81383d"
     },
     {
       id: 6,
       featured: false,
-      title: "VR Store Experience POC",
-      company: "Tata Consultancy Services",
-      duration: "Nov 2020 – Jun 2025",
-      role: "UX Researcher & Designer",
-      summary: "Explored immersive shopping experiences using Virtual Reality, creating prototypes for retail metaverse concepts.",
-      impact: "Identified key UX challenges and opportunities",
-      deliverables: ["VR Prototyping", "User Testing", "Interaction Design", "Research Report"],
-      tags: ["VR", "Metaverse", "Retail", "Emerging Tech"],
-      image: Thumbnail_JohnCoffeeBeans,
+      title: "Strategic Migration of Legacy Financial Applications to Pega Constellation",
+      company: "Commonwealth Bank of Australia (Via TCS)",
+      duration: "12+ months",
+      role: "Sole UI/UX Designer",
+      summary: "Delivered a multi-phase strategic migration of seven legacy enterprise financial applications to the modern Pega Constellation framework. The focus is on improving system longevity, increasing maintainability, and enhancing user experience across multiple business-critical workflows.\nAs the only UX designer, responsibilities include discovery, requirement gathering, user flows, wireframing, high-fidelity UI, and collaborating with BAs and developers.",
+      impact: "Streamlining 7 legacy applications into a unified, scalable Pega framework, Improving UX consistency across critical financial workflows, Enabling faster development with reusable components, flows, and templates",
+      deliverables: [
+        "Requirement Analysis",
+        "User Flows",
+        "Wireframes",
+        "UI Screens",
+        "UX Documentation",
+        "Interaction Patterns",
+        "Pega Constellation Design Alignment",
+        "Design Reviews",
+        "Stakeholder Collaboration"
+      ],
+      tags: [
+        "Enterprise UX",
+        "Financial Services",
+        "Pega Constellation",
+        "Application Migration",
+        "UX Strategy",
+        "Workflow Design",
+        "Interaction Design"
+      ],
+      image: Thumbnail_CBA,
       category: "Emerging Tech",
       problemStatement: "Prototyping the future of retail.",
       externalLink: "https://example.com/vr-case-study"
@@ -282,20 +404,39 @@ export const portfolioData: PortfolioData = {
     {
       id: 7,
       featured: false,
-      title: "Enterprise Design System",
-      company: "Tata Consultancy Services",
-      duration: "Nov 2020 – Jun 2025",
-      role: "Design System Contributor",
-      summary: "Contributed to building and maintaining design system components for enterprise applications, ensuring consistency and accessibility.",
-      impact: "Improved design-development handoff and consistency",
-      deliverables: ["Component Design", "Documentation", "Accessibility Guidelines", "Design Tokens"],
-      tags: ["Design System", "Accessibility", "Enterprise", "Documentation"],
-      image: Thumbnail_CBA,
+      title: "AI Governance Application – Enterprise Compliance & Reporting (Pega Constellation)",
+      company: "TCS - Internal",
+      duration: "6 months",
+      role: "UI/UX Designer",
+      summary: "Designed a conceptual enterprise application that allows organizations to audit, govern, and monitor their internal AI applications in alignment with Australian AI Governance, Privacy, and Compliance laws.\nThe mockup focuses on simplifying compliance workflows, surfacing risks early, and generating structured governance reports using Pega Constellation’s modern UI patterns.\n\nThe project integrates responsible AI principles, transparency guidelines, and operational governance requirements into an intuitive user experience for risk teams, compliance leads, and IT governance managers.",
+      impact: "Created a clear framework for AI governance aligned with Australian regulations, Standardized compliance checks across multiple AI systems, Enabled centralized visibility for risk, audit, and governance teams",
+      deliverables: [
+        "User Research",
+        "Compliance Requirement Mapping",
+        "User Flows",
+        "Governance Dashboard Design",
+        "Risk Assessment Screens",
+        "Reporting Templates",
+        "Pega Constellation UI Mockups",
+        "Interaction Patterns",
+        "High-Fidelity Mockups"
+      ],
+      tags: [
+        "AI Governance",
+        "Compliance UX",
+        "Pega Constellation",
+        "Enterprise UX",
+        "Risk & Audit",
+        "Reporting Systems",
+        "Responsible AI"
+      ],
+      image: Thumbnail_AIGovernance,
       category: "Design System",
       problemStatement: "Ensuring consistency at scale.",
-      externalLink: "https://example.com/design-system-case-study"
+      externalLink : "https://example.com/design-system-case-study"
     }
   ],
+
 
   experience: [
     {
@@ -323,16 +464,6 @@ export const portfolioData: PortfolioData = {
         "Explored GenAI, VR, Metaverse integrations"
       ]
     },
-    {
-      id: 3,
-      title: "Product Designer",
-      company: "Flexellence Health App",
-      duration: "Jan – Sep 2025",
-      current: false,
-      highlights: [
-        "Mobile app redesign for health tracking using full UX research process"
-      ]
-    }
   ],
 
   education: {
@@ -366,46 +497,75 @@ export const portfolioData: PortfolioData = {
     }
   ],
 
-  skills: [
+  skills:[
     {
-      category: "UX Skills",
-      icon: "User",
-      items: ["User Research", "Usability Testing", "Persona Creation", "Competitive Analysis", "Heuristic Evaluation", "User Journey Mapping", "Information Architecture"]
-    },
-    {
-      category: "UI & Prototyping",
       icon: "PenTool",
-      items: ["Figma", "Adobe Creative Cloud", "Interactive Flows", "Rapid Prototyping", "Design Systems", "WCAG Accessibility", "Inkscape"]
+      category: "Design & Tools",
+      items: [
+        "Figma",
+        "Adobe Creative Cloud Suite",
+        "OutSystems UX",
+        "Pega UX",
+        "Inkscape\nInteractive Flows",
+        "Rapid Prototyping",
+        "Wireframing",
+        "Design Systems",
+        "Accessibility (WCAG)"
+      ]
     },
     {
-      category: "Tools",
-      icon: "Wrench",
-      items: ["Outsystems UX", "Pega UX", "HTML/CSS", "Python", "Agile UX", "Vibe Coding"]
+      icon: "NotebookPen",
+      category: "Research & Experience Strategy",
+      items: [
+        "Surveys",
+        "Interviews",
+        "Persona Creation\nCompetitive Analysis\nUsability Testing",
+        "Heuristic Evaluation",
+        "Empathy Mapping",
+        "Card Sorting\nJourney Mapping",
+        "Task Flows",
+        "Information Architecture"
+      ]
+    },
+    {
+      icon: "Code",
+      category: "Collaboration & Delivery",
+      items: [
+        "HTML/CSS",
+        "Python",
+        "Agile UX",
+        "Vibe Coding",
+        "Cross-functional Collaboration",
+        "Developer Handoff",
+        "Design Documentation"
+      ]
     }
   ],
 
+
   hobbies: [
     {
-      icon: "Camera",
+      icon: "Telescope",
       title: "UI/UX Exploration",
-      description: "Analyzing app designs & user patterns"
+      description: "Observing UX in everyday life, mythology, and the past"
     },
     {
       icon: "Sparkles",
       title: "AI & Emerging Tech",
-      description: "Experimenting with GenAI tools"
+      description: "Experimenting with the latest AI tools and technologies"
     },
     {
-      icon: "Gamepad2",
-      title: "Gaming UX",
-      description: "Studying immersive experiences"
+      icon: "ChefHat",
+      title: "Cooking",
+      description: "Exploring simple, flavorful recipes to unwind and create"
     },
     {
-      icon: "Coffee",
+      icon: "Users",
       title: "Design Communities",
-      description: "Active in Figma & design events"
+      description: "Participating in design communities to learn and grow"
     }
   ],
+
 
   clients: [
     { 
@@ -444,40 +604,66 @@ export const portfolioData: PortfolioData = {
 
   testimonials: [
     {
-      quote: "Ajay consistently delivers pixel-perfect designs with measurable business impact. His ability to balance user needs with technical constraints makes him invaluable for enterprise projects.",
-      author: "Sarah Mitchell",
-      role: "Design Lead",
-      company: "TCS Enterprise Projects"
-    },
-    {
-      quote: "Working with Ajay on the Verizon project was exceptional. He brought fresh AI-driven UX ideas that transformed our in-store experience.",
-      author: "Michael Chen",
-      role: "Product Manager",
+      quote: "Even though we had only a few days of interaction, it was truly great working with Ajay. He had been cooperative, approachable, and always ready to take on any challenge",
+      author: "Yasaswini Desu",
+      image: YasaswiniDesu,
+      role: "Lead Developer",
       company: "Brillio"
     },
     {
-      quote: "Ajay's research-driven approach to UX design helped us achieve a 30% improvement in usability metrics. He's a true professional.",
-      author: "Emma Thompson",
-      role: "Head of Digital",
-      company: "Commonwealth Bank Australia"
+      quote: "Working with Kanna was a pleasure. He delivered an excellent VBG wireframe on a very tight deadline without compromising quality",
+      author: "Nikesh Mangwani",
+      image: NikeshMangavani, 
+      role: "AI Engineer",
+      company: "Verizon"
     },
     {
-      quote: "His work on our sustainability platform exceeded expectations. Ajay understands both design aesthetics and business goals.",
-      author: "David Rodriguez",
-      role: "VP of Innovation",
+      quote: "It was amazing to see all the screens Kanna built for CT. He understood the business requirements in depth and translated them into clear, structured designs in no time",
+      author: "Ramya Prakash",
+      image: RamyaPrakesh,
+      role: "Business Analyst",
+      company: "Brillio"
+    },
+    {
+      quote: "Working with Kanna on the AD Circular project was an absolute pleasure. He quickly understood the business goals, user needs, and technical constraints, and translated everything into clean, user-friendly designs. His ability to simplify complex recycling flows into intuitive screens made a huge difference for our stakeholders. Truly dependable and detail-oriented",
+      author: "Karabhi Baruah",
+      image: KarabiBaruah,
+      role: "Business Analyst",
       company: "Avery Dennison"
     },
     {
-      quote: "Ajay brings a unique blend of technical knowledge and design thinking. His Pega UX work has set new standards for our projects.",
-      author: "Priya Sharma",
-      role: "Senior Manager",
+      quote: "Kanna is one of the most proactive designers I've mentored. He brings clarity, strong UX thinking, and a collaborative mindset to every project. Whether it was enterprise workflows, research, or design systems, he always delivered high-quality output on time. His growth in UX has been exceptional, and he brings both creativity and practicality to his work",
+      author: "Purvi Gandhi",
+      image: PurviGandhi,
+      role: "UX Lead",
       company: "TCS"
     },
     {
-      quote: "The best part about working with Ajay is his ability to translate complex requirements into intuitive designs that users love.",
-      author: "James Wilson",
-      role: "CTO",
-      company: "TCS Digital"
+      quote: "Ajay played a vital role in our CBA migration program. Despite being the sole UX designer, he efficiently handled multiple financial flows, coordinated with BAs, developers, and clients, and ensured a consistent Pega Constellation experience. His communication, ownership, and ability to adapt quickly make him a valuable asset on any delivery team",
+      author: "Ashok Kumar Naga",
+      image: AshokKumarNaga,
+      role: "Delivery Head",
+      company: "CBA Projects (TCS)"
+    },
+    {
+      quote: "Ajay kumar's work on the ADAM Control Tower POC exceeded our expectations. He brought structure to an extremely complex AI governance problem and designed a dashboard that both technical and business teams could easily understand. His attention to detail, self-initiative, and strategic thinking stood out throughout the project",
+      author: "Senthil Peramanathan",
+      image: Senthil,
+      role: "Manager",
+      company: "Brillio"
+    },
+    {
+      quote: "Ajay has been instrumental in shaping the UX of our Flexcellence app. He deeply understood our users’ health challenges and transformed them into clean, empathetic, and functional designs. He is highly iterative, listens well, and delivers fast. His work directly contributed to improvements in engagement and conversion during our testing phase",
+      author: "Anurag",
+      image: Anurag,
+      role: "Founder",
+      company: "Flexcellence"
+    },
+    {
+      quote: "Ajay's design approach perfectly aligned with our brand vision. He created a modern and accessible design system, helped refine user journeys, and collaborated closely with marketing to ensure consistency across the app. His ability to visualize ideas clearly and communicate them effectively made the entire process smoother",
+      author: "Mahitha",
+      role: "Marketing Head",
+      company: "Flexcellence"
     }
   ]
-};
+}
