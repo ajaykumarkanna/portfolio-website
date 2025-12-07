@@ -22,7 +22,15 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
       
       <div className="space-y-12">
         {projects.map((project) => (
-          <Card key={project.id} className="group overflow-hidden border-slate-200 hover:shadow-2xl transition-all duration-500 bg-white hover:border-indigo-200" aria-label={`Featured project: ${project.title}`}>
+          <Card key={project.id} 
+            className="group overflow-hidden border-slate-200 hover:shadow-2xl transition-all duration-500 bg-white hover:border-indigo-200 cursor-pointer" 
+            aria-label={`Featured project: ${project.title}`}
+            onClick={() => {
+              if (project.externalLink) {
+                window.open(project.externalLink, '_blank');
+              }
+            }}
+          >
             <div className="grid lg:grid-cols-5 gap-0">
               {/* Image */}
               <div className="lg:col-span-2 relative overflow-hidden h-80 lg:h-auto">
@@ -46,18 +54,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
                     </h3>
                     <p className="text-slate-600">{project.company}</p>
                   </div>
-                  {/* External link icon */}
-                  {project.externalLink && (
-                    <a 
-                      href={project.externalLink} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-indigo-100 hover:bg-indigo-600 flex items-center justify-center transition-colors group"
-                      aria-label={`View case study for ${project.title}`}
-                    >
-                      <ExternalLink className="w-5 h-5 text-indigo-600 group-hover:text-white" />
-                    </a>
-                  )}
+                  {/* External link icon (now removed as card is clickable) */}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-6">
