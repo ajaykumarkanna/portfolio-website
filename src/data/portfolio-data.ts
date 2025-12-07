@@ -369,14 +369,17 @@ export const portfolioData: PortfolioData = {
   skills: [
     {
       category: "UX Skills",
+      icon: "User",
       items: ["User Research", "Usability Testing", "Persona Creation", "Competitive Analysis", "Heuristic Evaluation", "User Journey Mapping", "Information Architecture"]
     },
     {
       category: "UI & Prototyping",
+      icon: "PenTool",
       items: ["Figma", "Adobe Creative Cloud", "Interactive Flows", "Rapid Prototyping", "Design Systems", "WCAG Accessibility", "Inkscape"]
     },
     {
       category: "Tools",
+      icon: "Wrench",
       items: ["Outsystems UX", "Pega UX", "HTML/CSS", "Python", "Agile UX", "Vibe Coding"]
     }
   ],

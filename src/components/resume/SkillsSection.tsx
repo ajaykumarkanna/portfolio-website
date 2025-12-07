@@ -15,32 +15,28 @@ export function SkillsSection({ data }: SkillsSectionProps) {
     return IconComponent || LucideIcons.Code; // Fallback to Code icon
   };
 
-  // Get class names for each category
+  // Get class names for each category (without hardcoded icons)
   const getCategoryClasses = (category: string) => {
     switch (category) {
       case "UX Skills":
         return {
           cardBg: "bg-gradient-to-br from-indigo-50/50 to-white border-indigo-100",
-          iconBg: "bg-indigo-100 text-indigo-600",
-          icon: "User"
+          iconBg: "bg-indigo-100 text-indigo-600"
         };
       case "UI & Prototyping":
         return {
           cardBg: "bg-gradient-to-br from-purple-50/50 to-white border-purple-100",
-          iconBg: "bg-purple-100 text-purple-600",
-          icon: "PenTool"
+          iconBg: "bg-purple-100 text-purple-600"
         };
       case "Tools":
         return {
           cardBg: "bg-gradient-to-br from-blue-50/50 to-white border-blue-100",
-          iconBg: "bg-blue-100 text-blue-600",
-          icon: "Wrench"
+          iconBg: "bg-blue-100 text-blue-600"
         };
       default:
         return {
           cardBg: "bg-gradient-to-br from-indigo-50/50 to-white border-indigo-100",
-          iconBg: "bg-indigo-100 text-indigo-600",
-          icon: "Code"
+          iconBg: "bg-indigo-100 text-indigo-600"
         };
     }
   };
@@ -60,7 +56,9 @@ export function SkillsSection({ data }: SkillsSectionProps) {
             }
             const categoryName = (skillCategory.category || '').trim();
             const categoryConfig = getCategoryClasses(categoryName);
-            const Icon = getLucideIcon(categoryConfig.icon);
+            // Use the icon from the data, fallback to Code if not specified
+            const iconName = skillCategory.icon || 'Code';
+            const Icon = getLucideIcon(iconName);
             
             return (
               <Card

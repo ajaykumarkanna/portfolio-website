@@ -3,6 +3,18 @@
 // Import all assets to get their Vite-resolved public URLs
 import Profile_Image from '../assets/profile/Profile_Image.png';
 
+// Import new testimonial profile images
+import Anurag from '../assets/profile/Anurag.jpg';
+import AshokKumarNaga from '../assets/profile/Ashok kumar naga.jpg';
+import KarabiBaruah from '../assets/profile/Karabi baruah.jpg';
+import MeenakshiDixit from '../assets/profile/Meenakshi Dixit.jpg';
+import NikeshMangavani from '../assets/profile/Nikesh Mangavani.jpg';
+import PurviGandhi from '../assets/profile/Purvi Gandhi.jpg';
+import RamyaPrakesh from '../assets/profile/Ramya Prakesh.jpg';
+import Senthil from '../assets/profile/Senthil.jpg';
+import VikashMediboina from '../assets/profile/Vikash Mediboina.jpg';
+import YasaswiniDesu from '../assets/profile/Yasaswini desu.jpg';
+
 import Thumbnail_CBA from '../assets/thumbnails/Thumbnail_CBA.png';
 import Thumbnail_ADCircular from '../assets/thumbnails/Thumbnail_ADCircular.png';
 import Thumbnail_Flexcellence from '../assets/thumbnails/Thumbnail_Flexcellence.png';
@@ -47,6 +59,16 @@ const createDisplayName = (fileName: string): string => {
 const assetMap: Record<string, string> = {
   // Profile images
   'Profile Image': Profile_Image,
+  'Anurag': Anurag,
+  'Ashok Kumar Naga': AshokKumarNaga,
+  'Karabi Baruah': KarabiBaruah,
+  'Meenakshi Dixit': MeenakshiDixit,
+  'Nikesh Mangavani': NikeshMangavani,
+  'Purvi Gandhi': PurviGandhi,
+  'Ramya Prakesh': RamyaPrakesh,
+  'Senthil': Senthil,
+  'Vikash Mediboina': VikashMediboina,
+  'Yasaswini Desu': YasaswiniDesu,
   
   // Thumbnails
   'Thumbnail CBA': Thumbnail_CBA,

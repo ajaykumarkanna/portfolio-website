@@ -5,7 +5,8 @@ import type {
   Experience, 
   Skill, 
   Client, 
-  Testimonial 
+  Testimonial,
+  Hobby
 } from '../data/portfolio-data';
 import { 
   validateFormSection, 
@@ -38,7 +39,9 @@ export function useFormHandlers(initialData: PortfolioData) {
   // Save data to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('portfolioData_v3', JSON.stringify(data));
-    window.dispatchEvent(new Event('portfolio-data-update'));
+    // Dispatch a custom event to notify other components of data changes
+    const event = new CustomEvent('portfolio-data-update');
+    window.dispatchEvent(event);
   }, [data]);
 
   const handleSave = () => {
