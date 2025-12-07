@@ -11,6 +11,7 @@ import { AdditionalProjects } from './portfolio/AdditionalProjects';
 import { PortfolioCTA } from './portfolio/PortfolioCTA';
 import { useAccessibility } from '../hooks/useAccessibility';
 import { usePortfolioData } from '../hooks/usePortfolioData';
+import { useEffect } from 'react';
 // import { MainNavigation } from './MainNavigation';  // Removed as per request
 
 interface PortfolioProps {
@@ -24,6 +25,19 @@ export default function Portfolio({ onNavigateToResume }: PortfolioProps) {
 
   const featuredProjects = projects.filter(p => p.featured);
   const additionalProjects = projects.filter(p => !p.featured);
+
+  useEffect(() => {
+    // Scroll to specific project if passed via state
+    if (location.state && location.state.scrollToProjectId) {
+      const element = document.getElementById(`project-${location.state.scrollToProjectId}`);
+      if (element) {
+        // Add a small delay to ensure the DOM is fully ready
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30">
@@ -51,10 +65,10 @@ export default function Portfolio({ onNavigateToResume }: PortfolioProps) {
                 size="sm"
                 className="text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50"
                 onClick={onNavigateToResume}
-                aria-label="Back to resume"
+                aria-label="Back to home"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Resume
+                Back to Home
               </Button>
               <h1 className="text-xl bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 Portfolio

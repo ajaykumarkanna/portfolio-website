@@ -22,9 +22,9 @@ export function PortfolioCTA({ onNavigateToResume }: PortfolioCTAProps) {
               Get in Touch
             </a>
           </Button>
-          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20" onClick={onNavigateToResume} aria-label="Back to resume">
+          <Button size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 text-white border-white/20" onClick={onNavigateToResume} aria-label="Back to home">
             <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Resume
+            Back to Home
           </Button>
         </div>
       </Card>

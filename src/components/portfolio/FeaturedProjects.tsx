@@ -23,6 +23,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
       <div className="space-y-12">
         {projects.map((project) => (
           <Card key={project.id} 
+            id={`project-${project.id}`}
             className="group overflow-hidden border-slate-200 hover:shadow-2xl transition-all duration-500 bg-white hover:border-indigo-200 cursor-pointer" 
             aria-label={`Featured project: ${project.title}`}
             onClick={() => {
