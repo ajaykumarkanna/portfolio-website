@@ -70,9 +70,7 @@ export function AdditionalProjects({ projects }: AdditionalProjectsProps) {
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto p-0">
           <DialogHeader className="flex flex-row items-center justify-between p-6 pb-0">
             <DialogTitle className="text-2xl">{selectedProject?.title}</DialogTitle>
-            <Button variant="ghost" size="icon" onClick={closeDialog} aria-label="Close dialog">
-              <X className="h-4 w-4" />
-            </Button>
+            {/* Removed redundant close button here, as DialogContent provides one by default */}
           </DialogHeader>
           
           {selectedProject && (
