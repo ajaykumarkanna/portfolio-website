@@ -19,7 +19,7 @@ export function usePortfolioData() {
 
   useEffect(() => {
     const loadData = () => {
-      const stored = localStorage.getItem('portfolioData_v3');
+      const stored = localStorage.getItem('portfolioData_v4');
       
       // If we have savedData from file, that should be the source of truth initially,
       // but localStorage might have *newer* unsaved changes for this specific session.
@@ -36,7 +36,7 @@ export function usePortfolioData() {
           setData(parsed);
         } catch (error) {
           console.error('Error loading portfolio data from localStorage:', error);
-          localStorage.removeItem('portfolioData_v3');
+          localStorage.removeItem('portfolioData_v4');
           // Fallback to file data or default
           setData(Object.keys(savedData).length > 0 ? (savedData as unknown as PortfolioData) : defaultData);
         }

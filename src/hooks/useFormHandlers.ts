@@ -22,14 +22,14 @@ import savedData from '../data/saved-data.json';
 export function useFormHandlers(initialData: PortfolioData) {
   const [data, setData] = useState<PortfolioData>(() => {
     // 1. Try to load data from localStorage first
-    const savedLocal = localStorage.getItem('portfolioData_v3');
+    const savedLocal = localStorage.getItem('portfolioData_v4');
     if (savedLocal) {
       try {
         const parsed = JSON.parse(savedLocal);
         return parsed;
       } catch (e) {
         console.error('Failed to parse saved data from localStorage:', e);
-        localStorage.removeItem('portfolioData_v3');
+        localStorage.removeItem('portfolioData_v4');
       }
     }
     
@@ -45,7 +45,7 @@ export function useFormHandlers(initialData: PortfolioData) {
 
   // Save data to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('portfolioData_v3', JSON.stringify(data));
+    localStorage.setItem('portfolioData_v4', JSON.stringify(data));
     // Dispatch a custom event to notify other components of data changes
     const event = new CustomEvent('portfolio-data-update');
     window.dispatchEvent(event);

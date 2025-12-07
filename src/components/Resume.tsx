@@ -88,7 +88,6 @@ export default function Resume({ onNavigateToPortfolio }: ResumeProps) {
                 className="hidden md:flex"
                 aria-label="Download resume as PDF"
               >
-                <Download className="w-4 h-4 mr-2" />
                 Resume
               </Button>
               <Button 
